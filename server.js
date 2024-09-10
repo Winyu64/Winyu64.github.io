@@ -1,7 +1,8 @@
-// server.js
-require('dotenv').config();
-const express = require('express');
-const fetch = require('node-fetch');
+import dotenv from 'dotenv';
+import express from 'express';
+import fetch from 'node-fetch';
+
+dotenv.config();
 const app = express();
 const port = 3000;
 
@@ -417,25 +418,23 @@ app.post('/api/generate-text', async (req, res) => {
                 },
             ]
         };
-
-    try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
-    }
-});
-
-// เริ่มเซิร์ฟเวอร์
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(data)
+            });
+    
+            const result = await response.json();
+            res.json(result);
+        } catch (error) {
+            res.status(500).json({ error: 'An error occurred' });
+        }
+    });
+    
+    app.listen(port, () => {
+        console.log(`Server running at http://localhost:${port}`);
+    });
