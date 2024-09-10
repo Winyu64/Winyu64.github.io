@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interface - Color Option</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar, .chat-area {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #ccc;
+            background-color: var(--sidebar-bg-color, #ffffff);
+        }
+
+        .sidebar {
+            border-right: none;
+            border-left: 1px solid #ccc;
+        }
+
+        .sidebar h1 {
+            font-size: 24px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .bot-response {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 18px;
+            color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar img {
+            width: 300px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-options {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-options button {
+            padding: 14px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .color-options button:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-area {
+            border-left: 1px solid #ccc;
+            background-color: var(--chat-area-bg-color, #ffffff);
+        }
+
+        .chat-area .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 20px;
+            color: #333;
+            max-height: 400px;
+        }
+
+        .chat-area .user-message {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .chat-area .user-message span {
+            background-color: #d1e7dd;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            color: #333;
+        }
+
+        .chat-area .bot-message {
+            text-align: left;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-area .bot-message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .chat-area .bot-message span {
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            color: #333;
+        }
+
+        .input-area {
+            display: flex;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .input-area input::placeholder {
+            color: #999;
+        }
+
+        .input-area button {
+            background-color: #006aff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 12px;
+            margin-left: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-area button img {
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar (ด้านซ้าย) -->
+        <div class="sidebar">
+            <h1>Is Guide</h1>
+            <img src="IS.png" alt="Bot Image">
+            <div class="bot-response">ถามคำถามเกี่ยวกับคณะสหวิทยาการ</div>
+            <div class="color-options">
+                <button onclick="changeTheme('#f0f0f0', '#ffffff')" style="background-color: #f0f0f0;"></button>
+                <button onclick="changeTheme('#d1e7dd', '#f9f9f9')" style="background-color: #d1e7dd;"></button>
+                <button onclick="changeTheme('#f8d7da', '#f0f0f0')" style="background-color: #f8d7da;"></button>
+                <button onclick="changeTheme('#ffecd1', '#ffe6e1')" style="background-color: #ffecd1;"></button>
+                <button onclick="changeTheme('#e6f7ff', '#e6f7ff')" style="background-color: #e6f7ff;"></button>
+                <button onclick="changeTheme('#dfe7fd', '#dfe7fd')" style="background-color: #dfe7fd;"></button>
+                <button onclick="changeTheme('#333333', '#1a1a1a')" style="background-color: #333333;"></button>
+                <button onclick="changeTheme('#1a1a1a', '#0d0d0d')" style="background-color: #1a1a1a;"></button>
+                <button onclick="changeTheme('#2c3e50', '#34495e')" style="background-color: #2c3e50;"></button>
+            </div>
+            
+        </div>
+
+        <!-- Chat area (ด้านขวา) -->
+        <div class="chat-area">
+            <div class="chat-messages" id="chatMessages">
+                <!-- พื้นที่สำหรับแสดงคำถามและคำตอบ -->
+            </div>
+
+            <!-- Input area -->
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="พิมพ์คำถาม">
+                <button onclick="sendMessage()">
+                    <img src="https://openui.fly.dev/openui/24x24.svg?text=➡️" alt="Send">
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    
+    async function sendMessage() {
+        const userInput = document.getElementById('userInput').value;
+        if (userInput.trim() === '') return;
+
+        // แสดงข้อความผู้ใช้
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.classList.add('user-message');
+        userMessageDiv.innerHTML = `<span>${userInput}</span>`;
+        document.getElementById('chatMessages').appendChild(userMessageDiv);
+
+        document.getElementById('userInput').value = '';
+
+        // ส่งข้อความไปยังเซิร์ฟเวอร์
+        const response = await fetch('/api/generate-text', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userInput })
+        });
+
+        const data = await response.json();
+        const messageContent = data.choices[0].message.content;
+
+        // แสดงข้อความบอท
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.classList.add('bot-message');
+        botMessageDiv.innerHTML = `<img src="IS.png" alt="Bot Image"><span>${messageContent}</span>`;
+        document.getElementById('chatMessages').appendChild(botMessageDiv);
+    }
+
+
+    // ฟังก์ชันเปลี่ยนโทนสี
+    function changeTheme(sidebarColor, chatColor) {
+        document.documentElement.style.setProperty('--sidebar-bg-color', sidebarColor);
+        document.documentElement.style.setProperty('--chat-area-bg-color', chatColor);
+    }
+</script>
+
+</body>
+</html>
