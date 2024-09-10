@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import fetch from 'node-fetch';
+const dotenv = require('dotenv');
+const express = require('express');
+const fetch = require('node-fetch');
 
 dotenv.config();
 const app = express();
