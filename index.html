@@ -43,6 +43,7 @@
         }
 
         .sidebar .bot-response {
+            margin: 0 auto;
             margin-top: 20px;
             background-color: #f9f9f9;
             border-radius: 10px;
@@ -129,51 +130,562 @@
             color: #333;
         }
 
-        .input-area {
+        .keyword-buttons {
+            max-height: 200px; /* กำหนดความสูงสูงสุดของกล่องปุ่ม */
+            overflow-y: auto; /* ทำให้สามารถเลื่อนดูในแนวตั้งได้ */
             display: flex;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            margin-top: 20px;
             background-color: #f9f9f9;
-        }
-
-        .input-area input {
-            flex: 1;
-            padding: 10px;
             border-radius: 10px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            background-color: #ffffff;
+            padding: 15px;
+            font-size: 18px;
             color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
-        .input-area input::placeholder {
-            color: #999;
-        }
-
-        .input-area button {
-            background-color: #006aff;
-            color: white;
+        .keyword-buttons button {
+            background-color: #d1e7dd;
             border: none;
-            border-radius: 50%;
-            padding: 12px;
-            margin-left: 10px;
+            border-radius: 10px;
+            padding: 10px;
             cursor: pointer;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
         }
 
-        .input-area button img {
-            width: 20px;
+        .keyword-buttons button:hover {
+            background-color: #bcd3c4;
         }
+
+        .border {
+        background-image: linear-gradient(to right bottom, #e300ff, #ff00aa, #ff5956, #ffb900, #fffe00);
+        box-shadow: -25px -10px 30px -5px rgba(225, 0, 255, 0.5),
+            25px -10px 30px -5px rgba(255, 0, 212, 0.5),
+            25px 10px 30px -5px rgba(255, 174, 0, 0.5),
+            -25px 10px 30px -5px rgba(255, 230, 0, 0.5);
+        padding: 8px;
+        /* Flexbox สำหรับจัดวางในแนวนอนและขนาดปรับตามจอ */
+        display: flex;
+        align-items: center;
+        gap: 10px; /* ระยะห่างระหว่าง input และปุ่ม */
+        max-width: 100%; /* ให้ขนาดตามจอ */
+        box-sizing: border-box; /* ทำให้ padding รวมกับขนาด */
+        }
+
+        .input {
+        background-color: #212121;
+        max-width: 100%; /* ให้ input กว้างสูงสุดตามขนาด container */
+        height: 40px;
+        padding: 0 19px 0 10px;
+        font-size: 1.1em;
+        position: relative;
+        border: none;
+        color: white;
+        outline: 0;
+        overflow: hidden;
+        flex-grow: 1; /* ขยาย input เต็มพื้นที่ที่เหลือ */
+        margin-right: 10px; /* ระยะห่างระหว่าง input และปุ่ม */
+        flex-grow: 1; /* ยืดได้เมื่อมีพื้นที่ว่าง */
+        box-sizing: border-box; /* รวม padding เข้าไปในขนาด */
+        }
+
+        .input::placeholder {
+            transition: all 0.5s ease-in, transform 0.2s ease-in 0.6s;
+        }
+
+        .input:focus::placeholder {
+            padding-left: 165px;
+            transform: translateY(-50px);
+        }
+
+        /* หากต้องการกำหนดการจัดตำแหน่งสำหรับ input และองค์ประกอบอื่น ๆ */
+        .box-input {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* ถ้าอยากให้กลางจอ */
+            gap: 10px; /* ช่องว่างระหว่าง input และปุ่มหรือองค์ประกอบอื่นๆ */
+            width: 100%; /* ให้กล่องมีขนาดเต็มที่ */
+        }
+
+
+        .uiverse {
+        --duration: 7s;
+        --easing: linear;
+        --c-color-1: rgba(255, 163, 26, 0.7);
+        --c-color-2: #1a23ff;
+        --c-color-3: #e21bda;
+        --c-color-4: rgba(255, 232, 26, 0.7);
+        --c-shadow: rgba(255, 223, 87, 0.5);
+        --c-shadow-inset-top: rgba(255, 223, 52, 0.9);
+        --c-shadow-inset-bottom: rgba(255, 250, 215, 0.8);
+        --c-radial-inner: #ffd215;
+        --c-radial-outer: #fff172;
+        --c-color: #fff;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-appearance: none;
+        outline: none;
+        position: relative;
+        cursor: pointer;
+        border: none;
+        display: table;
+        border-radius: 24px;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+        color: var(--c-color);
+        background: radial-gradient(
+            circle,
+            var(--c-radial-inner),
+            var(--c-radial-outer) 80%
+        );
+        box-shadow: 0 0 10px var(--c-shadow);
+        height: 40px;
+        width: 90px;
+        flex-shrink: 0; /* ป้องกันปุ่มจากการหดตัว */
+        }
+
+        .uiverse:before {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        z-index: 3;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 24px;
+        box-shadow:
+            inset 0 3px 12px var(--c-shadow-inset-top),
+            inset 0 -3px 4px var(--c-shadow-inset-bottom);
+        }
+
+        .uiverse .wrapper {
+        -webkit-mask-image: -webkit-radial-gradient(white, black);
+        overflow: hidden;
+        border-radius: 24px;
+        min-width: 90px;
+        padding: 12px 0;
+        }
+
+        .uiverse .wrapper span {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        }
+
+        .uiverse:hover {
+        --duration: 1400ms;
+        }
+
+        .uiverse .wrapper .circle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        filter: blur(var(--blur, 8px));
+        background: var(--background, transparent);
+        transform: translate(var(--x, 0), var(--y, 0)) translateZ(0);
+        animation: var(--animation, none) var(--duration) var(--easing) infinite;
+        }
+
+        .uiverse .wrapper .circle.circle-1,
+        .uiverse .wrapper .circle.circle-9,
+        .uiverse .wrapper .circle.circle-10 {
+        --background: var(--c-color-4);
+        }
+
+        .uiverse .wrapper .circle.circle-3,
+        .uiverse .wrapper .circle.circle-4 {
+        --background: var(--c-color-2);
+        --blur: 14px;
+        }
+
+        .uiverse .wrapper .circle.circle-5,
+        .uiverse .wrapper .circle.circle-6 {
+        --background: var(--c-color-3);
+        --blur: 16px;
+        }
+
+        .uiverse .wrapper .circle.circle-2,
+        .uiverse .wrapper .circle.circle-7,
+        .uiverse .wrapper .circle.circle-8,
+        .uiverse .wrapper .circle.circle-11,
+        .uiverse .wrapper .circle.circle-12 {
+        --background: var(--c-color-1);
+        --blur: 12px;
+        }
+
+        .uiverse .wrapper .circle.circle-1 {
+        --x: 0;
+        --y: -40px;
+        --animation: circle-1;
+        }
+
+        .uiverse .wrapper .circle.circle-2 {
+        --x: 92px;
+        --y: 8px;
+        --animation: circle-2;
+        }
+
+        .uiverse .wrapper .circle.circle-3 {
+        --x: -12px;
+        --y: -12px;
+        --animation: circle-3;
+        }
+
+        .uiverse .wrapper .circle.circle-4 {
+        --x: 80px;
+        --y: -12px;
+        --animation: circle-4;
+        }
+
+        .uiverse .wrapper .circle.circle-5 {
+        --x: 12px;
+        --y: -4px;
+        --animation: circle-5;
+        }
+
+        .uiverse .wrapper .circle.circle-6 {
+        --x: 56px;
+        --y: 16px;
+        --animation: circle-6;
+        }
+
+        .uiverse .wrapper .circle.circle-7 {
+        --x: 8px;
+        --y: 28px;
+        --animation: circle-7;
+        }
+
+        .uiverse .wrapper .circle.circle-8 {
+        --x: 28px;
+        --y: -4px;
+        --animation: circle-8;
+        }
+
+        .uiverse .wrapper .circle.circle-9 {
+        --x: 20px;
+        --y: -12px;
+        --animation: circle-9;
+        }
+
+        .uiverse .wrapper .circle.circle-10 {
+        --x: 64px;
+        --y: 16px;
+        --animation: circle-10;
+        }
+
+        .uiverse .wrapper .circle.circle-11 {
+        --x: 4px;
+        --y: 4px;
+        --animation: circle-11;
+        }
+
+        .uiverse .wrapper .circle.circle-12 {
+        --blur: 14px;
+        --x: 52px;
+        --y: 4px;
+        --animation: circle-12;
+        }
+
+        @keyframes circle-1 {
+        33% {
+            transform: translate(0px, 16px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(12px, 64px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-2 {
+        33% {
+            transform: translate(80px, -10px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(72px, -48px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-3 {
+        33% {
+            transform: translate(20px, 12px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(12px, 4px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-4 {
+        33% {
+            transform: translate(76px, -12px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(112px, -8px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-5 {
+        33% {
+            transform: translate(84px, 28px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(40px, -32px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-6 {
+        33% {
+            transform: translate(28px, -16px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(76px, -56px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-7 {
+        33% {
+            transform: translate(8px, 28px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(20px, -60px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-8 {
+        33% {
+            transform: translate(32px, -4px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(56px, -20px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-9 {
+        33% {
+            transform: translate(20px, -12px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(80px, -8px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-10 {
+        33% {
+            transform: translate(68px, 20px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(100px, 28px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-11 {
+        33% {
+            transform: translate(4px, 4px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(68px, 20px) translateZ(0);
+        }
+        }
+
+        @keyframes circle-12 {
+        33% {
+            transform: translate(56px, 0px) translateZ(0);
+        }
+
+        66% {
+            transform: translate(60px, -32px) translateZ(0);
+        }
+        }
+
+        h1 {
+        color: var(--text-color, white); /* ใช้ตัวแปรสำหรับสีข้อความ */
+        min-height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 120px;
+        border-radius: 50px;
+        border-width: 0;
+        background-color: rgb(255, 255, 255);
+        color: white;
+        font-size: 16px;
+        letter-spacing: 3px;
+        position: relative;
+        overflow: hidden;
+        padding: 10px 20px;
+        width: 190px;
+        cursor: pointer;
+        margin: 0 auto; /* จัดกึ่งกลางแนวนอน */
+        }
+
+        h1 span {
+        position: relative;
+        width: max-content;
+        z-index: 99;
+        display: block;
+        }
+
+        .line,.line-2 {
+        position: absolute;
+        width: calc(100% - 20px);
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        height: 1px;
+        border-radius: 100%;
+        background-color: hsla(240, 100%, 50%, 0.39);
+        bottom: 5px;
+        animation: line .9s infinite linear;
+        box-shadow: 0 0 10px 2px rgb(0, 60, 255);
+        z-index: 9;
+        }
+
+        @keyframes line {
+        0% {
+            height: 1px;
+            background-color: hsla(240, 100%, 50%, 0.285);
+        }
+
+        50% {
+            transform: scaleY(5);
+            background-color: hsla(0, 59%, 41%, 0.032);
+            box-shadow: 0 0 100px 20px rgb(0, 60, 255);
+        }
+
+        100% {
+            height: 2px;
+            background-color: rgb(255, 255, 255)
+        }
+        }
+
+        .line-2 {
+        animation: line-2 .5s infinite linear;
+        bottom: 1px;
+        box-shadow: 0 0 10px 2px rgb(0, 60, 255);
+        }
+
+        @keyframes line-2 {
+        0% {
+            height: 1px;
+            background-color: hsl(327, 100%, 50%);
+        }
+
+        50% {
+            height: 2px;
+            background-color: hsl(0, 0%, 85%)
+        }
+
+        100% {
+            height: 2px;
+            background-color: rgb(255, 255, 255)
+        }
+        }
+
+        .speak {
+        position: absolute;
+        width: 330px;
+        height: 10px;
+        background-color: pink;
+        bottom: 1px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 100%;
+        animation: speak .8s infinite linear;
+        }
+
+        .speak.one {
+        left: calc(50% + 20px);
+        animation: speak 6s infinite linear;
+        background-color: hsl(284deg 79% 55%);
+        }
+
+        .speak.two {
+        left: calc(50% + 10px);
+        animation: speak .6s infinite linear;
+        background-color: hsl(284deg 79% 55%);
+        }
+
+        .speak.two {
+        left: calc(50% + -10px);
+        animation: speak .6s infinite linear;
+        background-color: rgb(0, 255, 149);
+        }
+
+        @keyframes speak {
+        0% {
+            transform: translateX(-50%) scale(.10);
+        }
+        }
+
+        img {
+        margin: 0 auto; /* จัดกึ่งกลางแนวนอน */
+        }
+
+
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Sidebar (ด้านซ้าย) -->
         <div class="sidebar">
-            <h1>IS Guide</h1>
-            <img src="https://drive.google.com/uc?export=view&id=1tibFAsp39SAqU-M6UAk9CS57TZQZw3Iz" alt="Google Drive Image">
+            <h1>
+            <span>IS Guide</span>
+            <div class="line"></div>
+            <div class="line-2"></div>
+            <div class="speak"></div>
+            <div class="speak one"></div>
+            <div class="speak two"></div>
+            <div class="speak three"></div>
+            </h1>
+            <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="IS Image">
             <div class="bot-response">ถามคำถามเกี่ยวกับคณะสหวิทยาการ</div>
+            <!-- Keyword buttons -->
+            <div class="keyword-buttons" >
+                <button onclick="setKeyword('หลักสูตรที่เปิดสอนมีอะไรบ้าง')">หลักสูตรที่เปิดสอนมีอะไรบ้าง</button>
+                <button onclick="setKeyword('คณะสหวิทยาการคืออะไร')">คณะสหวิทยาการคืออะไร</button>
+                <button onclick="setKeyword('มีบริการอะไรบ้าง')">มีบริการอะไรบ้าง</button>
+                <button onclick="setKeyword('คณะสหวิทยาการ มหาวิทยาลัยขอนแก่น มีสาขาวิชาอะไรบ้าง?')">คณะสหวิทยาการ มหาวิทยาลัยขอนแก่น มีสาขาวิชาอะไรบ้าง?</button>
+                <button onclick="setKeyword('หลักสูตรวิทยาศาสตร์สิ่งแวดล้อมมีรายละเอียดอย่างไร?')">หลักสูตรวิทยาศาสตร์สิ่งแวดล้อมมีรายละเอียดอย่างไร?</button>
+                <button onclick="setKeyword('จบจากคณะสหวิทยาการสามารถทำงานในสายอาชีพอะไรได้บ้าง?')">จบจากคณะสหวิทยาการสามารถทำงานในสายอาชีพอะไรได้บ้าง?</button>
+                <button onclick="setKeyword('วิธีการสมัครเข้าเรียนที่คณะสหวิทยาการทำอย่างไร?')">วิธีการสมัครเข้าเรียนที่คณะสหวิทยาการทำอย่างไร?</button>
+                <button onclick="setKeyword('ค่าเทอมสำหรับหลักสูตรนิติศาสตร์เท่าไหร่?')">ค่าเทอมสำหรับหลักสูตรนิติศาสตร์เท่าไหร่?</button>
+                <button onclick="setKeyword('คณะสหวิทยาการมีทุนการศึกษาไหม?')">คณะสหวิทยาการมีทุนการศึกษาไหม?</button>
+                <button onclick="setKeyword('การลงทะเบียนเรียนสำหรับนักศึกษาคณะสหวิทยาการทำอย่างไร?')">การลงทะเบียนเรียนสำหรับนักศึกษาคณะสหวิทยาการทำอย่างไร?</button>
+                <button onclick="setKeyword('ต้องการคำปรึกษาเรื่องการฝึกงานและสหกิจศึกษา')">ต้องการคำปรึกษาเรื่องการฝึกงานและสหกิจศึกษา</button>
+                <button onclick="setKeyword('คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?')">คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?</button>
+                <button onclick="setKeyword('ห้องสมุดของคณะสหวิทยาการมีเวลาเปิดทำการอย่างไร?')">ห้องสมุดของคณะสหวิทยาการมีเวลาเปิดทำการอย่างไร?</button>
+                <button onclick="setKeyword('จบจากหลักสูตรการสอนภาษาอังกฤษในฐานะภาษาต่างประเทศสามารถทำงานอะไรได้บ้าง?')">จบจากหลักสูตรการสอนภาษาอังกฤษในฐานะภาษาต่างประเทศสามารถทำงานอะไรได้บ้าง?</button>
+                <button onclick="setKeyword('คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?')">คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?</button>
+                <button onclick="setKeyword('วิธีการตรวจสอบผลการเรียนที่คณะสหวิทยาการทำอย่างไร?')">วิธีการตรวจสอบผลการเรียนที่คณะสหวิทยาการทำอย่างไร?</button>
+                <button onclick="setKeyword('สามารถยืมโน้ตบุ๊กที่ห้องสมุดได้อย่างไร?')">สามารถยืมโน้ตบุ๊กที่ห้องสมุดได้อย่างไร?</button>
+                <button onclick="setKeyword('มีหลักสูตรระดับปริญญาโทที่คณะสหวิทยาการหรือไม่?')">มีหลักสูตรระดับปริญญาโทที่คณะสหวิทยาการหรือไม่?</button>
+                <button onclick="setKeyword('หลักสูตรวิทยาการคอมพิวเตอร์ที่คณะสหวิทยาการมีการเรียนการสอนอะไรบ้าง?')">หลักสูตรวิทยาการคอมพิวเตอร์ที่คณะสหวิทยาการมีการเรียนการสอนอะไรบ้าง?</button>
+                <button onclick="setKeyword('ต้องการจองห้องประชุมทำอย่างไร?')">ต้องการจองห้องประชุมทำอย่างไร?</button>
+                <button onclick="setKeyword('มีระบบจองหอพักนักศึกษาหรือไม่?')">มีระบบจองหอพักนักศึกษาหรือไม่?</button>
+                <button onclick="setKeyword('ต้องการลงทะเบียนสอบวัดระดับภาษาอังกฤษ (KEPT) ที่คณะสหวิทยาการทำอย่างไร?')">ต้องการลงทะเบียนสอบวัดระดับภาษาอังกฤษ (KEPT) ที่คณะสหวิทยาการทำอย่างไร?</button>
+                <button onclick="setKeyword('จะลงทะเบียนสอบคอมพิวเตอร์ได้ที่ไหน?')">จะลงทะเบียนสอบคอมพิวเตอร์ได้ที่ไหน?</button>
+
+            </div>
             <div class="color-options">
                 <button onclick="changeTheme('#f0f0f0', '#ffffff')" style="background-color: #f0f0f0;"></button>
                 <button onclick="changeTheme('#d1e7dd', '#f9f9f9')" style="background-color: #d1e7dd;"></button>
@@ -190,18 +702,40 @@
         <!-- Chat area (ด้านขวา) -->
         <div class="chat-area">
             <div class="chat-messages" id="chatMessages"></div>
+            
 
-            <!-- Input area -->
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="พิมพ์คำถาม">
-                <button onclick="sendMessage()">
-                    <img src="https://openui.fly.dev/openui/24x24.svg?text=➡️" alt="Send">
-                </button>
-            </div>
+            <div class="border">
+                <input type="text" name="text" class="input" id="userInput" placeholder="พิมพ์คำถาม">
+                
+                <button class="uiverse" onclick="sendMessage()">
+                    <div class="wrapper">
+                    <span>ส่ง</span>
+                    <div class="circle circle-12"></div>
+                    <div class="circle circle-11"></div>
+                    <div class="circle circle-10"></div>
+                    <div class="circle circle-9"></div>
+                    <div class="circle circle-8"></div>
+                    <div class="circle circle-7"></div>
+                    <div class="circle circle-6"></div>
+                    <div class="circle circle-5"></div>
+                    <div class="circle circle-4"></div>
+                    <div class="circle circle-3"></div>
+                    <div class="circle circle-2"></div>
+                    <div class="circle circle-1"></div>
+                    </div>
+                    </button>
+            
+            </div>       
         </div>
     </div>
-
+    
     <script>
+        // ฟังก์ชันเพื่อเลื่อนแชทไปด้านล่างเมื่อมีข้อความใหม่
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
         async function sendMessage() {
             const userInput = document.getElementById('userInput').value;
             if (!userInput) return;
@@ -217,7 +751,7 @@
 
             // ส่งข้อความไปยังเซิร์ฟเวอร์ผ่าน ngrok URL
             try {
-                const response = await fetch('https://6036-1-2-134-110.ngrok-free.app/api/generate-text', {
+                const response = await fetch('https://847a-1-2-134-110.ngrok-free.app/api/generate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userInput })
@@ -230,8 +764,11 @@
                     // แสดงข้อความบอทพร้อมรูปภาพทางฝั่งซ้าย
                     const botMessageDiv = document.createElement('div');
                     botMessageDiv.classList.add('bot-message');
-                    botMessageDiv.innerHTML = `<img src="https://drive.google.com/uc?export=view&id=1tibFAsp39SAqU-M6UAk9CS57TZQZw3Iz" alt="Google Drive Image"><span>${messageContent}</span>`;
+                    botMessageDiv.innerHTML = `<img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="IS Image"><span>${messageContent}</span>`;
                     document.getElementById('chatMessages').appendChild(botMessageDiv);
+                    // เลื่อนแชทไปด้านล่าง
+                    scrollToBottom();
+
                 } else {
                     throw new Error('Network response was not ok');
                 }
@@ -241,9 +778,14 @@
                 const errorMessageDiv = document.createElement('div');
                 errorMessageDiv.innerHTML = `<span>มีข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</span>`;
                 document.getElementById('chatMessages').appendChild(errorMessageDiv);
+                // เลื่อนแชทไปด้านล่าง
+                scrollToBottom();
             }
         }
-
+        // ฟังก์ชันเลือกคีย์เวิร์ด
+        function setKeyword(keyword) {
+            document.getElementById('userInput').value = keyword;
+        }
         // ฟังก์ชันเปลี่ยนโทนสี
         function changeTheme(sidebarColor, chatColor) {
             document.documentElement.style.setProperty('--sidebar-bg-color', sidebarColor);
