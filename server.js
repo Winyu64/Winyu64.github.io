@@ -1,12 +1,15 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import fetch from 'node-fetch';
+import cors from 'cors';  // เพิ่มการนำเข้า CORS
 
 dotenv.config();
 const app = express();
 const port = 3000;
+// เปิดใช้งาน CORS
+app.use(cors());
 
-const apiKey = process.env.OPENAI_API_KEY;
+//const apiKey = process.env.OPENAI_API_KEY;
 
 app.use(express.json());
 
@@ -423,7 +426,7 @@ app.post('/api/generate-text', async (req, res) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${apiKey}`
+                    "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
                 },
                 body: JSON.stringify(data)
             });
