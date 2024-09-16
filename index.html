@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot IS Guide</title>
     <style>
-        body {
+        .body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -13,6 +13,14 @@
             display: flex;
             background-color: #f0f0f0;
             color: #333;
+            font-family: 'KKUFont', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'KKUFont';
+            src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
+            font-weight: normal;
+            font-style: normal;
         }
 
         .container {
@@ -54,7 +62,7 @@
         }
 
         .sidebar img {
-            width: 300px;
+            width: 200px;
             border-radius: 50%;
             border: 2px solid #ccc;
             margin-top: 20px;
@@ -641,10 +649,565 @@
         margin: 0 auto; /* จัดกึ่งกลางแนวนอน */
         }
 
+        #background-section {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background-size: contain; /* ปรับให้ภาพมีขนาดพอดีไม่ครอบคลุมทั้งจอ */
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        /* สไตล์ของหัวข้อ */
+        .bg-text {
+        position: relative; /* ใช้สำหรับการจัดการพื้นหลัง */
+        display: inline-block; /* ทำให้พื้นหลังแสดงผลเฉพาะข้อความ */
+        padding: 0.5em 1em; /* เพิ่มระยะห่างภายในพื้นหลัง */
+        background-color: rgba(216, 216, 216, 0.6); /* สีพื้นหลังที่มีความโปร่งใส (สีดำ 60%) */
+        border-radius: 5px; /* มุมโค้งของพื้นหลัง */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* เงาที่ด้านล่างของพื้นหลัง */
+        }
+
+
+        .container {
+        background-color: #ffffff; /* เปลี่ยนเป็นสีพื้นหลังที่ต้องการ */
+        }
+
+        /* กำหนดสีของข้อความใน <p> */
+        p.custom-text-color {
+            color: #2f2f2f; /* เปลี่ยนเป็นสีที่คุณต้องการ เช่น สีฟ้า */
+            font-size: 18px; /* ขนาดตัวอักษร */
+            line-height: 1.5; /* ระยะห่างระหว่างบรรทัด */
+        }
+
+
+
+        /* From Uiverse.io by biswacpcode */ 
+        .buttonแทบบน {
+            color: rgb(254, 254, 254); /* สีของข้อความปุ่มเมนู */
+            text-decoration: none;
+            font-size: 18px; /* ขนาดของข้อความ */
+            border: none;
+            background: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .buttonแทบบน::before {
+            margin-left: auto;
+        }
+        
+        .buttonแทบบน::after, .buttonแทบบน::before {
+            content: '';
+            width: 0%;
+            height: 2px;
+            background: #40B3A2;
+            display: block;
+            transition: 0.5s;
+        }
+        
+        .buttonแทบบน:hover::after, .buttonแทบบน:hover::before {
+            width: 100%;
+        }
+
+
+
+
+        .navbar {
+            display: flex;
+            justify-content: center; /* จัดให้อยู่ตรงกลาง */
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+        }
+
+        /* สไตล์ของแถบเมนู */
+        .header {
+        position: sticky; /* ทำให้แถบเมนูเลื่อนตาม */
+        top: 0; /* ปักหมุดที่ด้านบนของหน้า */
+        background-color: #02245e; /* สีพื้นหลังของแถบเมนู */
+        border-bottom: 1px solid #ddd; /* ขอบด้านล่างของแถบเมนู */
+        z-index: 1000; /* ให้แถบเมนูอยู่เหนือเนื้อหาทั้งหมด */
+        }
+
+        /* สไตล์ของปุ่มเมนู */
+        .navbar a {
+        margin-left: 15px; /* ระยะห่างระหว่างลิงก์แต่ละลิงก์ */
+        }
+
+
+        .imgแทบบน {
+        max-width: 1500px; /* กำหนดขนาดสูงสุดให้กับโลโก้ */
+        height: auto; /* ปรับให้คงสัดส่วนตามความกว้าง */
+        margin-right: 200px; /* เพิ่มระยะห่างจากโลโก้ไปยังปุ่มเมนูถัดไป */
+        display: inline-block; /* ทำให้ภาพเป็น block เพื่อจัดการระยะห่าง */
+        }
+
+
+        /* เมนูดรอปดาวน์ */
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        /* เนื้อหาดรอปดาวน์ */
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #02245e; /* สีพื้นหลังของเมนู */
+        width: max-content; /* ขยายตามขนาดของเนื้อหา */
+        min-width: 200px; /* ความกว้างขั้นต่ำ */
+        box-shadow: 0px 8px 16px 0px rgba(255, 255, 255, 0.2); /* เงาของเมนู */
+        z-index: 1;
+        border-radius: 4px;
+        }
+
+        /* เมนูย่อย */
+        .dropdown-content .dropdown-content {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 2;
+        border-radius: 4px;
+        margin-left: 5px;
+        }
+
+        /* ลิงก์ในดรอปดาวน์ */
+        .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        border-radius: 4px;
+        }
+
+        /* เปลี่ยนสีเมื่อเอาเมาส์ไปวางที่ลิงก์ */
+        .dropdown-content a:hover {
+        background-color: #02245e;
+        }
+
+        /* แสดงเมนูเมื่อเอาเมาส์ไปวางที่ปุ่ม */
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+
+        /* แสดงเมนูย่อยเมื่อเอาเมาส์ไปวางที่ลิงก์หลัก */
+        .dropdown-content a:hover .dropdown-content {
+        display: block;
+        }
+
+        /* เปลี่ยนสีปุ่มเมื่อเอาเมาส์ไปวาง */
+        .dropdown:hover .buttonแทบบน {
+        background-color: #02245e;
+        }
+
+        .buttonเริ่มต้นการสนทนากับแชทบอท {
+            --black-700: hsla(0 0% 12% / 1);
+            --border_radius: 9999px;
+            --transtion: 0.3s ease-in-out;
+            --offset: 2px;
+        
+            cursor: pointer;
+            position: fixed; /* เปลี่ยนเป็น fixed เพื่อให้ปุ่มอยู่คงที่ */
+            bottom: 20px;    /* กำหนดตำแหน่งจากขอบล่าง */
+            right: 20px;     /* กำหนดตำแหน่งจากขอบขวา */
+            z-index: 999;    /* ทำให้ปุ่มอยู่ด้านหน้าขององค์ประกอบอื่น ๆ */
+        
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        
+            transform-origin: center;
+        
+            padding: 1rem 2rem;
+            background-color: transparent;
+        
+            border: none;
+            border-radius: var(--border_radius);
+            transform: scale(calc(1 + (var(--active, 0) * 0.1)));
+        
+            transition: transform var(--transtion);
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        
+            width: 100%;
+            height: 100%;
+            background-color: var(--black-700);
+        
+            border-radius: var(--border_radius);
+            box-shadow: inset 0 0.5px hsl(0, 0%, 100%), inset 0 -1px 2px 0 hsl(0, 0%, 0%),
+            0px 4px 10px -4px hsla(0 0% 0% / calc(1 - var(--active, 0))),
+            0 0 0 calc(var(--active, 0) * 0.375rem) hsl(260 97% 50% / 0.75);
+        
+            transition: all var(--transtion);
+            z-index: 0;
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        
+            width: 100%;
+            height: 100%;
+            background-color: hsla(260 97% 61% / 0.75);
+            background-image: radial-gradient(
+                at 51% 89%,
+                hsla(266, 45%, 74%, 1) 0px,
+                transparent 50%
+            ),
+            radial-gradient(at 100% 100%, hsla(266, 36%, 60%, 1) 0px, transparent 50%),
+            radial-gradient(at 22% 91%, hsla(266, 36%, 60%, 1) 0px, transparent 50%);
+            background-position: top;
+        
+            opacity: var(--active, 0);
+            border-radius: var(--border_radius);
+            transition: opacity var(--transtion);
+            z-index: 2;
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท:is(:hover, :focus-visible) {
+            --active: 1;
+        }
+        .buttonเริ่มต้นการสนทนากับแชทบอท:active {
+            transform: scale(1);
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท .dots_border {
+            --size_border: calc(100% + 2px);
+        
+            overflow: hidden;
+        
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        
+            width: var(--size_border);
+            height: var(--size_border);
+            background-color: transparent;
+        
+            border-radius: var(--border_radius);
+            z-index: -10;
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท .dots_border::before {
+            content: "";
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: left;
+            transform: rotate(0deg);
+        
+            width: 100%;
+            height: 2rem;
+            background-color: white;
+        
+            mask: linear-gradient(transparent 0%, white 120%);
+            animation: rotate 2s linear infinite;
+        }
+        
+        @keyframes rotate {
+            to {
+            transform: rotate(360deg);
+            }
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท .sparkle {
+            position: relative;
+            z-index: 10;
+        
+            width: 1.75rem;
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท .sparkle .path {
+            fill: currentColor;
+            stroke: currentColor;
+        
+            transform-origin: center;
+        
+            color: hsl(0, 0%, 100%);
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท:is(:hover, :focus) .sparkle .path {
+            animation: path 1.5s linear 0.5s infinite;
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท .sparkle .path:nth-child(1) {
+            --scale_path_1: 1.2;
+        }
+        .buttonเริ่มต้นการสนทนากับแชทบอท .sparkle .path:nth-child(2) {
+            --scale_path_2: 1.2;
+        }
+        .buttonเริ่มต้นการสนทนากับแชทบอท .sparkle .path:nth-child(3) {
+            --scale_path_3: 1.2;
+        }
+        
+        @keyframes path {
+            0%,
+            34%,
+            71%,
+            100% {
+            transform: scale(1);
+            }
+            17% {
+            transform: scale(var(--scale_path_1, 1));
+            }
+            49% {
+            transform: scale(var(--scale_path_2, 1));
+            }
+            83% {
+            transform: scale(var(--scale_path_3, 1));
+            }
+        }
+        
+        .buttonเริ่มต้นการสนทนากับแชทบอท .text_button {
+            position: relative;
+            z-index: 10;
+        
+            background-image: linear-gradient(
+            90deg,
+            hsla(0 0% 100% / 1) 0%,
+            hsla(0 0% 100% / var(--active, 0)) 120%
+            );
+            background-clip: text;
+        
+            font-size: 1rem;
+            color: transparent;
+        }
+
+        .hidden {
+        display: none;
+        }
+
+        .bg-footer-background {
+        background-color: #02245e; /* เปลี่ยนสีพื้นหลังตามที่คุณต้องการ */
+        }
+
+        .text-footer-foreground {
+        color: #d0dbe7; /* เปลี่ยนสีของข้อความตามที่คุณต้องการ */
+        }
+
+        header { 
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        max-width: 1200px;
+        }
+        
+        header video { 
+        width: 100%; 
+        }
+        
+        svg { 
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        }
+        
+        svg text {
+        font-family: 'KKUFont', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 38px;
+        }
+        
+        svg rect {
+        fill: white;
+        }
+        
+        svg > rect {
+        -webkit-mask: url(#mask);
+        mask: url(#mask);
+        }
+
 
     </style>
 </head>
+
 <body>
+    <div class="header">
+        <header class="navbar flex items-center p-4 shadow-lg bg-gradient-to-r from-primary to-secondary">
+            <a href="index.html">
+            <img  class="imgแทบบน" src="https://i.postimg.cc/hPhrcBQS/ISGuide.png" alt="IS Guide Logo" width="240" height="100" />
+            </a>
+
+            <a href="index.html">
+                <button class="buttonแทบบน"><i class="animation"></i>Home<i class="animation"></i>
+                </button>
+            </a>
+            <div class="dropdown">
+                <a href="หน้าการเรียนรู้และกิจกรรม (LearningAndActivitiesPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>เรียนรู้และกิจกรรม<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="หน้าข่าวสารคณะ (FacultyNewsPage).html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ข่าวสารคณะ<i class="animation"></i>
+                        </button></a>
+                    <a href="หน้ากิจกรรม (ActivitiesPage).html">
+                        <button class="buttonแทบบน"><i class="animation"></i>กิจกรรม<i class="animation"></i>
+                        </button></a>
+                    <a href="หน้าการเรียนรู้ (LearningPage).html">
+                        <button class="buttonแทบบน"><i class="animation"></i>การเรียนรู้<i class="animation"></i>
+                        </button></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="หน้าบริการนักศึกษา (StudentServicesPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>บริการ<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="แผนที่.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>แผนที่<i class="animation"></i>
+                        </button></a>
+                    <a href="ห้องสมุดออนไลน์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ห้องสมุดออนไลน์<i class="animation"></i>
+                        </button></a>
+                    <a href="ระบบจองหอพักนักศึกษา.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ระบบจองหอพักนักศึกษา<i class="animation"></i>
+                        </button></a> 
+                    <a href="ตรวจสอบค่าไฟฟ้าหอพัก.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ตรวจสอบค่าไฟฟ้าหอพัก<i class="animation"></i>
+                        </button></a>
+                    <a href="ทุนการศึกษา.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ทุนการศึกษา<i class="animation"></i>
+                        </button></a>
+                    <a href="REG_KKU.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>REG_KKU<i class="animation"></i>
+                        </button></a>
+                    <a href="REQ_KKU.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>REQ_KKU<i class="animation"></i>
+                        </button></a>
+                    <a href="ตารางสอบนักศึกษา.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ตารางสอบนักศึกษา<i class="animation"></i>
+                        </button></a> 
+                    <a href="กลุ่มงานบริหารคณะ.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>กลุ่มงานบริหารคณะ<i class="animation"></i>
+                        </button></a> 
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="หน้าข้อมูลคณะวิชา (FacultyInformationPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชา<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์<i class="animation"></i>
+                        </button></a>
+                    <a href="สาขานิติศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขานิติศาสตร์ <i class="animation"></i>
+                        </button></a> 
+                    <a href="สาขาวิชาบริหารธุรกิจ.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาบริหารธุรกิจ <i class="animation"></i>
+                        </button></a>
+                    <a href="สาขาวิชาวิทยาศาสตร์ประยุกต์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาวิทยาศาสตร์ประยุกต์<i class="animation"></i>
+                        </button></a>
+                    <a href="สาขาวิชาศิลปะและศึกษาศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาศิลปะและศึกษาศาสตร์<i class="animation"></i>
+                        </button></a> 
+                    <a href="สาขาวิชาสังคมศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาสังคมศาสตร์<i class="animation"></i>
+                        </button></a> 
+                </div>
+            </div>
+            <a href="บุคลากร.html">
+                <button class="buttonแทบบน"><i class="animation"></i>บุคลากร<i class="animation"></i>
+                </button>
+            </a>
+            <a href="หน้าสอบถามและติดต่อ (ContactAndInquiriesPage).html">
+                <button class="buttonแทบบน"><i class="animation"></i>ติดต่อ<i class="animation"></i>
+                </button>
+            </a>
+        </header> 
+        </div>
+
+    
+    
+
+    <!-- ข้อมูลที่ 1 -->
+    <div id="info1">
+        <header>
+            <video autoplay playsinline muted loop preload poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/oceanshot.jpg">
+              <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/ocean-small.webm" type="video/webm" />
+              <source src="http://thenewcode.com/assets/videos/ocean-small.mp4" type="video/mp4" />
+            </video>
+          
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285 80" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <mask id="mask" x="0" y="0" width="100%" height="100%">
+                  <rect x="0" y="0" width="100%" height="100%" />
+                  <text x="72" y="50">OCEAN</text>
+                </mask>
+              </defs>
+              <rect x="0" y="0" width="100%" height="100%" />
+            </svg>
+          </header>
+        <section id="background-section" class="flex flex-col items-center justify-center py-16 bg-gradient-to-b from-background to-card">
+            <h1 class="text-5xl font-extrabold text-center leading-tight text-accent bg-text">ยินดีต้อนรับสู่ IS Guide </h1>
+            <h1 class="text-5xl font-extrabold text-center leading-tight text-accent bg-text">คณะสหวิทยาการ</h1>
+
+        </section>
+        <script src="JavaScript/scriptHomePage.js"></script>
+        
+        
+        
+        
+        <section class="container mx-auto py-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="p-6 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <h2 class="text-2xl font-bold mb-4 text-accent">แนะนำมหาวิทยาลัย</h2>
+                    <p class="custom-text-color">ข้อมูลสั้น ๆ เกี่ยวกับประวัติและความสำคัญของวิทยาเขตหนองคาย</p>
+                </div>
+                <div class="p-6 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <h2 class="text-2xl font-bold mb-4 text-accent">บริการสำหรับนักศึกษา</h2>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> หอพัก</a></li>
+                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> ร้านอาหาร</a></li>
+                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> บริการสุขภาพ</a></li>
+                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> การเดินทาง</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold mb-4 text-accent">คำแนะนำการเรียน</h2>
+                <div class="space-y-2">
+                    <a href="#" class="block hover:text-secondary transition duration-300">ข้อมูลเกี่ยวกับคณะวิชา</a>
+                    <a href="#" class="block hover:text-secondary transition duration-300">หลักสูตร</a>
+                    <a href="#" class="block hover:text-secondary transition duration-300">ทรัพยากรการเรียนรู้</a>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold mb-4 text-accent">ข่าวสารและกิจกรรม</h2>
+                <p class="custom-text-color">อัปเดตข่าวสารและกิจกรรมล่าสุดสำหรับนักศึกษา</p>
+            </div>
+        </section>
+        </div>
+    <!-- ข้อมูลที่ 2 ซ่อนอยู่ -->
+    <div id="info2" class="hidden">
     <div class="container">
         <!-- Sidebar (ด้านซ้าย) -->
         <div class="sidebar">
@@ -728,8 +1291,102 @@
             </div>       
         </div>
     </div>
-    
+    </div>
+
+    <div class="fixed bottom-4 right-4"></div>
+        <button class="buttonเริ่มต้นการสนทนากับแชทบอท" onclick="toggleInfo(this)">
+            <div class="dots_border"></div>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                class="sparkle"
+            >
+                <path
+                    class="path"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke="black"
+                    fill="black"
+                    d="M14.187 8.096L15 5.25L15.813 8.096C16.0231 8.83114 16.4171 9.50062 16.9577 10.0413C17.4984 10.5819 18.1679 10.9759 18.903 11.186L21.75 12L18.904 12.813C18.1689 13.0231 17.4994 13.4171 16.9587 13.9577C16.4181 14.4984 16.0241 15.1679 15.814 15.903L15 18.75L14.187 15.904C13.9769 15.1689 13.5829 14.4994 13.0423 13.9587C12.5016 13.4181 11.8321 13.0241 11.097 12.814L8.25 12L11.096 11.187C11.8311 10.9769 12.5006 10.5829 13.0413 10.0423C13.5819 9.50162 13.9759 8.83214 14.186 8.097L14.187 8.096Z"
+                ></path>
+                <path
+                    class="path"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke="black"
+                    fill="black"
+                    d="M6 14.25L5.741 15.285C5.59267 15.8785 5.28579 16.4206 4.85319 16.8532C4.42059 17.2858 3.87853 17.5927 3.285 17.741L2.25 18L3.285 18.259C3.87853 18.4073 4.42059 18.7142 4.85319 19.1468C5.28579 19.5794 5.59267 20.1215 5.741 20.715L6 21.75L6.259 20.715C6.40725 20.1216 6.71398 19.5796 7.14639 19.147C7.5788 18.7144 8.12065 18.4075 8.714 18.259L9.75 18L8.714 17.741C8.12065 17.5925 7.5788 17.2856 7.14639 16.853C6.71398 16.4204 6.40725 15.8784 6.259 15.285L6 14.25Z"
+                ></path>
+                <path
+                    class="path"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke="black"
+                    fill="black"
+                    d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z"
+                ></path>
+            </svg>
+            <span class="text_button">เริ่มต้นแชทบอท💬</span>
+        </button>
+    </div>
+
+    <footer class="bg-footer text-footer-foreground py-4 text-center">
+        <div class="bg-footer-background container mx-auto">
+            <div>ข้อมูลติดต่อ: มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย 112 หมู่ 7 บ้านหนองเดิ่น ตำบลหนองกอมเกาะ อำเภอเมือง จังหวัดหนองคาย 43000 | 042-415600 FAX: 042-415699 | is.inbox@kku.ac.th</div>
+            <div class="mt-2 space-x-4">
+                <a href="#" class="hover:text-secondary transition duration-300">Facebook</a>
+                <a href="#" class="hover:text-secondary transition duration-300">Twitter</a>
+                <a href="#" class="hover:text-secondary transition duration-300">Instagram</a>
+            </div>
+            <div class="mt-2 space-x-4">
+                <a href="#" class="hover:text-secondary transition duration-300">นโยบายความเป็นส่วนตัว</a>
+                <a href="#" class="hover:text-secondary transition duration-300">ข้อกำหนดการใช้งาน</a>
+            </div>
+        </div>
+    </footer>
     <script>
+        const images = [];
+        for (let i = 1; i <= 85; i++) {
+            images.push(`images/backg/bgIS${i}.jpg`);
+        }
+
+        let currentIndex = 0;
+        const section = document.getElementById('background-section');
+
+        function changeBackground() {
+            section.style.backgroundImage = `url(${images[currentIndex]})`;
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        setInterval(changeBackground, 3500); 
+        changeBackground();
+
+        const video = document.querySelector("video");
+        if (window.matchMedia('(prefers-reduced-motion)').matches) {
+            video.removeAttribute("autoplay");
+            video.pause();
+        }
+
+
+
+
+        function toggleInfo(button) {
+            // ซ่อนปุ่มเมื่อกด
+            button.style.display = 'none';
+
+            const info1 = document.getElementById('info1');
+            const info2 = document.getElementById('info2');
+
+            // ถ้าข้อมูลที่ 1 แสดงอยู่ ให้ซ่อนข้อมูลที่ 1 แล้วแสดงข้อมูลที่ 2
+            if (info1.style.display !== 'none') {
+                info1.style.display = 'none';
+                info2.style.display = 'block';
+            } else {
+                info1.style.display = 'block';
+                info2.style.display = 'none';
+            }
+        }
         // ฟังก์ชันเพื่อเลื่อนแชทไปด้านล่างเมื่อมีข้อความใหม่
         function scrollToBottom() {
             const chatMessages = document.getElementById('chatMessages');
