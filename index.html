@@ -5,16 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot IS Guide</title>
     <style>
-        .body {
+        body {
+            font-size: 18px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            background-color: #f0f0f0;
+            background-color: #ffffff;
             color: #333;
             font-family: 'KKUFont', sans-serif;
+            height: 100vh;
         }
+
+        /* ตั้งค่าพื้นฐานสำหรับเมนู */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* ซ่อนปุ่ม hamburger บนหน้าจอขนาดใหญ่ */
+        .hamburger {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                background-color: #ffffff;
+                color: #333;
+                font-family: 'KKUFont', sans-serif;
+                height: 100vh;
+            }
+
+            .hamburger {
+                display: block;
+                background-color: transparent;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #ffffff;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                width: 100vw; /* ให้เมนูมีความกว้างเต็มหน้าจอ */
+                height: 100vh; /* ให้เมนูเต็มความสูงของหน้าจอ */
+                background-color: #02245e; /* พื้นหลังสีเข้ม */
+                background-color: #02245e;
+                padding: 10px 0; /* เพิ่มช่องว่างด้านบนและล่างของเมนู */
+                z-index: 1000; /* ให้เมนูอยู่ด้านบนสุด */
+            }
+
+            /* สไตล์ของลิงก์ในเมนู */
+            .nav-menu a {
+                padding: 15px 20px; /* ช่องว่างรอบๆข้อความ */
+                display: block;
+                font-size: 16px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+                transition: background-color 0.3s ease; /* เพิ่มเอฟเฟ็กต์เวลา hover */
+            }
+
+            /* สไตล์เมื่อ hover */
+            .nav-menu a:hover {
+                background-color: #1b3a6b; /* สีพื้นหลังเมื่อ hover */
+                border-left: 5px solid #00ff08; /* เส้นขอบด้านซ้ายเมื่อ hover */
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .social-links, .policies-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .bg-footer-background {
+                padding: 15px;
+                text-align: center;
+            }
+
+
+
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+
+            /* วิดีโอและข้อความจะอยู่ในแนวตั้ง */
+            .content-left {
+                width: 100%;
+                margin-bottom: 2px; /* เพิ่มระยะห่างระหว่างวิดีโอและรูป */
+            }
+
+            /* ปรับขนาดฟอนต์ของข้อความ */
+            .description {
+                font-size: 1rem;
+                text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+            }
+
+            /* รูปจะอยู่ด้านล่างของวิดีโอ */
+            .content-right {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            #background-section {
+                height: 50vh; /* ลดความสูงของรูปลงให้เหมาะกับหน้าจอมือถือ */
+                background-size: contain; /* ปรับให้ภาพครอบคลุมเต็มพื้นที่ */
+            }
+            
+
+        }
+
 
         @font-face {
             font-family: 'KKUFont';
@@ -30,7 +141,7 @@
 
         .sidebar, .chat-area {
             width: 50%;
-            padding: 20px;
+
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -174,18 +285,18 @@
             25px -10px 30px -5px rgba(255, 0, 212, 0.5),
             25px 10px 30px -5px rgba(255, 174, 0, 0.5),
             -25px 10px 30px -5px rgba(255, 230, 0, 0.5);
-        padding: 8px;
+        padding: 0px;
         /* Flexbox สำหรับจัดวางในแนวนอนและขนาดปรับตามจอ */
         display: flex;
         align-items: center;
-        gap: 10px; /* ระยะห่างระหว่าง input และปุ่ม */
+        gap: 0px; /* ระยะห่างระหว่าง input และปุ่ม */
         max-width: 100%; /* ให้ขนาดตามจอ */
         box-sizing: border-box; /* ทำให้ padding รวมกับขนาด */
         }
 
         .input {
         background-color: #212121;
-        max-width: 100%; /* ให้ input กว้างสูงสุดตามขนาด container */
+        max-width: 60%; /* ให้ input กว้างสูงสุดตามขนาด container */
         height: 40px;
         padding: 0 19px 0 10px;
         font-size: 1.1em;
@@ -194,8 +305,8 @@
         color: white;
         outline: 0;
         overflow: hidden;
-        flex-grow: 1; /* ขยาย input เต็มพื้นที่ที่เหลือ */
-        margin-right: 10px; /* ระยะห่างระหว่าง input และปุ่ม */
+
+        margin-right: 1px; /* ระยะห่างระหว่าง input และปุ่ม */
         flex-grow: 1; /* ยืดได้เมื่อมีพื้นที่ว่าง */
         box-sizing: border-box; /* รวม padding เข้าไปในขนาด */
         }
@@ -214,7 +325,7 @@
             display: flex;
             align-items: center;
             justify-content: center; /* ถ้าอยากให้กลางจอ */
-            gap: 10px; /* ช่องว่างระหว่าง input และปุ่มหรือองค์ประกอบอื่นๆ */
+            gap: 0px; /* ช่องว่างระหว่าง input และปุ่มหรือองค์ประกอบอื่นๆ */
             width: 100%; /* ให้กล่องมีขนาดเต็มที่ */
         }
 
@@ -649,16 +760,6 @@
         margin: 0 auto; /* จัดกึ่งกลางแนวนอน */
         }
 
-        #background-section {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        background-size: contain; /* ปรับให้ภาพมีขนาดพอดีไม่ครอบคลุมทั้งจอ */
-        background-repeat: no-repeat;
-        background-position: center;
-        transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
-        }
-
         .fade-out {
             opacity: 0;
         }
@@ -742,9 +843,9 @@
 
 
         .imgแทบบน {
-        max-width: 1500px; /* กำหนดขนาดสูงสุดให้กับโลโก้ */
+        max-width: 1400px; /* กำหนดขนาดสูงสุดให้กับโลโก้ */
         height: auto; /* ปรับให้คงสัดส่วนตามความกว้าง */
-        margin-right: 200px; /* เพิ่มระยะห่างจากโลโก้ไปยังปุ่มเมนูถัดไป */
+        margin-right: 20px; /* เพิ่มระยะห่างจากโลโก้ไปยังปุ่มเมนูถัดไป */
         display: inline-block; /* ทำให้ภาพเป็น block เพื่อจัดการระยะห่าง */
         }
 
@@ -1006,40 +1107,97 @@
         color: #d0dbe7; /* เปลี่ยนสีของข้อความตามที่คุณต้องการ */
         }
 
-        header { 
+        .headerISGuide { 
         width: 100%;
         margin: 0 auto;
         position: relative;
         max-width: 1200px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        #background-section {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background-size: contain; /* ปรับให้ภาพมีขนาดพอดีไม่ครอบคลุมทั้งจอ */
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
+        z-index: 1; /* วาง background-section ไว้ด้านล่าง */
         }
         
-        header video { 
+        .headerISGuide video { 
         width: 100%; 
+        height: 100%;
+        display: block; /* กำหนดให้เป็นบล็อกเพื่อจัดการ margin */
+        z-index: 2;
         }
         
         svg { 
         width: 100%;
         position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* จัดตำแหน่ง SVG ให้อยู่ตรงกลางของ section */
+        height: 101%;
+        z-index: 3;
         }
         
         svg text {
         font-family: 'KKUFont', sans-serif;
         font-weight: 700;
         text-transform: uppercase;
-        font-size: 38px;
+        font-size: 45px;
         }
         
-        svg rect {
-        fill: white;
+        svg rect  {
+        fill: rgb(255, 255, 255);
         }
         
         svg > rect {
         -webkit-mask: url(#mask);
         mask: url(#mask);
         }
+
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 70vh;
+        }
+
+        /* สำหรับวิดีโอและข้อความที่อยู่ทางซ้าย */
+        .content-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 40%;
+        }
+
+        /* ข้อความอธิบายใต้ส่วนวิดีโอ */
+        .description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* สำหรับรูปที่อยู่ทางขวา */
+        .content-right {
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        
 
 
     </style>
@@ -1052,10 +1210,19 @@
             <img  class="imgแทบบน" src="https://i.postimg.cc/hPhrcBQS/ISGuide.png" alt="IS Guide Logo" width="240" height="100" />
             </a>
 
+            <!-- Hamburger Menu for Mobile -->
+            <button class="hamburger" onclick="toggleMenu()">
+                &#9776;
+            </button>
+
+            <!-- Regular Menu -->
+            <nav class="nav-menu" id="menu">
+
             <a href="index.html">
                 <button class="buttonแทบบน"><i class="animation"></i>Home<i class="animation"></i>
                 </button>
             </a>
+
             <div class="dropdown">
                 <a href="หน้าการเรียนรู้และกิจกรรม (LearningAndActivitiesPage).html">
                     <button class="buttonแทบบน"><i class="animation"></i>เรียนรู้และกิจกรรม<i class="animation"></i>
@@ -1142,70 +1309,44 @@
                 <button class="buttonแทบบน"><i class="animation"></i>ติดต่อ<i class="animation"></i>
                 </button>
             </a>
+        </nav>
         </header> 
         </div>
 
-    
-    
-
     <!-- ข้อมูลที่ 1 -->
     <div id="info1">
-        <header>
-            <video autoplay playsinline muted loop preload poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/oceanshot.jpg">
-              <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/ocean-small.webm" type="video/webm" />
-              <source src="http://thenewcode.com/assets/videos/ocean-small.mp4" type="video/mp4" />
-            </video>
-          
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285 80" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <mask id="mask" x="0" y="0" width="100%" height="100%">
-                  <rect x="0" y="0" width="100%" height="100%" />
-                  <text x="72" y="50">OCEAN</text>
-                </mask>
-              </defs>
-              <rect x="0" y="0" width="100%" height="100%" />
-            </svg>
-          </header>
-        <section id="background-section" class="flex flex-col items-center justify-center py-16 bg-gradient-to-b from-background to-card">
-            <h1 class="text-5xl font-extrabold text-center leading-tight text-accent bg-text">ยินดีต้อนรับสู่ IS Guide </h1>
-            <h1 class="text-5xl font-extrabold text-center leading-tight text-accent bg-text">คณะสหวิทยาการ</h1>
 
-        </section>
-        <script src="JavaScript/scriptHomePage.js"></script>
+        <div class="main-container">
+            <div class="content-left">
+                <div class="headerISGuide">
+                    <video autoplay playsinline muted loop preload poster="IS Guide/0924.PNG">
+                        <source src="IS Guide/0924.webm" type="video/webm" />
+                        <source src="IS Guide/0924.mp4" type="video/mp4" />
         
-        
-        
-        
-        <section class="container mx-auto py-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="p-6 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <h2 class="text-2xl font-bold mb-4 text-accent">แนะนำมหาวิทยาลัย</h2>
-                    <p class="custom-text-color">ข้อมูลสั้น ๆ เกี่ยวกับประวัติและความสำคัญของวิทยาเขตหนองคาย</p>
+                    </video>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285 80" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <mask id="mask" x="0" y="0" width="100%" height="100%">
+                                <rect x="0" y="0" width="100%" height="100%" />
+                                <text x="72" y="50">IS Guide</text>
+                            </mask>
+                        </defs>
+                        <rect x="0" y="0" width="80%" height="100%" />
+                    </svg>
                 </div>
-                <div class="p-6 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <h2 class="text-2xl font-bold mb-4 text-accent">บริการสำหรับนักศึกษา</h2>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> หอพัก</a></li>
-                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> ร้านอาหาร</a></li>
-                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> บริการสุขภาพ</a></li>
-                        <li><a href="#" class="flex items-center space-x-2 hover:text-secondary transition duration-300"><img src="https://placehold.co/24.png?text=Icon" alt="Icon" /> การเดินทาง</a></li>
-                    </ul>
-                </div>
+                <div class="description">
+                    <p>IS Guide เป็นแชทบอทที่พัฒนาด้วยโมเดล OpenAI GPT-4 Mini ซึ่งถูกออกแบบมาเพื่อให้ข้อมูลและตอบคำถามเกี่ยวกับคณะสหวิทยาการ</p>
+                    <p>แชทบอทนี้จะช่วยแนะนำข้อมูลต่าง ๆ เกี่ยวกับหลักสูตร การบริการ และชีวิตในมหาวิทยาลัยสำหรับนักศึกษา</p>
+                    <button>เริ่มต้นการสนทนา</button>
+                </div>   
             </div>
-            <div class="mt-8">
-                <h2 class="text-2xl font-bold mb-4 text-accent">คำแนะนำการเรียน</h2>
-                <div class="space-y-2">
-                    <a href="#" class="block hover:text-secondary transition duration-300">ข้อมูลเกี่ยวกับคณะวิชา</a>
-                    <a href="#" class="block hover:text-secondary transition duration-300">หลักสูตร</a>
-                    <a href="#" class="block hover:text-secondary transition duration-300">ทรัพยากรการเรียนรู้</a>
-                </div>
+            <div class="content-right">
+                <div id="background-section"></div>
             </div>
-            <div class="mt-8">
-                <h2 class="text-2xl font-bold mb-4 text-accent">ข่าวสารและกิจกรรม</h2>
-                <p class="custom-text-color">อัปเดตข่าวสารและกิจกรรมล่าสุดสำหรับนักศึกษา</p>
-            </div>
-        </section>
         </div>
+        
+    </div>
     <!-- ข้อมูลที่ 2 ซ่อนอยู่ -->
     <div id="info2" class="hidden">
     <div class="container">
@@ -1346,6 +1487,11 @@
         </div>
     </footer>
     <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+
         const images = [];
         for (let i = 1; i <= 85; i++) {
             images.push(`images/backg/bgIS${i}.jpg`);
@@ -1355,7 +1501,9 @@
         const section = document.getElementById('background-section');
 
         function changeBackground() {
+            // ปรับตำแหน่งภาพพื้นหลังให้อยู่ที่ด้านบนซ้ายหรือขวา (ไม่อยู่ตรงกลาง)
             section.style.backgroundImage = `url(${images[currentIndex]})`;
+            section.style.backgroundPosition = 'left top'; // หรือ 'right top', 'left bottom', 'right bottom'
             currentIndex = (currentIndex + 1) % images.length;
         }
 
