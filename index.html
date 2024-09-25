@@ -92,37 +92,30 @@
                 text-align: center;
             }
 
-
-
-            .main-container {
-                flex-direction: column;
-                height: auto;
-                padding: 10px;
+            .ข้อความหลักกลาง {
+            padding: 0vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            transform: translate(0%, 40%);
             }
 
-            /* วิดีโอและข้อความจะอยู่ในแนวตั้ง */
-            .content-left {
-                width: 100%;
-                margin-bottom: 2px; /* เพิ่มระยะห่างระหว่างวิดีโอและรูป */
+            .ข้อความย่อยกลาง {
+                padding: 2vw;
+                font-size: 1.5rem;
+                line-height: 1.2;
+                color: #333;
+                position: absolute; /* ทำให้ตำแหน่งอยู่แบบลอย */
+                top: 42%; /* กำหนดตำแหน่งจากขอบบน */
+                left: 5%; /* ปรับให้ชิดขอบซ้าย */
+                padding: 20px;
+                z-index: 10; /* ให้มันอยู่ด้านบน */
+                text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
+                border-radius: 10px; /* เพิ่มความโค้งมนของขอบ */
+                max-width: 100%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
+                background-color: rgba(224, 224, 224, 0.8); /* เพิ่มพื้นหลังแบบโปร่งใส */
             }
-
-            /* ปรับขนาดฟอนต์ของข้อความ */
-            .description {
-                font-size: 1rem;
-                text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
-            }
-
-            /* รูปจะอยู่ด้านล่างของวิดีโอ */
-            .content-right {
-                width: 100%;
-                margin-top: 20px;
-            }
-
-            #background-section {
-                height: 50vh; /* ลดความสูงของรูปลงให้เหมาะกับหน้าจอมือถือ */
-                background-size: contain; /* ปรับให้ภาพครอบคลุมเต็มพื้นที่ */
-            }
-            
 
         }
 
@@ -1108,7 +1101,7 @@
         }
 
         .headerISGuide { 
-        width: 100%;
+        width: 50%;
         margin: 0 auto;
         position: relative;
         max-width: 1200px;
@@ -1119,15 +1112,17 @@
         }
 
         #background-section {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        background-size: contain; /* ปรับให้ภาพมีขนาดพอดีไม่ครอบคลุมทั้งจอ */
-        background-repeat: no-repeat;
-        background-position: center;
-        transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
-        z-index: 1; /* วาง background-section ไว้ด้านล่าง */
+            position: relative;
+            width: 100vw;
+            height: 100vh; /* ลดความสูงลงเพื่อเว้นพื้นที่ */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: left top; /* ปรับตำแหน่งพื้นหลัง */
+            transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
+            z-index: 1; /* วาง background-section ไว้ด้านล่าง */
+            margin-top: 0px; /* เว้นระยะห่างจากขอบบน */
         }
+
         
         .headerISGuide video { 
         width: 100%; 
@@ -1162,39 +1157,80 @@
         mask: url(#mask);
         }
 
-        .main-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-            height: 70vh;
-        }
-
-        /* สำหรับวิดีโอและข้อความที่อยู่ทางซ้าย */
-        .content-left {
+        .ข้อความหลักข้างบน {
+            padding: 0vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 40%;
+            width: 100%;
+            transform: translate(0%, -9%); /* เลื่อนกลับไปครึ่งหนึ่งเพื่อให้อยู่ตรงกลางจริง */
         }
 
         /* ข้อความอธิบายใต้ส่วนวิดีโอ */
         .description {
-            font-size: 1.2rem;
-            line-height: 1.6;
+            padding: 0vw;
+            font-size: 1.5rem;
+            line-height: 1.2;
             color: #333;
+            position: absolute; /* ทำให้ตำแหน่งอยู่แบบลอย */
+            top: 72%; /* กำหนดตำแหน่งจากขอบบน */
+            left: 5%; /* ปรับให้ชิดขอบซ้าย */
+            padding: 10px;
+            z-index: 10; /* ให้มันอยู่ด้านบน */
+            text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
+            border-radius: 10px; /* เพิ่มความโค้งมนของขอบ */
+            max-width: 100%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
+            background-color: rgba(224, 224, 224, 0.8); /* เพิ่มพื้นหลังแบบโปร่งใส */
         }
 
-        /* สำหรับรูปที่อยู่ทางขวา */
-        .content-right {
-            width: 60%;
+
+        .ข้อความหลักกลาง {
+            padding: 0vw;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: center;
+            width: 50%;
+            transform: translate(0%, -9%);
         }
 
+        .ข้อความย่อยกลาง {
+            padding: 2vw;
+            font-size: 1.5rem;
+            line-height: 1.2;
+            color: #333;
+            position: absolute; /* ทำให้ตำแหน่งอยู่แบบลอย */
+            top: 42%; /* กำหนดตำแหน่งจากขอบบน */
+            left: 10%; /* ปรับให้ชิดขอบซ้าย */
+            padding: 20px;
+            z-index: 10; /* ให้มันอยู่ด้านบน */
+            text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
+            border-radius: 10px; /* เพิ่มความโค้งมนของขอบ */
+            max-width: 100%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
+            background-color: rgba(224, 224, 224, 0.8); /* เพิ่มพื้นหลังแบบโปร่งใส */
+        }
+        .ข้อความหลักกลาง {
+            padding: 0vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .ข้อความย่อยกลาง {
+            padding: 2vw;
+            font-size: 1.5rem;
+            line-height: 1.2;
+            color: #333;
+            position: absolute; /* ทำให้ตำแหน่งอยู่แบบลอย */
+            top: 42%; /* กำหนดตำแหน่งจากขอบบน */
+            left: 5%; /* ปรับให้ชิดขอบซ้าย */
+            padding: 20px;
+            z-index: 10; /* ให้มันอยู่ด้านบน */
+            text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
+            border-radius: 10px; /* เพิ่มความโค้งมนของขอบ */
+            max-width: 100%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
+            background-color: rgba(224, 224, 224, 0.8); /* เพิ่มพื้นหลังแบบโปร่งใส */
+        }
 
 
         
@@ -1316,8 +1352,7 @@
     <!-- ข้อมูลที่ 1 -->
     <div id="info1">
 
-        <div class="main-container">
-            <div class="content-left">
+            <div class="ข้อความหลักข้างบน">
                 <div class="headerISGuide">
                     <video autoplay playsinline muted loop preload poster="IS Guide/0924.PNG">
                         <source src="IS Guide/0924.webm" type="video/webm" />
@@ -1336,16 +1371,17 @@
                     </svg>
                 </div>
                 <div class="description">
-                    <p>IS Guide เป็นแชทบอทที่พัฒนาด้วยโมเดล OpenAI GPT-4 Mini ซึ่งถูกออกแบบมาเพื่อให้ข้อมูลและตอบคำถามเกี่ยวกับคณะสหวิทยาการ</p>
-                    <p>แชทบอทนี้จะช่วยแนะนำข้อมูลต่าง ๆ เกี่ยวกับหลักสูตร การบริการ และชีวิตในมหาวิทยาลัยสำหรับนักศึกษา</p>
-                    <button>เริ่มต้นการสนทนา</button>
                 </div>   
             </div>
-            <div class="content-right">
+            <div class="ข้อความหลักกลาง">
                 <div id="background-section"></div>
-            </div>
-        </div>
-        
+                <div class="ข้อความย่อยกลาง">
+                    <p>IS Guide เป็นแชทบอทที่พัฒนาด้วยโมเดล OpenAI GPT-4 Mini
+                    ซึ่งถูกออกแบบมาเพื่อให้ข้อมูลและตอบคำถามเกี่ยวกับคณะสหวิทยาการ</p>
+                    <p>แชทบอทนี้จะช่วยแนะนำข้อมูลต่าง ๆ เกี่ยวกับหลักสูตร
+                    การบริการ และชีวิตในมหาวิทยาลัยสำหรับนักศึกษา</p>
+                    <button>เริ่มต้นการสนทนา</button>
+            </div>                
     </div>
     <!-- ข้อมูลที่ 2 ซ่อนอยู่ -->
     <div id="info2" class="hidden">
@@ -1509,6 +1545,7 @@
 
         setInterval(changeBackground, 3500); 
         changeBackground();
+
 
         const video = document.querySelector("video");
         if (window.matchMedia('(prefers-reduced-motion)').matches) {
