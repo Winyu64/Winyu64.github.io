@@ -1,0 +1,218 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/หน้าสอบถามและติดต่อ (ContactAndInquiriesPage).css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+		<script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>
+		<script type="text/javascript">
+            window.tailwind.config = {
+                darkMode: ['class'],
+                theme: {
+                    extend: {
+                        colors: {
+                            border: 'var(--border)',
+                            input: 'var(--input)',
+                            ring: 'var(--ring)',
+                            background: 'var(--background)',
+                            foreground: 'var(--foreground)',
+                            primary: {
+                                DEFAULT: 'var(--primary)',
+                                foreground: 'var(--primary-foreground)'
+                            },
+                            secondary: {
+                                DEFAULT: 'var(--secondary)',
+                                foreground: 'var(--secondary-foreground)'
+                            },
+                            destructive: {
+                                DEFAULT: 'var(--destructive)',
+                                foreground: 'var(--destructive-foreground)'
+                            },
+                            muted: {
+                                DEFAULT: 'var(--muted)',
+                                foreground: 'var(--muted-foreground)'
+                            },
+                            accent: {
+                                DEFAULT: 'var(--accent)',
+                                foreground: 'var(--accent-foreground)'
+                            },
+                            popover: {
+                                DEFAULT: 'var(--popover)',
+                                foreground: 'var(--popover-foreground)'
+                            },
+                            card: {
+                                DEFAULT:  'var(--background)',
+                                foreground: 'var(--card-foreground)'
+                            },
+                        },
+                    }
+                }
+            }
+        </script>
+  </head>
+  <body>
+    <div class="header">
+        <header class="navbar flex items-center p-4 shadow-lg bg-gradient-to-r from-primary to-secondary">
+            <a href="HomePage.html">
+            <img  class="imgแทบบน" src="images/โลโก้ISGuide.png" alt="IS Guide Logo" width="240" height="100" />
+            </a>
+
+            <a href="HomePage.html">
+                <button class="buttonแทบบน"><i class="animation"></i>Home<i class="animation"></i>
+                </button>
+            </a>
+            <div class="dropdown">
+                <a href="หน้าการเรียนรู้และกิจกรรม (LearningAndActivitiesPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>เรียนรู้และกิจกรรม<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="หน้าข่าวสารคณะ (FacultyNewsPage).html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ข่าวสารคณะ<i class="animation"></i>
+                        </button></a>
+                    <a href="หน้ากิจกรรม (ActivitiesPage).html">
+                        <button class="buttonแทบบน"><i class="animation"></i>กิจกรรม<i class="animation"></i>
+                        </button></a>
+                    <a href="หน้าการเรียนรู้ (LearningPage).html">
+                        <button class="buttonแทบบน"><i class="animation"></i>การเรียนรู้<i class="animation"></i>
+                        </button></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="หน้าบริการนักศึกษา (StudentServicesPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>บริการ<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="แผนที่.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>แผนที่<i class="animation"></i>
+                        </button></a>
+                    <a href="ห้องสมุดออนไลน์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ห้องสมุดออนไลน์<i class="animation"></i>
+                        </button></a>
+                    <a href="ระบบจองหอพักนักศึกษา.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ระบบจองหอพักนักศึกษา<i class="animation"></i>
+                        </button></a> 
+                    <a href="ตรวจสอบค่าไฟฟ้าหอพัก.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ตรวจสอบค่าไฟฟ้าหอพัก<i class="animation"></i>
+                        </button></a>
+                    <a href="ทุนการศึกษา.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ทุนการศึกษา<i class="animation"></i>
+                        </button></a>
+                    <a href="REG_KKU.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>REG_KKU<i class="animation"></i>
+                        </button></a>
+                    <a href="REQ_KKU.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>REQ_KKU<i class="animation"></i>
+                        </button></a>
+                    <a href="ตารางสอบนักศึกษา.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>ตารางสอบนักศึกษา<i class="animation"></i>
+                        </button></a> 
+                    <a href="กลุ่มงานบริหารคณะ.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>กลุ่มงานบริหารคณะ<i class="animation"></i>
+                        </button></a> 
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="หน้าข้อมูลคณะวิชา (FacultyInformationPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชา<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์<i class="animation"></i>
+                        </button></a>
+                    <a href="สาขานิติศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขานิติศาสตร์ <i class="animation"></i>
+                        </button></a> 
+                    <a href="สาขาวิชาบริหารธุรกิจ.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาบริหารธุรกิจ <i class="animation"></i>
+                        </button></a>
+                    <a href="สาขาวิชาวิทยาศาสตร์ประยุกต์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาวิทยาศาสตร์ประยุกต์<i class="animation"></i>
+                        </button></a>
+                    <a href="สาขาวิชาศิลปะและศึกษาศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาศิลปะและศึกษาศาสตร์<i class="animation"></i>
+                        </button></a> 
+                    <a href="สาขาวิชาสังคมศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาสังคมศาสตร์<i class="animation"></i>
+                        </button></a> 
+                </div>
+            </div>
+            <a href="บุคลากร.html">
+                <button class="buttonแทบบน"><i class="animation"></i>บุคลากร<i class="animation"></i>
+                </button>
+            </a>
+            <a href="หน้าสอบถามและติดต่อ (ContactAndInquiriesPage).html">
+                <button class="buttonแทบบน"><i class="animation"></i>ติดต่อ<i class="animation"></i>
+                </button>
+            </a>
+        </header> 
+        </div>
+		
+    
+    <section class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold text-accent mb-4">หน้าสอบถามและติดต่อ</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="p-4 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                <h2 class="text-xl font-bold text-accent">Contact Admin</h2>
+                <form action="https://8a8c-202-28-119-37.ngrok-free.app /submit_question.php" method="post">
+                    <label class="block mb-2 text-sm font-medium text-muted-foreground">คำถามส่งถึง admin:</label>
+                    <textarea name="question" class="w-full p-2 border border-border rounded-lg" rows="4" placeholder="กรอกคำถามของคุณที่นี่..."></textarea>
+                    <button type="submit" class="mt-4 bg-accent text-accent-foreground px-4 py-2 rounded-full shadow-lg hover:bg-accent/80 transition duration-300">ส่งคำถาม</button>
+                  </form>                  
+            </div>
+
+
+            <div class="p-4 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                <h2 class="text-xl font-bold text-accent">Contact Information</h2>
+                <p><i class="fas fa-university"></i> มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย</p>
+                <p><i class="fas fa-map-marker-alt"></i> 112 หมู่ 7 บ้านหนองเดิ่น ต.หนองกอมเกาะ อ.เมือง จ.หนองคาย 43000</p>
+                <p><i class="fas fa-phone"></i> โทรศัพท์: 042-415600</p>
+                <p><i class="fas fa-fax"></i> โทรสาร: 042-415699</p>
+                <a href="https://www.facebook.com/PRNKC/">
+                    <p><i class="fab fa-facebook"></i>facebook:คณะสหวิทยาการ มหาวิทยาลัยขอนแก่น </p>
+                </a>
+            </div>
+
+
+            
+        </div>
+        
+        <div class="fixed bottom-4 right-4">
+            <button class="bg-accent text-accent-foreground px-4 py-2 rounded-full shadow-lg hover:bg-accent/80 transition duration-300">เริ่มต้นการสนทนากับแชทบอท</button>
+        </div>
+
+        <div class="ggismap" >  
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.6841069604247!2d102.7436692751746!3d17.806537383153938!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31247cc51b173629%3A0x5b558c47e88f6af5!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LiC4Lit4LiZ4LmB4LiB4LmI4LiZIOC4p-C4tOC4l-C4ouC4suC5gOC4guC4leC4q-C4meC4reC4h-C4hOC4suC4og!5e0!3m2!1sth!2sth!4v1725607909340!5m2!1sth!2sth" 
+        width="100%" height="600" style="border: 10px;;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+       
+        </div>
+    
+    </section>
+
+
+    
+    
+    <footer class="bg-footer text-footer-foreground py-4 text-center">
+        <div>ข้อมูลติดต่อ: 123 ถนน อำเภอ จังหวัด 12345 | 02-123-4567 | info@nisitguide.com</div>
+        <div class="mt-2 space-x-4">
+            <a href="#" class="hover:text-secondary transition duration-300">Facebook</a>
+            <a href="#" class="hover:text-secondary transition duration-300">Twitter</a>
+            <a href="#" class="hover:text-secondary transition duration-300">Instagram</a>
+        </div>
+        <div class="mt-2 space-x-4">
+            <a href="#" class="hover:text-secondary transition duration-300">นโยบายความเป็นส่วนตัว</a>
+            <a href="#" class="hover:text-secondary transition duration-300">ข้อกำหนดการใช้งาน</a>
+        </div>
+    </footer>
+</div>
+
+    
+
+
+  </body>
+</html>

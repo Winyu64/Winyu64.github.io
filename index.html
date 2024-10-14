@@ -1455,53 +1455,40 @@
             </a>
 
             <div class="dropdown">
-                <a href="หน้าการเรียนรู้และกิจกรรม (LearningAndActivitiesPage).html">
-                    <button class="buttonแทบบน"><i class="animation"></i>เรียนรู้และกิจกรรม<i class="animation"></i>
+                <a href="แผนที่.html">
+                    <button class="buttonแทบบน"><i class="animation"></i>แผนที่คณะสหวิทยาการ<i class="animation"></i>
                     </button>
                 </a>
-                <div class="dropdown-content">
-                    <a href="หน้าข่าวสารคณะ (FacultyNewsPage).html">
-                        <button class="buttonแทบบน"><i class="animation"></i>ข่าวสารคณะ<i class="animation"></i>
-                        </button></a>
-                    <a href="หน้ากิจกรรม (ActivitiesPage).html">
-                        <button class="buttonแทบบน"><i class="animation"></i>กิจกรรม<i class="animation"></i>
-                        </button></a>
-                    <a href="หน้าการเรียนรู้ (LearningPage).html">
-                        <button class="buttonแทบบน"><i class="animation"></i>การเรียนรู้<i class="animation"></i>
-                        </button></a>
-                </div>
+                
             </div>
             <div class="dropdown">
                 <a href="หน้าบริการนักศึกษา (StudentServicesPage).html">
-                    <button class="buttonแทบบน"><i class="animation"></i>บริการ<i class="animation"></i>
+                    <button class="buttonแทบบน"><i class="animation"></i>บริกาออนไลน์<i class="animation"></i>
                     </button>
                 </a>
                 <div class="dropdown-content">
-                    <a href="แผนที่.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>แผนที่<i class="animation"></i>
-                        </button></a>
-                    <a href="ห้องสมุดออนไลน์.html">
+                    <a href="https://library.kku.ac.th/">
                         <button class="buttonแทบบน"><i class="animation"></i>ห้องสมุดออนไลน์<i class="animation"></i>
                         </button></a>
-                    <a href="ระบบจองหอพักนักศึกษา.html">
+                    <a href="https://smart.nkc.kku.ac.th/edorm">
                         <button class="buttonแทบบน"><i class="animation"></i>ระบบจองหอพักนักศึกษา<i class="animation"></i>
                         </button></a> 
-                    <a href="ตรวจสอบค่าไฟฟ้าหอพัก.html">
+                    <a href="https://smart.nkc.kku.ac.th/edorm/meter/index">
                         <button class="buttonแทบบน"><i class="animation"></i>ตรวจสอบค่าไฟฟ้าหอพัก<i class="animation"></i>
                         </button></a>
-                    <a href="ทุนการศึกษา.html">
+                    <a href="https://th.kku.ac.th/admissions/scholarships/">
                         <button class="buttonแทบบน"><i class="animation"></i>ทุนการศึกษา<i class="animation"></i>
                         </button></a>
-                    <a href="REG_KKU.html">
+                    <a href="https://reg.kku.ac.th/registrar/login.asp">
                         <button class="buttonแทบบน"><i class="animation"></i>REG_KKU<i class="animation"></i>
                         </button></a>
-                    <a href="REQ_KKU.html">
+                    <a href="https://req.kku.ac.th/">
                         <button class="buttonแทบบน"><i class="animation"></i>REQ_KKU<i class="animation"></i>
                         </button></a>
-                    <a href="ตารางสอบนักศึกษา.html">
+                    <a href="https://smart.nkc.kku.ac.th/site/examable">
                         <button class="buttonแทบบน"><i class="animation"></i>ตารางสอบนักศึกษา<i class="animation"></i>
                         </button></a> 
-                    <a href="กลุ่มงานบริหารคณะ.html">
+                    <a href="https://www.facebook.com/kku.nongkhai/">
                         <button class="buttonแทบบน"><i class="animation"></i>กลุ่มงานบริหารคณะ<i class="animation"></i>
                         </button></a> 
                 </div>
@@ -1532,12 +1519,12 @@
                         </button></a> 
                 </div>
             </div>
-            <a href="บุคลากร.html">
-                <button class="buttonแทบบน"><i class="animation"></i>บุคลากร<i class="animation"></i>
+            <a href="https://www.is.kku.ac.th/nkc2021/staff">
+                <button class="buttonแทบบน"><i class="animation"></i>บุคลากรคณะ<i class="animation"></i>
                 </button>
             </a>
-            <a href="หน้าสอบถามและติดต่อ (ContactAndInquiriesPage).html">
-                <button class="buttonแทบบน"><i class="animation"></i>ติดต่อ<i class="animation"></i>
+            <a href="ติดต่อเรา.html">
+                <button class="buttonแทบบน"><i class="animation"></i>ติดต่อเรา<i class="animation"></i>
                 </button>
             </a>
         </nav>
@@ -1642,6 +1629,9 @@
             <span class="text_button">เริ่มต้นแชทบอท💬</span>
         </button>
     </div>
+
+
+    
                
     </div>
     <!-- ข้อมูลที่ 2 ซ่อนอยู่ -->
@@ -1869,7 +1859,7 @@
 
             // ส่งข้อความไปยังเซิร์ฟเวอร์ผ่าน ngrok URL
             try {
-                const response = await fetch('https://7594-1-2-134-110.ngrok-free.app/api/generate-text', {
+                const response = await fetch('https://3940-1-2-141-132.ngrok-free.app/api/generate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userInput })

@@ -1,0 +1,276 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Cssแผนที่.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+		<script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>   
+  </head>
+
+  <body>
+    <div class="header">
+        <header class="navbar flex items-center p-4 shadow-lg bg-gradient-to-r from-primary to-secondary">
+            <a href="index.html">
+            <img  class="imgแทบบน" src="https://i.postimg.cc/hPhrcBQS/ISGuide.png" alt="IS Guide Logo" width="240" height="100" />
+            </a>
+
+            <!-- Hamburger Menu for Mobile -->
+            <button class="hamburger" onclick="toggleMenu()">
+                &#9776;
+            </button>
+
+            <!-- Regular Menu -->
+            <nav class="nav-menu" id="menu">
+
+            <a href="index.html">
+                <button class="buttonแทบบน"><i class="animation"></i>Home<i class="animation"></i>
+                </button>
+            </a>
+
+            <div class="dropdown">
+                <a href="แผนที่.html">
+                    <button class="buttonแทบบน"><i class="animation"></i>แผนที่คณะสหวิทยาการ<i class="animation"></i>
+                    </button>
+                </a>
+                
+            </div>
+            <div class="dropdown">
+                <a href="หน้าบริการนักศึกษา (StudentServicesPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>บริกาออนไลน์<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="https://library.kku.ac.th/">
+                        <button class="buttonแทบบน"><i class="animation"></i>ห้องสมุดออนไลน์<i class="animation"></i>
+                        </button></a>
+                    <a href="https://smart.nkc.kku.ac.th/edorm">
+                        <button class="buttonแทบบน"><i class="animation"></i>ระบบจองหอพักนักศึกษา<i class="animation"></i>
+                        </button></a> 
+                    <a href="https://smart.nkc.kku.ac.th/edorm/meter/index">
+                        <button class="buttonแทบบน"><i class="animation"></i>ตรวจสอบค่าไฟฟ้าหอพัก<i class="animation"></i>
+                        </button></a>
+                    <a href="https://th.kku.ac.th/admissions/scholarships/">
+                        <button class="buttonแทบบน"><i class="animation"></i>ทุนการศึกษา<i class="animation"></i>
+                        </button></a>
+                    <a href="https://reg.kku.ac.th/registrar/login.asp">
+                        <button class="buttonแทบบน"><i class="animation"></i>REG_KKU<i class="animation"></i>
+                        </button></a>
+                    <a href="https://req.kku.ac.th/">
+                        <button class="buttonแทบบน"><i class="animation"></i>REQ_KKU<i class="animation"></i>
+                        </button></a>
+                    <a href="https://smart.nkc.kku.ac.th/site/examable">
+                        <button class="buttonแทบบน"><i class="animation"></i>ตารางสอบนักศึกษา<i class="animation"></i>
+                        </button></a> 
+                    <a href="https://www.facebook.com/kku.nongkhai/">
+                        <button class="buttonแทบบน"><i class="animation"></i>กลุ่มงานบริหารคณะ<i class="animation"></i>
+                        </button></a> 
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="หน้าข้อมูลคณะวิชา (FacultyInformationPage).html">
+                    <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชา<i class="animation"></i>
+                    </button>
+                </a>
+                <div class="dropdown-content">
+                    <a href="สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์<i class="animation"></i>
+                        </button></a>
+                    <a href="สาขานิติศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขานิติศาสตร์ <i class="animation"></i>
+                        </button></a> 
+                    <a href="สาขาวิชาบริหารธุรกิจ.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาบริหารธุรกิจ <i class="animation"></i>
+                        </button></a>
+                    <a href="สาขาวิชาวิทยาศาสตร์ประยุกต์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาวิทยาศาสตร์ประยุกต์<i class="animation"></i>
+                        </button></a>
+                    <a href="สาขาวิชาศิลปะและศึกษาศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาศิลปะและศึกษาศาสตร์<i class="animation"></i>
+                        </button></a> 
+                    <a href="สาขาวิชาสังคมศาสตร์.html">
+                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาสังคมศาสตร์<i class="animation"></i>
+                        </button></a> 
+                </div>
+            </div>
+            <a href="https://www.is.kku.ac.th/nkc2021/staff">
+                <button class="buttonแทบบน"><i class="animation"></i>บุคลากรคณะ<i class="animation"></i>
+                </button>
+            </a>
+            <a href="ติดต่อเรา.html">
+                <button class="buttonแทบบน"><i class="animation"></i>ติดต่อเรา<i class="animation"></i>
+                </button>
+            </a>
+        </nav>
+        </header> 
+        </div>
+  
+    <div class="image-container">
+               <img src="images/mapofISmapx003.png" alt="ภาพตรงกลาง" class="background-image">
+
+
+            <div class="overlay-box2">     
+                <img src="images/IS.png" alt="ภาพตรงกลาง" class="backgroundim2">
+            </div>
+
+            <section class="overlay-box3">
+                
+                    <div class="overlay-box3top"  > 
+                        <img src="images/phoyocut/pavilion_cutcut.png" alt="ภาพตรงกลาง" class="card_is_img">
+                    </div> 
+
+                    <div class="card-headermap">
+                      <h2 class="card-title">อาคารปฏิบัตรการประมง</h2>
+                        <div class="card-bodymap">
+                             <p class="card-content primary-text">Some content in the card body.Some content in the card body.Some content in the card body.</p>
+                        </div>
+                    </div>
+            </section>
+
+            <div class="overlay-box2_1"><!--พิพิธภัณฑ์ -->
+                <img src="images/phoyocut/IMG_8148cutcut.png" alt="ภาพเพิ่มเติม 1" class="backgroundim2">
+              </div>
+
+            <section class="overlay-box3_1">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/musem_cutcut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">พิพิธภณท์สัตว์น้ำจังหวัดหนองคาย</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section>
+
+            <div class="overlay-box2_2"> <!--ศาล-->
+                <img src="images/phoyocut/map5cutcut.png" alt="ภาพเพิ่มเติม 1" class="backgroundim2">
+              </div>
+
+            <section class="overlay-box3_2">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/map3cutcut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">ศาล</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section>
+
+
+
+              <div class="overlay-box2_3"><!--ศาลากลางน้ำ-->
+                <img src="images/phoyocut/butdacut.png" alt="ภาพเพิ่มเติม 2" class="backgroundim2">
+              </div>
+
+            <section class="overlay-box3_3">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/pavilion_cutcut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">ศาลากลางน้ำ</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section>
+
+
+              <div class="overlay-box2_4"><!--ตึกบริหาร-->
+                <img src="images/IS.png" alt="ภาพเพิ่มเติม 3" class="backgroundim2">
+              </div>
+
+              <section class="overlay-box3_4">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/allkoro_cut2cut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">สำนักงานบริหาร</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section>
+
+              <div class="overlay-box2_5"><!--อาคารประมง-->
+                <img src="images/phoyocut/fish_cut22.png" alt="ภาพเพิ่มเติม 4" class="backgroundim2">
+              </div>
+
+              <section class="overlay-box3_5">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/fish_cutcut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">อาคารปฏิบัติการประมง</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+             </section>
+
+              <div class="overlay-box2_6"><!--อาคารfood-->
+                <img src="images/phoyocut/food_ic.png" alt="ภาพเพิ่มเติม 5" class="backgroundim2">
+              </div>
+
+              <section class="overlay-box3_6">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/food_cut2cut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">อาคารวันชัย สุ่มเล็ก</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section>
+
+              <div class="overlay-box2_7"><!--อคร1 -->
+                <img src="images/phoyocut/allkoro_cutcut.png" alt="ภาพเพิ่มเติม 6" class="backgroundim2">
+              </div>
+
+            <section class="overlay-box3_7">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/map10cutcut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">อาคารเรียนเเละปฎิบัติการ</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section>
+
+              <div class="overlay-box2_8"><!--อคร2 -->
+                <img src="images/IS.png" alt="ภาพเพิ่มเติม 7" class="backgroundim2">
+              </div>
+
+              <section class="overlay-box3_8">
+                <div class="overlay-box3top">
+                  <img src="" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">อาคารเรียนเเละปฎิบัติการ</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section>
+
+              <div class="overlay-box2_9"><!--nkccanteen -->
+                <img src="images/phoyocut/canteen_iccut.png" alt="ภาพเพิ่มเติม 7" class="backgroundim2">
+              </div>
+
+              <section class="overlay-box3_9">
+                <div class="overlay-box3top">
+                  <img src="images/phoyocut/canteen_cutcut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
+                </div>
+                <div class="card-headermap">
+                  <h2 class="card-title">NKC canteen</h2>
+                  <div class="card-bodymap">
+                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                  </div>
+                </div>
+            </section> 
+    </div>
+  </body>       
