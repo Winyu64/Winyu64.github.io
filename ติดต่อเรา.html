@@ -1,115 +1,597 @@
-<html>
+<!DOCTYPE html>
+<html lang="th">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/หน้าสอบถามและติดต่อ (ContactAndInquiriesPage).css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-		<script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>
-		<script type="text/javascript">
-            window.tailwind.config = {
-                darkMode: ['class'],
-                theme: {
-                    extend: {
-                        colors: {
-                            border: 'var(--border)',
-                            input: 'var(--input)',
-                            ring: 'var(--ring)',
-                            background: 'var(--background)',
-                            foreground: 'var(--foreground)',
-                            primary: {
-                                DEFAULT: 'var(--primary)',
-                                foreground: 'var(--primary-foreground)'
-                            },
-                            secondary: {
-                                DEFAULT: 'var(--secondary)',
-                                foreground: 'var(--secondary-foreground)'
-                            },
-                            destructive: {
-                                DEFAULT: 'var(--destructive)',
-                                foreground: 'var(--destructive-foreground)'
-                            },
-                            muted: {
-                                DEFAULT: 'var(--muted)',
-                                foreground: 'var(--muted-foreground)'
-                            },
-                            accent: {
-                                DEFAULT: 'var(--accent)',
-                                foreground: 'var(--accent-foreground)'
-                            },
-                            popover: {
-                                DEFAULT: 'var(--popover)',
-                                foreground: 'var(--popover-foreground)'
-                            },
-                            card: {
-                                DEFAULT:  'var(--background)',
-                                foreground: 'var(--card-foreground)'
-                            },
-                        },
-                    }
-                }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>หน้าติดต่อเรา</title>
+    <style>
+      body {
+        font-size: 18px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background-color: rgb(255, 255, 255);
+        color: #333;
+        height: 100vh;
+        font-family: 'KKUFont', sans-serif;
+      }
+
+      .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #02245e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 18px;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .card form {
+            margin-top: 20px;
+        }
+
+        .card label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        .card textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            resize: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .card textarea:focus {
+            border-color: #009688;
+            outline: none;
+        }
+
+        .card a {
+            color: #40B3A2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .contact-form button {
+            background-color: #02245e;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #1b3a6b;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .contact-info i {
+            margin-right: 8px;
+        }
+
+        .map-container {
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+
+            .card {
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 320px;
+            text-align: center;
+        }
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
-        </script>
+
+            .card h2 {
+                font-size: 20px;
+            }
+
+            .card p {
+                font-size: 18px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            iframe {
+                height: 300px;
+            }
+        }
+
+      .nav-menu {
+        display: flex;
+        gap: 20px;
+      }
+
+      .hamburger {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          font-size: 16px;
+          height: 100vh;
+        }
+
+        .hamburger {
+          display: block;
+          background-color: transparent;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: rgb(255, 255, 255);
+        }
+
+        .nav-menu {
+          display: none;
+          flex-direction: column;
+          position: fixed;
+          top: 70px;
+          left: 0;
+          right: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: #02245e;
+          padding: 10px 0;
+          z-index: 1000;
+        }
+
+        .nav-menu a {
+          padding: 15px 20px;
+          display: block;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+          background-color: #1b3a6b;
+          border-left: 5px solid #00ff08;
+        }
+
+        .nav-menu.active {
+          display: flex;
+        }
+
+        .bg-footer-background {
+          padding: 15px;
+          text-align: center;
+        }
+
+        h1 {
+          padding: 3vw 5vw;
+          letter-spacing: 0.4vw;
+          width: 140px;
+        }
+      }
+
+      /* ตั้งค่าพื้นฐานสำหรับเมนู */
+        .nav-menu {
+        display: flex;
+        gap: 20px;
+        }
+
+        /* ซ่อนปุ่ม hamburger บนหน้าจอขนาดใหญ่ */
+        .hamburger {
+        display: none;
+        }
+
+        @media (max-width: 768px) {
+        body {
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: rgb(255, 255, 255);
+            color: #333;
+            font-family: 'KKUFont', sans-serif;
+            height: 100vh;
+        }
+
+        .hamburger {
+            display: block;
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            width: 100vw; /* ให้เมนูมีความกว้างเต็มหน้าจอ */
+            height: 100vh; /* ให้เมนูเต็มความสูงของหน้าจอ */
+            background-color: #02245e; /* พื้นหลังสีเข้ม */
+            background-color: #02245e;
+            padding: 10px 0; /* เพิ่มช่องว่างด้านบนและล่างของเมนู */
+            z-index: 1000; /* ให้เมนูอยู่ด้านบนสุด */
+        }
+
+        /* สไตล์ของลิงก์ในเมนู */
+        .nav-menu a {
+            padding: 15px 20px; /* ช่องว่างรอบๆข้อความ */
+            display: block;
+            font-size: 16px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+            transition: background-color 0.3s ease; /* เพิ่มเอฟเฟ็กต์เวลา hover */
+        }
+
+        /* สไตล์เมื่อ hover */
+        .nav-menu a:hover {
+            background-color: #1b3a6b; /* สีพื้นหลังเมื่อ hover */
+            border-left: 5px solid #00ff08; /* เส้นขอบด้านซ้ายเมื่อ hover */
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+        
+        .social-links, .policies-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .bg-footer-background {
+            padding: 15px;
+            text-align: center;
+        }
+
+        h1 {
+            padding: 3vw 5vw; /* เพิ่ม padding ให้มากขึ้นบนมือถือ */
+            letter-spacing: 0.4vw; /* เพิ่มระยะห่างระหว่างตัวอักษร */
+            width: 140px;
+        }
+
+
+        }
+
+
+        @font-face {
+        font-family: 'KKUFont';
+        src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        img {
+        margin: 0 auto; /* จัดกึ่งกลางแนวนอน */
+        }
+        
+        .fade-out {
+            opacity: 0;
+        }
+        
+        /* สไตล์ของหัวข้อ */
+        .bg-text {
+        position: relative; /* ใช้สำหรับการจัดการพื้นหลัง */
+        display: inline-block; /* ทำให้พื้นหลังแสดงผลเฉพาะข้อความ */
+        padding: 0.5em 1em; /* เพิ่มระยะห่างภายในพื้นหลัง */
+        background-color: rgba(216, 216, 216, 0.6); /* สีพื้นหลังที่มีความโปร่งใส (สีดำ 60%) */
+        border-radius: 5px; /* มุมโค้งของพื้นหลัง */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* เงาที่ด้านล่างของพื้นหลัง */
+        }
+        
+        
+        .container {
+        background-color: rgb(167, 59, 36); /* เปลี่ยนเป็นสีพื้นหลังที่ต้องการ */
+        }
+        
+        /* กำหนดสีของข้อความใน <p> */
+        p.custom-text-color {
+            color: #2f2f2f; /* เปลี่ยนเป็นสีที่คุณต้องการ เช่น สีฟ้า */
+            font-size: 18px; /* ขนาดตัวอักษร */
+            line-height: 1.5; /* ระยะห่างระหว่างบรรทัด */
+        }
+        
+        
+        
+        /* From Uiverse.io by biswacpcode */ 
+        .buttonแทบบน {
+            color: rgb(254, 254, 254); /* สีของข้อความปุ่มเมนู */
+            text-decoration: none;
+            font-size: 18px; /* ขนาดของข้อความ */
+            border: none;
+            background: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .buttonแทบบน::before {
+            margin-left: auto;
+        }
+        
+        .buttonแทบบน::after, .buttonแทบบน::before {
+            content: '';
+            width: 0%;
+            height: 2px;
+            background: #40B3A2;
+            display: block;
+            transition: 0.5s;
+        }
+        
+        .buttonแทบบน:hover::after, .buttonแทบบน:hover::before {
+            width: 100%;
+        }
+        
+        
+        
+        
+        .navbar {
+            display: flex;
+            justify-content: center; /* จัดให้อยู่ตรงกลาง */
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+        }
+        
+        /* สไตล์ของแถบเมนู */
+        .header {
+        position: sticky; /* ทำให้แถบเมนูเลื่อนตาม */
+        top: 0; /* ปักหมุดที่ด้านบนของหน้า */
+        background-color: #02245e; /* สีพื้นหลังของแถบเมนู */
+        border-bottom: 1px solid #ddd; /* ขอบด้านล่างของแถบเมนู */
+        z-index: 1000; /* ให้แถบเมนูอยู่เหนือเนื้อหาทั้งหมด */
+        }
+        
+        /* สไตล์ของปุ่มเมนู */
+        .navbar a {
+        margin-left: 15px; /* ระยะห่างระหว่างลิงก์แต่ละลิงก์ */
+        }
+        
+        
+        .imgแทบบน {
+        max-width: 1400px; /* กำหนดขนาดสูงสุดให้กับโลโก้ */
+        height: auto; /* ปรับให้คงสัดส่วนตามความกว้าง */
+        margin-right: 20px; /* เพิ่มระยะห่างจากโลโก้ไปยังปุ่มเมนูถัดไป */
+        display: inline-block; /* ทำให้ภาพเป็น block เพื่อจัดการระยะห่าง */
+        }
+        
+        
+        /* เมนูดรอปดาวน์ */
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+        
+        /* เนื้อหาดรอปดาวน์ */
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #02245e; /* สีพื้นหลังของเมนู */
+        width: max-content; /* ขยายตามขนาดของเนื้อหา */
+        min-width: 200px; /* ความกว้างขั้นต่ำ */
+        box-shadow: 0px 8px 16px 0px rgba(255, 255, 255, 0.2); /* เงาของเมนู */
+        z-index: 1;
+        border-radius: 4px;
+        }
+        
+        /* เมนูย่อย */
+        .dropdown-content .dropdown-content {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 2;
+        border-radius: 4px;
+        margin-left: 5px;
+        }
+        
+        /* ลิงก์ในดรอปดาวน์ */
+        .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        border-radius: 4px;
+        }
+        
+        /* เปลี่ยนสีเมื่อเอาเมาส์ไปวางที่ลิงก์ */
+        .dropdown-content a:hover {
+        background-color: #02245e;
+        }
+        
+        /* แสดงเมนูเมื่อเอาเมาส์ไปวางที่ปุ่ม */
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+        
+        /* แสดงเมนูย่อยเมื่อเอาเมาส์ไปวางที่ลิงก์หลัก */
+        .dropdown-content a:hover .dropdown-content {
+        display: block;
+        }
+        
+        /* เปลี่ยนสีปุ่มเมื่อเอาเมาส์ไปวาง */
+        .dropdown:hover .buttonแทบบน {
+        background-color: #02245e;
+        }
+  
+
+      .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .buttonแทบบน {
+        color: rgb(254, 254, 254);
+        text-decoration: none;
+        font-size: 18px;
+        border: none;
+        background: none;
+        font-weight: 600;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+      }
+
+      .p-4 {
+        padding: 20px;
+      }
+
+      .shadow-lg {
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .rounded-lg {
+        border-radius: 8px;
+      }
+
+      .ggismap {
+        width: 100%;
+        height: 600px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+      }
+    </style>
   </head>
   <body>
     <div class="header">
         <header class="navbar flex items-center p-4 shadow-lg bg-gradient-to-r from-primary to-secondary">
-            <a href="HomePage.html">
-            <img  class="imgแทบบน" src="images/โลโก้ISGuide.png" alt="IS Guide Logo" width="240" height="100" />
+            <a href="index.html">
+            <img  class="imgแทบบน" src="https://i.postimg.cc/hPhrcBQS/ISGuide.png" alt="IS Guide Logo" width="240" height="100" />
             </a>
 
-            <a href="HomePage.html">
+            <!-- Hamburger Menu for Mobile -->
+            <button class="hamburger" onclick="toggleMenu()">
+                &#9776;
+            </button>
+
+            <!-- Regular Menu -->
+            <nav class="nav-menu" id="menu">
+
+            <a href="index.html">
                 <button class="buttonแทบบน"><i class="animation"></i>Home<i class="animation"></i>
                 </button>
             </a>
+
             <div class="dropdown">
-                <a href="หน้าการเรียนรู้และกิจกรรม (LearningAndActivitiesPage).html">
-                    <button class="buttonแทบบน"><i class="animation"></i>เรียนรู้และกิจกรรม<i class="animation"></i>
+                <a href="แผนที่.html">
+                    <button class="buttonแทบบน"><i class="animation"></i>แผนที่คณะสหวิทยาการ<i class="animation"></i>
                     </button>
                 </a>
-                <div class="dropdown-content">
-                    <a href="หน้าข่าวสารคณะ (FacultyNewsPage).html">
-                        <button class="buttonแทบบน"><i class="animation"></i>ข่าวสารคณะ<i class="animation"></i>
-                        </button></a>
-                    <a href="หน้ากิจกรรม (ActivitiesPage).html">
-                        <button class="buttonแทบบน"><i class="animation"></i>กิจกรรม<i class="animation"></i>
-                        </button></a>
-                    <a href="หน้าการเรียนรู้ (LearningPage).html">
-                        <button class="buttonแทบบน"><i class="animation"></i>การเรียนรู้<i class="animation"></i>
-                        </button></a>
-                </div>
+                
             </div>
             <div class="dropdown">
                 <a href="หน้าบริการนักศึกษา (StudentServicesPage).html">
-                    <button class="buttonแทบบน"><i class="animation"></i>บริการ<i class="animation"></i>
+                    <button class="buttonแทบบน"><i class="animation"></i>บริกาออนไลน์<i class="animation"></i>
                     </button>
                 </a>
                 <div class="dropdown-content">
-                    <a href="แผนที่.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>แผนที่<i class="animation"></i>
-                        </button></a>
-                    <a href="ห้องสมุดออนไลน์.html">
+                    <a href="https://library.kku.ac.th/">
                         <button class="buttonแทบบน"><i class="animation"></i>ห้องสมุดออนไลน์<i class="animation"></i>
                         </button></a>
-                    <a href="ระบบจองหอพักนักศึกษา.html">
+                    <a href="https://smart.nkc.kku.ac.th/edorm">
                         <button class="buttonแทบบน"><i class="animation"></i>ระบบจองหอพักนักศึกษา<i class="animation"></i>
                         </button></a> 
-                    <a href="ตรวจสอบค่าไฟฟ้าหอพัก.html">
+                    <a href="https://smart.nkc.kku.ac.th/edorm/meter/index">
                         <button class="buttonแทบบน"><i class="animation"></i>ตรวจสอบค่าไฟฟ้าหอพัก<i class="animation"></i>
                         </button></a>
-                    <a href="ทุนการศึกษา.html">
+                    <a href="https://th.kku.ac.th/admissions/scholarships/">
                         <button class="buttonแทบบน"><i class="animation"></i>ทุนการศึกษา<i class="animation"></i>
                         </button></a>
-                    <a href="REG_KKU.html">
+                    <a href="https://reg.kku.ac.th/registrar/login.asp">
                         <button class="buttonแทบบน"><i class="animation"></i>REG_KKU<i class="animation"></i>
                         </button></a>
-                    <a href="REQ_KKU.html">
+                    <a href="https://req.kku.ac.th/">
                         <button class="buttonแทบบน"><i class="animation"></i>REQ_KKU<i class="animation"></i>
                         </button></a>
-                    <a href="ตารางสอบนักศึกษา.html">
+                    <a href="https://smart.nkc.kku.ac.th/site/examable">
                         <button class="buttonแทบบน"><i class="animation"></i>ตารางสอบนักศึกษา<i class="animation"></i>
                         </button></a> 
-                    <a href="กลุ่มงานบริหารคณะ.html">
+                    <a href="https://www.facebook.com/kku.nongkhai/">
                         <button class="buttonแทบบน"><i class="animation"></i>กลุ่มงานบริหารคณะ<i class="animation"></i>
                         </button></a> 
                 </div>
@@ -140,79 +622,153 @@
                         </button></a> 
                 </div>
             </div>
-            <a href="บุคลากร.html">
-                <button class="buttonแทบบน"><i class="animation"></i>บุคลากร<i class="animation"></i>
+            <a href="https://www.is.kku.ac.th/nkc2021/staff">
+                <button class="buttonแทบบน"><i class="animation"></i>บุคลากรคณะ<i class="animation"></i>
                 </button>
             </a>
-            <a href="หน้าสอบถามและติดต่อ (ContactAndInquiriesPage).html">
-                <button class="buttonแทบบน"><i class="animation"></i>ติดต่อ<i class="animation"></i>
+            <a href="ติดต่อเรา.html">
+                <button class="buttonแทบบน"><i class="animation"></i>ติดต่อเรา<i class="animation"></i>
                 </button>
             </a>
+        </nav>
         </header> 
         </div>
-		
+
+    <div class="container">
+        <h1>ติดต่อเรา</h1>
     
-    <section class="container mx-auto py-8">
-        <h1 class="text-3xl font-bold text-accent mb-4">หน้าสอบถามและติดต่อ</h1>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <div class="p-4 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                <h2 class="text-xl font-bold text-accent">Contact Admin</h2>
-                <form action="https://8a8c-202-28-119-37.ngrok-free.app /submit_question.php" method="post">
-                    <label class="block mb-2 text-sm font-medium text-muted-foreground">คำถามส่งถึง admin:</label>
-                    <textarea name="question" class="w-full p-2 border border-border rounded-lg" rows="4" placeholder="กรอกคำถามของคุณที่นี่..."></textarea>
-                    <button type="submit" class="mt-4 bg-accent text-accent-foreground px-4 py-2 rounded-full shadow-lg hover:bg-accent/80 transition duration-300">ส่งคำถาม</button>
-                  </form>                  
+        <div class="contact-grid">
+            <div class="card">
+                <h2>ติดต่อผู้พัฒนาระบบ</h2>
+                <div class="developer-info">
+                    <p>นายวิญญู พรมภิภักดิ์ รหัสประจำตัว 643450084-0</p>
+                    <p>นายณัฐกานต์ อินทรพานิชย์ รหัสประจำตัว 643450072-7</p>
+                </div>
+                <form id="contactForm">
+                    <label for="question">ส่งคำถามถึงผู้พัฒนาระบบ:</label>
+                    <textarea name="question" id="question" rows="4" placeholder="กรอกคำถามของคุณที่นี่..."></textarea>
+                <style>
+                    .btn {
+                    outline: 0;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: #40B3A2;
+                    min-width: 200px;
+                    border: 0;
+                    border-radius: 4px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+                    box-sizing: border-box;
+                    padding: 16px 20px;
+                    color: #fff;
+                    font-size: 12px;
+                    font-weight: 600;
+                    letter-spacing: 1.2px;
+                    text-transform: uppercase;
+                    overflow: hidden;
+                    cursor: pointer;
+                    }
+
+                    .btn:hover {
+                    opacity: .95;
+                    }
+
+                    .btn .animation {
+                    border-radius: 100%;
+                    animation: ripple 0.6s linear infinite;
+                    }
+
+                    @keyframes ripple {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1), 0 0 0 20px rgba(255, 255, 255, 0.1), 0 0 0 40px rgba(255, 255, 255, 0.1), 0 0 0 60px rgba(255, 255, 255, 0.1);
+                    }
+
+                    100% {
+                        box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.1), 0 0 0 40px rgba(255, 255, 255, 0.1), 0 0 0 60px rgba(255, 255, 255, 0.1), 0 0 0 80px rgba(255, 255, 255, 0);
+                    }
+                    }
+                </style>
+                    <button class="btn"><i class="animation"></i>ส่งคำถาม<i class="animation"></button>
+                </form>
             </div>
-
-
-            <div class="p-4 bg-card rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                <h2 class="text-xl font-bold text-accent">Contact Information</h2>
-                <p><i class="fas fa-university"></i> มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย</p>
-                <p><i class="fas fa-map-marker-alt"></i> 112 หมู่ 7 บ้านหนองเดิ่น ต.หนองกอมเกาะ อ.เมือง จ.หนองคาย 43000</p>
-                <p><i class="fas fa-phone"></i> โทรศัพท์: 042-415600</p>
-                <p><i class="fas fa-fax"></i> โทรสาร: 042-415699</p>
-                <a href="https://www.facebook.com/PRNKC/">
-                    <p><i class="fab fa-facebook"></i>facebook:คณะสหวิทยาการ มหาวิทยาลัยขอนแก่น </p>
-                </a>
+    
+            <div class="card">
+                <h2>Contact Information</h2>
+                <div class="contact-info">
+                    <p><i class="fas fa-university"></i> มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 112 หมู่ 7 บ้านหนองเดิ่น ต.หนองกอมเกาะ อ.เมือง จ.หนองคาย 43000</p>
+                    <p><i class="fas fa-phone"></i> โทรศัพท์: 042-415600</p>
+                    <p><i class="fas fa-fax"></i> โทรสาร: 042-415699</p>
+                    <a href="https://www.facebook.com/PRNKC/">
+                        <p><i class="fab fa-facebook"></i> facebook: คณะสหวิทยาการ มหาวิทยาลัยขอนแก่น </p>
+                    </a>
+                </div>
             </div>
-
-
-            
         </div>
+    
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.6841069604247!2d102.7436692751746!3d17.806537383153938!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31247cc51b173629%3A0x5b558c47e88f6af5!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LiC4Lit4LiZ4LmB4LiB4LmI4LiZIOC4p-C4tOC4l-C4ouC4suC5gOC4guC4leC4q-C4meC4reC4h-C4hOC4suC4og!5e0!3m2!1sth!2sth!4v1725607909340!5m2!1sth!2sth" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+    </script>
+    <script type="module">
+        // นำเข้าฟังก์ชันที่จำเป็นจาก Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
         
-        <div class="fixed bottom-4 right-4">
-            <button class="bg-accent text-accent-foreground px-4 py-2 rounded-full shadow-lg hover:bg-accent/80 transition duration-300">เริ่มต้นการสนทนากับแชทบอท</button>
-        </div>
-
-        <div class="ggismap" >  
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.6841069604247!2d102.7436692751746!3d17.806537383153938!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31247cc51b173629%3A0x5b558c47e88f6af5!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LiC4Lit4LiZ4LmB4LiB4LmI4LiZIOC4p-C4tOC4l-C4ouC4suC5gOC4guC4leC4q-C4meC4reC4h-C4hOC4suC4og!5e0!3m2!1sth!2sth!4v1725607909340!5m2!1sth!2sth" 
-        width="100%" height="600" style="border: 10px;;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        // กำหนดค่า Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+            authDomain: "is-guide.firebaseapp.com",
+            projectId: "is-guide",
+            storageBucket: "is-guide.appspot.com",
+            messagingSenderId: "332116024676",
+            appId: "1:332116024676:web:28063685714f6ef0c16e71",
+            measurementId: "G-7WDMBTP78W"
+        };
+    
+        // Initialize Firebase และ Firestore
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        // ฟังก์ชันสำหรับบันทึกความคิดเห็นลงใน Firestore
+        async function saveFeedbackToFirestore(question) {
+            try {
+                const docRef = await addDoc(collection(db, "feedback"), {
+                    question: question,
+                    timestamp: new Date() // บันทึกเวลาในการส่งข้อมูล
+                });
+                console.log("ความคิดเห็นถูกบันทึกเรียบร้อยที่ ID:", docRef.id);
+                alert("ส่งคำถามสำเร็จ!"); // แจ้งให้ผู้ใช้ทราบว่าข้อมูลถูกบันทึก
+            } catch (error) {
+                console.error("มีข้อผิดพลาดในการบันทึกข้อมูล:", error);
+                alert("เกิดข้อผิดพลาดในการส่งคำถาม");
+            }
+        }
+    
+        // จัดการการส่งแบบฟอร์ม
+        document.getElementById('contactForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // ป้องกันการรีเฟรชหน้าเว็บ
+            const question = document.getElementById('question').value;
             
-       
-        </div>
+            if (question.trim() === "") {
+                alert("กรุณากรอกคำถาม");
+                return;
+            }
     
-    </section>
-
-
+            // เรียกฟังก์ชันบันทึกข้อมูลไปยัง Firestore
+            await saveFeedbackToFirestore(question);
     
-    
-    <footer class="bg-footer text-footer-foreground py-4 text-center">
-        <div>ข้อมูลติดต่อ: 123 ถนน อำเภอ จังหวัด 12345 | 02-123-4567 | info@nisitguide.com</div>
-        <div class="mt-2 space-x-4">
-            <a href="#" class="hover:text-secondary transition duration-300">Facebook</a>
-            <a href="#" class="hover:text-secondary transition duration-300">Twitter</a>
-            <a href="#" class="hover:text-secondary transition duration-300">Instagram</a>
-        </div>
-        <div class="mt-2 space-x-4">
-            <a href="#" class="hover:text-secondary transition duration-300">นโยบายความเป็นส่วนตัว</a>
-            <a href="#" class="hover:text-secondary transition duration-300">ข้อกำหนดการใช้งาน</a>
-        </div>
-    </footer>
-</div>
-
-    
-
-
+            // ล้างช่องข้อความหลังจากส่งเสร็จ
+            document.getElementById('question').value = "";
+        });
+    </script>
   </body>
 </html>

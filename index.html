@@ -1638,6 +1638,7 @@
     <div id="info2" class="hidden">
     <div class="container">
         <!-- Sidebar (ด้านซ้าย) -->
+
         <div class="sidebar">
             
             <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="IS Image">
@@ -1793,43 +1794,36 @@
             var menu = document.getElementById("menu");
             menu.classList.toggle("active");
         }
-
+    
         const images = [];
         for (let i = 1; i <= 85; i++) {
             images.push(`images/backg/bgIS${i}.jpg`);
         }
-
+    
         let currentIndex = 0;
         const section = document.getElementById('background-section');
-
+    
         function changeBackground() {
             // ปรับตำแหน่งภาพพื้นหลังให้อยู่ที่ด้านบนซ้ายหรือขวา (ไม่อยู่ตรงกลาง)
             section.style.backgroundImage = `url(${images[currentIndex]})`;
             section.style.backgroundPosition = 'left top'; // หรือ 'right top', 'left bottom', 'right bottom'
             currentIndex = (currentIndex + 1) % images.length;
         }
-
+    
         setInterval(changeBackground, 3500); 
         changeBackground();
-
-
+    
         const video = document.querySelector("video");
         if (window.matchMedia('(prefers-reduced-motion)').matches) {
             video.removeAttribute("autoplay");
             video.pause();
         }
-
-
-
-
-        function toggleInfo(button) {
-            // ซ่อนปุ่มเมื่อกด
+    
+        // เพิ่มฟังก์ชันให้กับ window object
+        window.toggleInfo = function(button) {
             button.style.display = 'none';
-
             const info1 = document.getElementById('info1');
             const info2 = document.getElementById('info2');
-
-            // ถ้าข้อมูลที่ 1 แสดงอยู่ ให้ซ่อนข้อมูลที่ 1 แล้วแสดงข้อมูลที่ 2
             if (info1.style.display !== 'none') {
                 info1.style.display = 'none';
                 info2.style.display = 'block';
@@ -1837,68 +1831,69 @@
                 info1.style.display = 'block';
                 info2.style.display = 'none';
             }
-        }
+        };
+    
         // ฟังก์ชันเพื่อเลื่อนแชทไปด้านล่างเมื่อมีข้อความใหม่
         function scrollToBottom() {
             const chatMessages = document.getElementById('chatMessages');
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-
-        async function sendMessage() {
+    
+        window.sendMessage = async function() {
             const userInput = document.getElementById('userInput').value;
             if (!userInput) return;
-
+    
             // ส่งข้อความของผู้ใช้ไปยังเซิร์ฟเวอร์
             const userMessageDiv = document.createElement('div');
             userMessageDiv.classList.add('user-message');
             userMessageDiv.innerHTML = `<span>${userInput}</span>`;
             document.getElementById('chatMessages').appendChild(userMessageDiv);
-
+    
             // ล้าง input
             document.getElementById('userInput').value = '';
-
+    
             // ส่งข้อความไปยังเซิร์ฟเวอร์ผ่าน ngrok URL
             try {
-                const response = await fetch('https://3940-1-2-141-132.ngrok-free.app/api/generate-text', {
+                const response = await fetch('https://a231-182-52-43-111.ngrok-free.app/api/generate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userInput })
                 });
-
+    
                 if (response.ok) {
                     const result = await response.json();
                     const messageContent = result.choices[0].message.content;
-
+    
                     // แสดงข้อความบอทพร้อมรูปภาพทางฝั่งซ้าย
                     const botMessageDiv = document.createElement('div');
                     botMessageDiv.classList.add('bot-message');
                     botMessageDiv.innerHTML = `<img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="IS Image"><span>${messageContent}</span>`;
                     document.getElementById('chatMessages').appendChild(botMessageDiv);
+    
                     // เลื่อนแชทไปด้านล่าง
                     scrollToBottom();
-
                 } else {
                     throw new Error('Network response was not ok');
                 }
-
+    
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
                 const errorMessageDiv = document.createElement('div');
                 errorMessageDiv.innerHTML = `<span>มีข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</span>`;
                 document.getElementById('chatMessages').appendChild(errorMessageDiv);
-                // เลื่อนแชทไปด้านล่าง
                 scrollToBottom();
             }
-        }
-        // ฟังก์ชันเลือกคีย์เวิร์ด
-        function setKeyword(keyword) {
+        };
+    
+        // ฟังก์ชันอื่น ๆ ที่คุณต้องการใช้งานใน HTML
+        window.setKeyword = function(keyword) {
             document.getElementById('userInput').value = keyword;
-        }
-        // ฟังก์ชันเปลี่ยนโทนสี
-        function changeTheme(sidebarColor, chatColor) {
+        };
+    
+        window.changeTheme = function(sidebarColor, chatColor) {
             document.documentElement.style.setProperty('--sidebar-bg-color', sidebarColor);
             document.documentElement.style.setProperty('--chat-area-bg-color', chatColor);
-        }
-    </script>
+        };
+    </script>        
 </body>
 </html>
