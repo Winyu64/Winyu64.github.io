@@ -16,7 +16,7 @@
       }
 
       .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
             padding: 20px;
         }
@@ -535,6 +535,31 @@
         height: 600px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
       }
+
+      .red-tab {
+          background-color: rgb(167, 59, 36); /* พื้นหลังสีแดง */
+          color: #fbcb94; /* สีตัวอักษร */
+          text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+          padding: 20px 0; /* ระยะห่างภายในแท็บ */
+          font-size: 18px; /* ขนาดตัวอักษร */
+          width: 100%; /* กำหนดให้แท็บยาวเต็มหน้าจอ */
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+          
+        }
+
+        .tab-text-line1, .tab-text-line2 {
+          margin: 0; /* เอา margin ออกเพื่อให้ข้อความตรงกลางพอดี */
+        }
+
+        .tab-text-line1 {
+          font-size: 32px; /* ขนาดตัวอักษรบรรทัดแรก */
+          font-weight: bold;
+        }
+
+        .tab-text-line2 {
+          font-size: 24px; /* ขนาดตัวอักษรบรรทัดที่สอง */
+        }
+
     </style>
   </head>
   <body>
@@ -633,9 +658,12 @@
         </nav>
         </header> 
         </div>
+        <div class="red-tab">
+            <p class="tab-text-line1">ติดต่อเรา</p>
+            <p class="tab-text-line2">Home -> ติดต่อเรา</p>
+          </div>
 
     <div class="container">
-        <h1>ติดต่อเรา</h1>
     
         <div class="contact-grid">
             <div class="card">

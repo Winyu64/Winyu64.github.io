@@ -2,9 +2,727 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Cssแผนที่.css">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-		<script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>   
+    <title>แผนที่คณะสหวิทยาการ</title>
+    <style>
+      body {
+        font-size: 18px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background-color: #ffffff;
+        color: #333;
+        font-family: 'KKUFont', sans-serif;
+        height: 100vh;
+      }
+
+      /* ตั้งค่าพื้นฐานสำหรับเมนู */
+      .nav-menu {
+        display: flex;
+        gap: 20px;
+      }
+
+      /* ซ่อนปุ่ม hamburger บนหน้าจอขนาดใหญ่ */
+      .hamburger {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        body {
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #ffffff;
+            color: #333;
+            font-family: 'KKUFont', sans-serif;
+            height: 100vh;
+        }
+
+        .hamburger {
+            display: block;
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            width: 100vw; /* ให้เมนูมีความกว้างเต็มหน้าจอ */
+            height: 100vh; /* ให้เมนูเต็มความสูงของหน้าจอ */
+            background-color: #02245e; /* พื้นหลังสีเข้ม */
+            background-color: #02245e;
+            padding: 10px 0; /* เพิ่มช่องว่างด้านบนและล่างของเมนู */
+            z-index: 1000; /* ให้เมนูอยู่ด้านบนสุด */
+        }
+
+        /* สไตล์ของลิงก์ในเมนู */
+        .nav-menu a {
+            padding: 15px 20px; /* ช่องว่างรอบๆข้อความ */
+            display: block;
+            font-size: 16px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+            transition: background-color 0.3s ease; /* เพิ่มเอฟเฟ็กต์เวลา hover */
+        }
+
+        /* สไตล์เมื่อ hover */
+        .nav-menu a:hover {
+            background-color: #1b3a6b; /* สีพื้นหลังเมื่อ hover */
+            border-left: 5px solid #00ff08; /* เส้นขอบด้านซ้ายเมื่อ hover */
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+        
+        .social-links, .policies-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .bg-footer-background {
+            padding: 15px;
+            text-align: center;
+        }
+
+        h1 {
+            padding: 3vw 5vw; /* เพิ่ม padding ให้มากขึ้นบนมือถือ */
+            letter-spacing: 0.4vw; /* เพิ่มระยะห่างระหว่างตัวอักษร */
+            width: 140px;
+        }
+
+
+      }
+
+
+      @font-face {
+        font-family: 'KKUFont';
+        src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      img {
+        margin: 0 auto; /* จัดกึ่งกลางแนวนอน */
+        }
+        
+        .fade-out {
+          opacity: 0;
+        }
+        
+        /* สไตล์ของหัวข้อ */
+        .bg-text {
+        position: relative; /* ใช้สำหรับการจัดการพื้นหลัง */
+        display: inline-block; /* ทำให้พื้นหลังแสดงผลเฉพาะข้อความ */
+        padding: 0.5em 1em; /* เพิ่มระยะห่างภายในพื้นหลัง */
+        background-color: rgba(216, 216, 216, 0.6); /* สีพื้นหลังที่มีความโปร่งใส (สีดำ 60%) */
+        border-radius: 5px; /* มุมโค้งของพื้นหลัง */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* เงาที่ด้านล่างของพื้นหลัง */
+        }
+        
+        
+        .container {
+        background-color: #ffffff; /* เปลี่ยนเป็นสีพื้นหลังที่ต้องการ */
+        }
+        
+        /* กำหนดสีของข้อความใน <p> */
+        p.custom-text-color {
+          color: #2f2f2f; /* เปลี่ยนเป็นสีที่คุณต้องการ เช่น สีฟ้า */
+          font-size: 18px; /* ขนาดตัวอักษร */
+          line-height: 1.5; /* ระยะห่างระหว่างบรรทัด */
+        }
+        
+        
+        
+        /* From Uiverse.io by biswacpcode */ 
+        .buttonแทบบน {
+          color: rgb(254, 254, 254); /* สีของข้อความปุ่มเมนู */
+          text-decoration: none;
+          font-size: 18px; /* ขนาดของข้อความ */
+          border: none;
+          background: none;
+          font-weight: 600;
+          font-family: 'Poppins', sans-serif;
+        }
+        
+        .buttonแทบบน::before {
+          margin-left: auto;
+        }
+        
+        .buttonแทบบน::after, .buttonแทบบน::before {
+          content: '';
+          width: 0%;
+          height: 2px;
+          background: #40B3A2;
+          display: block;
+          transition: 0.5s;
+        }
+        
+        .buttonแทบบน:hover::after, .buttonแทบบน:hover::before {
+          width: 100%;
+        }
+        
+        
+        
+        
+        .navbar {
+          display: flex;
+          justify-content: center; /* จัดให้อยู่ตรงกลาง */
+          align-items: center;
+          width: 100%;
+          gap: 10px;
+        }
+        
+        /* สไตล์ของแถบเมนู */
+        .header {
+        position: sticky; /* ทำให้แถบเมนูเลื่อนตาม */
+        top: 0; /* ปักหมุดที่ด้านบนของหน้า */
+        background-color: #02245e; /* สีพื้นหลังของแถบเมนู */
+        border-bottom: 1px solid #ddd; /* ขอบด้านล่างของแถบเมนู */
+        z-index: 1000; /* ให้แถบเมนูอยู่เหนือเนื้อหาทั้งหมด */
+        }
+        
+        /* สไตล์ของปุ่มเมนู */
+        .navbar a {
+        margin-left: 15px; /* ระยะห่างระหว่างลิงก์แต่ละลิงก์ */
+        }
+        
+        
+        .imgแทบบน {
+        max-width: 1400px; /* กำหนดขนาดสูงสุดให้กับโลโก้ */
+        height: auto; /* ปรับให้คงสัดส่วนตามความกว้าง */
+        margin-right: 20px; /* เพิ่มระยะห่างจากโลโก้ไปยังปุ่มเมนูถัดไป */
+        display: inline-block; /* ทำให้ภาพเป็น block เพื่อจัดการระยะห่าง */
+        }
+        
+        
+        /* เมนูดรอปดาวน์ */
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+        
+        /* เนื้อหาดรอปดาวน์ */
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #02245e; /* สีพื้นหลังของเมนู */
+        width: max-content; /* ขยายตามขนาดของเนื้อหา */
+        min-width: 200px; /* ความกว้างขั้นต่ำ */
+        box-shadow: 0px 8px 16px 0px rgba(255, 255, 255, 0.2); /* เงาของเมนู */
+        z-index: 1;
+        border-radius: 4px;
+        }
+        
+        /* เมนูย่อย */
+        .dropdown-content .dropdown-content {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 2;
+        border-radius: 4px;
+        margin-left: 5px;
+        }
+        
+        /* ลิงก์ในดรอปดาวน์ */
+        .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        border-radius: 4px;
+        }
+        
+        /* เปลี่ยนสีเมื่อเอาเมาส์ไปวางที่ลิงก์ */
+        .dropdown-content a:hover {
+        background-color: #02245e;
+        }
+        
+        /* แสดงเมนูเมื่อเอาเมาส์ไปวางที่ปุ่ม */
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+        
+        /* แสดงเมนูย่อยเมื่อเอาเมาส์ไปวางที่ลิงก์หลัก */
+        .dropdown-content a:hover .dropdown-content {
+        display: block;
+        }
+        
+        /* เปลี่ยนสีปุ่มเมื่อเอาเมาส์ไปวาง */
+        .dropdown:hover .buttonแทบบน {
+        background-color: #02245e;
+        }
+
+        .red-tab {
+          background-color: rgb(167, 59, 36); /* พื้นหลังสีแดง */
+          color: #fbcb94; /* สีตัวอักษร */
+          text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+          padding: 20px 0; /* ระยะห่างภายในแท็บ */
+          font-size: 18px; /* ขนาดตัวอักษร */
+          width: 100%; /* กำหนดให้แท็บยาวเต็มหน้าจอ */
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+          
+        }
+
+        .tab-text-line1, .tab-text-line2 {
+          margin: 0; /* เอา margin ออกเพื่อให้ข้อความตรงกลางพอดี */
+        }
+
+        .tab-text-line1 {
+          font-size: 32px; /* ขนาดตัวอักษรบรรทัดแรก */
+          font-weight: bold;
+        }
+
+        .tab-text-line2 {
+          font-size: 24px; /* ขนาดตัวอักษรบรรทัดที่สอง */
+        }
+
+        .background-image {
+          width: 100vw; /* ให้ภาพเต็มความกว้างในเดสก์ท็อป */
+          height: 100vh; /* ให้ภาพเต็มความสูงในเดสก์ท็อป */
+          object-fit: cover; /* ให้ภาพขยายเต็มจอและรักษาสัดส่วน */
+          overflow: hidden; /* ซ่อนส่วนเกิน */
+          transition: transform 0.5s ease-in-out; /* เพิ่ม transition เมื่อหมุนภาพ */
+          position: relative;
+        }
+
+        .background-image-mobile {display: none;}
+
+        @media (max-width: 768px) {
+
+          .background-image {display: none;}
+          .background-image-mobile {
+            display: block; /* แสดงภาพมือถือในสมาร์ทโฟน */
+            width: 100%; /* ปรับขนาดภาพตามความต้องการ */
+            height: auto;
+        }
+          body {
+              overflow-x: hidden; /* ซ่อนการเลื่อนแนวนอนในสมาร์ทโฟน */
+              width: 100%;
+              height: 1;
+              
+          }
+          .overlay-box2 {
+            top: 25%; /* ปรับตำแหน่งให้สอดคล้องกับการหมุน */
+            left: 65%; /* ปรับให้กล่องอยู่ในจุดเดิมหลังจากหมุนภาพ */
+            transform: translate(-50%, -50%) rotate(135deg) scale(0.5); /* หมุนกล่องและทำให้เล็กลงครึ่งหนึ่ง */
+            transform-origin: center; /* ให้กล่องหมุนตามภาพ */
+          }
+        /* ตั้งค่าตำแหน่งของกล่องที่ต้องการให้แสดงด้านล่าง */
+
+
+
+        .overlay-box3, .overlay-box3_1, .overlay-box3_2, .overlay-box3_3,
+          .overlay-box3_4, .overlay-box3_5, .overlay-box3_6, .overlay-box3_7,
+          .overlay-box3_8, .overlay-box3_9 {
+            position: fixed !important;
+            bottom: 0!important;
+            left: 0 !important;
+            width: 100% !important;
+            height: auto !important;
+            background-color: rgba(255, 180, 67, 0.155) !important;
+            padding: 10px !important;
+            z-index: 1000 !important;
+            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2) !important;
+            transform: none !important;
+            backdrop-filter: blur(5px) !important;
+            transition: opacity 0.5s ease-in-out !important;
+            box-shadow: 0px 5px 18px rgba(255, 220, 181, 0.119) !important; /* เงาให้กล่อง */
+            pointer-events: none !important; /* ทำให้กล่องไม่สามารถคลิกได้ */
+          }
+
+
+
+          .overlay-box2{ 
+            top: 50% !important;
+            left: 50%!important;
+            }
+            
+            .overlay-box2_1{ 
+            top: 60%!important;;
+            left: 50%!important;;
+            }
+            
+            .overlay-box2_2{ 
+            top: 70%!important;;
+            left: 33%!important;;
+            }
+            
+            .overlay-box2_3{ 
+            top: 85%!important;
+            left: 30%!important;
+            }
+            
+            .overlay-box2_4{ 
+            top: 78%!important;
+            left: 44%!important;
+            }
+            
+            .overlay-box2_5{ 
+            top: 85%!important;
+            left: 53%!important;
+            }
+            
+            .overlay-box2_6{ 
+              top: 85%!important;
+              left: 70%!important;
+            }
+            
+            .overlay-box2_7{ 
+            top: 103%!important;
+            left: 58%!important;
+            }
+            
+            .overlay-box2_8{ 
+            top: 70%!important;
+            left: 10%!important;
+            }
+            
+            .overlay-box2_9{ 
+            top: 126%!important;
+            left: 38%!important;
+            }
+
+          
+
+
+
+        }
+
+
+        .overlay-box2,.overlay-box2_1,.overlay-box2_2, .overlay-box2_3,
+        .overlay-box2_4,.overlay-box2_5,.overlay-box2_6,.overlay-box2_7,
+        .overlay-box2_8,.overlay-box2_9 {
+          position: absolute;
+          top: 65%;  /* ตำแหน่งบนหน้าจอเดสก์ท็อป */
+          left: 25%;  /* ตำแหน่งซ้ายบนหน้าจอเดสก์ท็อป */
+          transform: translate(-50%, -50%) rotate(45deg); /* หมุนกล่อง */
+          transform-origin: center; /* หมุนจากจุดศูนย์กลางของกล่อง */
+          background-color: rgba(0, 0, 0, 0.8);
+          border-radius: 3px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          width: 45px;
+          height: 45px;
+          overflow: visible;
+          border: 3px solid rgb(255, 229, 195);
+          transition: clip-path 1.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.4s ease-in-out;
+          clip-path: inset(-80%  0px  -0px -80%); /* ตัดภาพบางส่วน */
+        }
+
+
+
+
+
+
+        .overlay-box2{ 
+        top: 85%;
+        left: 25%;
+        }
+
+        .overlay-box2_1{ 
+        top: 70%;
+        left: 23%;
+        }
+
+        .overlay-box2_2{ 
+        top: 90%;
+        left: 33%;
+        }
+
+        .overlay-box2_3{ 
+        top: 95%;
+        left: 39%;
+        }
+
+        .overlay-box2_4{ 
+        top: 80%;
+        left: 39%;
+        }
+
+        .overlay-box2_5{ 
+        top: 72%;
+        left: 45%;
+        }
+
+        .overlay-box2_6{ 
+        top:  60%;
+        left: 43%;
+        }
+
+        .overlay-box2_7{ 
+        top: 72%;
+        left: 57%;
+        }
+
+        .overlay-box2_8{ 
+        top: 70%;
+        left: 61%;
+        }
+
+        .overlay-box2_9{ 
+        top: 90%;
+        left: 77%;
+        }
+
+
+
+
+                  
+        .overlay-box2:hover,.overlay-box2_1:hover, .overlay-box2_2:hover, 
+        .overlay-box2_3:hover,.overlay-box2_4:hover,.overlay-box2_5:hover,
+        .overlay-box2_6:hover,.overlay-box2_7:hover,.overlay-box2_8:hover ,
+        .overlay-box2_9:hover{/* เอฟเฟควางเม้า*/
+          box-shadow: 0 0 5px 5px rgba(255, 229, 195, 0.8); /* เพิ่มเงาเรืองแสงที่ขอบเมื่อวางเมาส์ */
+          clip-path: none; /* ยกเลิกการใช้ clip-path , overflow: */
+          overflow:   hidden; 
+        
+        } 
+
+
+        /* ค่าเริ่มต้นของกล่องที่ต้องการซ่อน */
+        .overlay-box3, .overlay-box3_1, .overlay-box3_2, 
+        .overlay-box3_3, .overlay-box3_4, .overlay-box3_5, 
+        .overlay-box3_6, .overlay-box3_7, .overlay-box3_8, 
+        .overlay-box3_9 {
+          max-height: 0; /* เริ่มจากการซ่อนกล่องโดยการตั้ง max-height เป็น 0 */
+          opacity: 0; /* เริ่มจากการซ่อนกล่องโดยการตั้ง opacity เป็น 0 */
+          overflow: hidden; /* ซ่อนเนื้อหาที่ล้น */
+          transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; /* transition การเปลี่ยนแปลงของ max-height และ opacity */
+          transform: translate(0, 0); /* ตำแหน่งเริ่มต้น */
+          display: none;
+        }
+
+        /* เมื่อ hover ที่กล่อง overlay-box2 และอื่น ๆ */
+        .overlay-box2:hover + .overlay-box3,
+        .overlay-box2_1:hover + .overlay-box3_1,
+        .overlay-box2_2:hover + .overlay-box3_2,
+        .overlay-box2_3:hover + .overlay-box3_3,
+        .overlay-box2_4:hover + .overlay-box3_4,
+        .overlay-box2_5:hover + .overlay-box3_5,
+        .overlay-box2_6:hover + .overlay-box3_6,
+        .overlay-box2_7:hover + .overlay-box3_7,
+        .overlay-box2_8:hover + .overlay-box3_8,
+        .overlay-box2_9:hover + .overlay-box3_9 {
+          display: block; 
+          max-height: 500px; /* ความสูงของกล่องเมื่อแสดง */
+          opacity: 1; /* เปลี่ยน opacity เพื่อให้กล่องแสดง */
+          transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out , ; /* ใส่ transition ให้ smooth ทั้งตอนแสดงและตอนหาย */
+          
+        
+        }
+
+        /* เมื่อเลิก hover ให้กล่องกลับไปที่เดิมและหายไป */
+        .overlay-box3, .overlay-box3_1, .overlay-box3_2, 
+        .overlay-box3_3, .overlay-box3_4, .overlay-box3_5, 
+        .overlay-box3_6, .overlay-box3_7, .overlay-box3_8, 
+        .overlay-box3_9:hover {
+          max-height: 500; /* กลับไปที่ max-height 0 เมื่อเลิก hover */
+          opacity: 0; /* ค่อยๆหายไป */
+          transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* ใส่ transition เพื่อให้หายไปอย่าง smooth */
+        }
+
+        .backgroundim2 {
+          position: relative;
+          width: 100%; /* ให้ภาพเต็มความกว้าง */
+          height: 100%; /* ให้ภาพเต็มความสูง */
+          scale: 1.7; /* ขยายภาพใหญ่ขึ้น */
+          top: -5%; /* ขยับภาพให้ออกนอกกรอบด้านบน */
+          left: -5%; /* ขยับภาพให้ออกนอกกรอบด้านซ้าย */
+          transform: rotate(-45deg); /* หมุนภาพตามที่ต้องการ */
+          mask-size: 100% 100%;
+        }
+
+
+          .overlay-box2_1::before,.overlay-box2_2::before,.overlay-box2_3::before,
+          .overlay-box2_4::before,.overlay-box2_5::before,.overlay-box2_6::before,
+          .overlay-box2_7::before,.overlay-box2_8::before,.overlay-box2_9::before,
+          .overlay-box2::before {
+          
+          content: '';
+          position: absolute;
+          width: 40%;
+          height: 100%;
+
+          background-image: linear-gradient(180deg, 
+          rgba(255, 255, 255, 0) 0%, 
+          rgb(255, 246, 234) 100%,
+          rgba(255, 255, 255, 0) 0%);
+          top: 0;
+          left: 1%; /* เริ่มจากนอกกรอบรูป */
+          /* วางให้แสงสะท้อนอยู่บนรูปภาพ */
+          z-index: 10 ;
+          animation: shine-effect 3s infinite; /* แสงเคลื่อนที่ไปตลอดเวลา */
+          overflow: hidden;
+        }
+
+
+
+        /* การเคลื่อนไหวของแสงสะท้อน */
+        @keyframes shine-effect {
+          0% {left: 0px}/* เริ่มจากนอกกรอบทางซ้าย */ 
+          20% {left: 150%}
+          100% {left: 105%} /* เลื่อนไปทางขวาของรูป */
+          
+          }
+
+        
+        /* 
+        .overlay-box3,.overlay-box3_1,.overlay-box3_2,.overlay-box3_3,
+        .overlay-box3_4,.overlay-box3_5,.overlay-box3_6,.overlay-box3_7,
+        .overlay-box3_8,.overlay-box3_9 {
+          display: none;
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
+        }
+        */
+
+
+
+        .overlay-box3,.overlay-box3_1,.overlay-box3_2,.overlay-box3_3,
+        .overlay-box3_4,.overlay-box3_5,.overlay-box3_6,.overlay-box3_7,
+        .overlay-box3_8,.overlay-box3_9{
+          position: absolute;
+          top: 30%;
+          left: 53%;
+          transform: translate(50%, 25%); /* ทำให้กล่องอยู่ตรงกลางของภาพ */
+          background-color: rgba(255, 180, 67, 0.155); /* พื้นหลังโปร่งใสสีดำ */
+          border-radius: 10px; /* มุมโค้งของกล่อง */
+          
+          box-shadow: 0px 0px 50px rgba(255, 220, 181, 0.519),
+                      0px 0px 10px rgba(255, 220, 181, 0.919); /* เงาให้กล่อง */
+          /* เงาให้กล่อง */
+          width: 400px; /* กำหนดความกว้าง */
+          height: 500px; /* กำหนดความสูง */
+          overflow: hidden; /*s ให้ส่วนของภาพที่ล้นออกมาสามารถแสดงได้ */
+          overflow:visible;
+          backdrop-filter: blur(15px);
+          z-index: 99 ;
+          transition: opacity 0.5s ease-in-out;
+          opacity: 0 ;
+          
+        }
+
+
+
+
+
+        .overlay-box3_9{
+          position: absolute;
+          top: 30%;
+          left: -5%;
+          transform: translate(50%, 25%); /* ทำให้กล่องอยู่ตรงกลางของภาพ */
+          background-color: rgba(255, 180, 67, 0.155); /* พื้นหลังโปร่งใสสีดำ */
+          border-radius: 10px; /* มุมโค้งของกล่อง */
+          box-shadow: 0px 5px 18px rgba(255, 220, 181, 0.119); /* เงาให้กล่อง */
+          width: 400px; /* กำหนดความกว้าง */
+          height: 500px; /* กำหนดความสูง */
+          overflow: hidden; /*s ให้ส่วนของภาพที่ล้นออกมาสามารถแสดงได้ */
+          overflow:visible;
+          backdrop-filter: blur(5px);
+          z-index: 99 ;
+          transition: opacity 0.5s ease-in-out;
+          opacity: 0 ;
+          
+        }
+
+
+
+        .overlay-box3top {
+          position: absolute;
+          top: 15%; /* จัดกึ่งกลางในแนวตั้ง */
+          left: 50%; /* จัดกึ่งกลางในแนวนอน */
+          transform: translate(-50%, -50%); /* ปรับให้กล่องอยู่ตรงกลางจริง ๆ */
+          width: 380px; /* กำหนดความกว้าง */
+          height: 162.86px;
+          background-color: rgba(0, 0, 0, 0.6); /* พื้นหลังโปร่งใสสีดำ */
+          margin-top: 5%; 
+          overflow: visible;
+          position: relative;
+        
+        }
+
+
+        .overlay-box3top .card_is_img {/*ถาพภายในกล่อง*/
+          
+          position: absolute; /* ทำให้ตำแหน่งของภาพแน่นอน */
+          bottom: 0; /* ติดกับขอบล่างของ .overlay-box3top */
+          width: 100%; /* ทำให้ภาพเต็มความกว้างของกล่อง */
+          height: auto; /* รักษาสัดส่วนของภาพ */
+          object-fit: cover; /* ทำให้ภาพขยายแบบครอบคลุมทั้งพื้นที่กล่อง */
+
+        }
+          
+
+
+
+
+        .card-headermap{
+          align-self: center;
+          margin-top: 25%; 
+          transform: translateY(-90% ); /* ปรับให้กล่องอยู่ตรงกลางจริง ๆ */
+          left: 50%; /* จัดกึ่งกลางในแนวนอน */
+
+        }
+        .card-title {
+
+          font-size: 35px;
+          color: #fbcb94;
+        
+        }
+
+
+        .card-bodymap
+        {
+
+          font-size: 15px;
+          color: #fbcb94;
+
+        }
+
+        /* สร้างเอฟเฟกต์ shine */
+        /* สร้างเอฟเฟกต์ shine */
+        .card_is_img {
+          position: relative;
+          overflow: hidden; /* ซ่อนส่วนเกินที่ล้นออกมาของแถบแสง */
+        }
+
+        /* สร้างแถบแสงที่เคลื่อนที่ */
+        .card_is_img::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%; /* เริ่มต้นที่นอกภาพ */
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+          transform: skewX(-25deg); /* ทำให้แถบแสงเอียง */
+          z-index: 2; /* ตั้งค่า z-index สูงขึ้นเพื่อให้แสดงเหนือภาพ */
+          animation: shine 2s infinite; /* กำหนดการเคลื่อนไหวแบบต่อเนื่อง */
+        }
+
+        /* การเคลื่อนไหวของแสง */
+        @keyframes shine {
+          0% {
+            left: -100%; /* เริ่มนอกภาพทางซ้าย */
+          }
+          100% {
+            left: 100%; /* เลื่อนออกจากภาพทางขวา */
+          }
+        }
+
+
+  
+    </style>  
   </head>
 
   <body>
@@ -283,7 +1001,101 @@
                     <p class="card-content primary-text">Some content in the card body 1.</p>
                   </div>
                 </div>
-            </section> 
+            </section>
+
+            <footer class="text-footer-foreground">
+              <div class="bg-footer-background container">
+                  <div class="footer-content">
+                      <p class="contact-info">
+                          ข้อมูลติดต่อ: มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย  
+                          112 หมู่ 7 บ้านหนองเดิ่น ตำบลหนองกอมเกาะ  
+                          อำเภอเมือง จังหวัดหนองคาย 43000  
+                          โทร: 042-415600 | FAX: 042-415699  
+                          <br>
+                          Email: <a href="mailto:is.inbox@kku.ac.th">is.inbox@kku.ac.th</a>
+                      </p>
+                      <div class="social-links">
+                          <a href="https://www.facebook.com/PRNKC/" class="social-link">Facebook</a>
+                      </div>
+                      <!-- Hidden trigger area for admin button -->
+                      <div id="secret-area"></div>
+              </div>
+          </footer>
+           <!-- Admin Button -->
+           <button class="admin-button" onclick="window.location.href='Admin.html';">Admin</button>
+          <style>
+          /* พื้นหลังและสีของ footer */
+          .bg-footer-background {
+              background-color: #333; /* สีพื้นหลังเข้ม */
+              padding: 20px;
+              text-align: center;
+          }
+          
+          .text-footer-foreground {
+              color: #d0dbe7; /* สีข้อความที่คมชัดกับพื้นหลัง */
+          }
+          
+          .container {
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 0 20px;
+          }
+          
+          .admin-button {
+                  display: none;
+                  padding: 10px 20px;
+                  background-color: #ff6600;
+                  color: white;
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  position: fixed;
+                  bottom: 20px;
+                  left: 20px;
+              }
+      
+              #secret-area {
+                  width: 100%;
+                  height: 50px;
+                  background-color: transparent;
+                  cursor: pointer;
+              }
+      
+              footer {
+                  background-color: #333;
+                  color: #fff;
+                  padding: 10px;
+                  text-align: center;
+              }
+      
+              .contact-info {
+                  margin: 0;
+                  font-size: 16px;
+              }
+      
+              .social-link {
+                  color: #ffffff;
+                  text-decoration: none;
+              }
+      
+              .social-link:hover {
+                  text-decoration: underline;
+              }
+      
+          </style>
+      
+          <script>
+            
+            function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+              //<!-- JavaScript for handling the secret area click -->
+              document.getElementById('secret-area').addEventListener('click', () => {
+                  const adminButton = document.querySelector('.admin-button');
+                  adminButton.style.display = 'inline-block'; // Show the admin button
+              });
+          </script>
     </div>
   </body>
 </html>       

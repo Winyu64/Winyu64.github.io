@@ -581,6 +581,30 @@
             }
         }
 
+        .red-tab {
+          background-color: rgb(167, 59, 36); /* พื้นหลังสีแดง */
+          color: #fbcb94; /* สีตัวอักษร */
+          text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+          padding: 20px 0; /* ระยะห่างภายในแท็บ */
+          font-size: 18px; /* ขนาดตัวอักษร */
+          width: 100%; /* กำหนดให้แท็บยาวเต็มหน้าจอ */
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+          
+        }
+
+        .tab-text-line1, .tab-text-line2 {
+          margin: 0; /* เอา margin ออกเพื่อให้ข้อความตรงกลางพอดี */
+        }
+
+        .tab-text-line1 {
+          font-size: 32px; /* ขนาดตัวอักษรบรรทัดแรก */
+          font-weight: bold;
+        }
+
+        .tab-text-line2 {
+          font-size: 24px; /* ขนาดตัวอักษรบรรทัดที่สอง */
+        }
+
     </style>
   </head>
   <body>
@@ -680,9 +704,11 @@
         </header> 
         </div>
 
-        <div class="container">
-            <h1>บริการออนไลน์</h1>
-            </div>
+        <div class="red-tab">
+            <p class="tab-text-line1">บริการออนไลน์</p>
+            <p class="tab-text-line2">Home -> บริการออนไลน์</p>
+          </div>
+
             <div class="container1">
             <div class="button-container" id="link-buttons">
                 <!-- ปุ่มจะถูกเพิ่มจาก JavaScript ด้านล่าง -->
