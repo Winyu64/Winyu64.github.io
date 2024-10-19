@@ -9,10 +9,18 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
+            font-family: 'KKUFont', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'KKUFont';
+            src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
+            font-weight: normal;
+            font-style: normal;
         }
 
         .header {
-            background-color: #007BFF;
+            background-color: rgb(176, 59, 36);
             padding: 15px 20px;
             color: white;
             display: flex;
@@ -37,8 +45,8 @@
         }
 
         .dropdown button {
-            background-color: #007BFF;
-            color: white;
+            background-color: #03ff2d;
+            color: rgb(0, 0, 0);
             border: none;
             padding: 10px 20px;
             font-size: 16px;
@@ -103,7 +111,7 @@
             <div class="dropdown-content">
                 <a href="Adminบริกาออนไลน์.html">บริการออนไลน์</a>
                 <!-- ลิงก์หน้าต่างๆ ของแอดมิน -->
-                <a href="Adminข้อมูลคณะวิชา.html">ข้อมูลคณะวิชา</a>
+                <a href="Adminจัดการสาขาวิชา.html">ข้อมูลคณะวิชา</a>
                 <!-- เพิ่มลิงก์ใหม่ๆ ได้ที่นี่ -->
             </div>
         </div>
