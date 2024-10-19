@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .read-status {
+            color: green;
+        }
+        .unread-status {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <!-- กราฟแสดงจำนวนคำถามตามช่วงเวลา -->
+    <canvas id="questionChart" width="400" height="200"></canvas>
+
+    <!-- ตารางแสดงหมวดหมู่คำถามและคำถามที่เกี่ยวข้อง -->
+    <h2>คำถามตามหมวดหมู่</h2>
+    <table id="categoryTable">
+        <thead>
+            <tr>
+                <th>หมวดหมู่</th>
+                <th>คำถาม</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- ตารางแสดงข้อมูลติดต่อและสถานะการอ่าน -->
+    <h2>ข้อมูลติดต่อเรา (Feedback)</h2>
+    <table id="contactTable">
+        <thead>
+            <tr>
+                <th>ข้อความ</th>
+                <th>เวลา</th>
+                <th>สถานะการอ่าน</th>
+                <th>ทำเครื่องหมายว่าอ่านแล้ว</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, query, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        // กำหนดค่า Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+            authDomain: "is-guide.firebaseapp.com",
+            projectId: "is-guide",
+            storageBucket: "is-guide.appspot.com",
+            messagingSenderId: "332116024676",
+            appId: "1:332116024676:web:28063685714f6ef0c16e71",
+            measurementId: "G-7WDMBTP78W"
+        };
+
+        // Initialize Firebase และ Firestore
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // สร้างหมวดหมู่และคีย์เวิร์ดที่เกี่ยวข้อง
+        const categories = {
+            "การศึกษา": ["เรียน", "การศึกษา", "มหาวิทยาลัย", "สมัครเรียน", "สอน"],
+            "เทคโนโลยี": ["เทคโนโลยี", "คอมพิวเตอร์", "อินเทอร์เน็ต", "ซอฟต์แวร์"],
+            "การท่องเที่ยว": ["ท่องเที่ยว", "เดินทาง", "สถานที่", "โรงแรม"],
+            "กีฬา": ["กีฬา", "ออกกำลังกาย", "ฟิตเนส", "วิ่ง", "ฟุตบอล"],
+            "อื่น ๆ": []  // หมวดหมู่สำรอง
+        };
+
+        // ฟังก์ชันจับคู่คำถามกับหมวดหมู่
+        function categorizeQuestion(question) {
+            for (const [category, keywords] of Object.entries(categories)) {
+                for (const keyword of keywords) {
+                    if (question.includes(keyword)) {
+                        return category;  // ถ้าเจอคีย์เวิร์ด ให้คืนหมวดหมู่ที่ตรงกัน
+                    }
+                }
+            }
+            return "อื่น ๆ";  // ถ้าไม่เจอคีย์เวิร์ดที่ตรงกัน ให้จัดไปที่ "อื่น ๆ"
+        }
+
+        // ฟังก์ชันดึงข้อมูลคำถามจาก Firestore
+        async function fetchQuestions() {
+            const questionCollection = collection(db, 'questions');
+            const q = query(questionCollection);
+            const querySnapshot = await getDocs(q);
+
+            const categorizedQuestions = {}; // เก็บคำถามที่จัดหมวดหมู่แล้ว
+            const timestamps = []; // เก็บเวลาที่ถูกถาม
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const question = data.question || 'ไม่ระบุคำถาม';
+                const timestamp = data.timestamp?.toDate();
+
+                if (timestamp) timestamps.push(timestamp);
+
+                // จัดหมวดหมู่คำถาม
+                const category = categorizeQuestion(question);
+
+                // เก็บคำถามตามหมวดหมู่
+                if (!categorizedQuestions[category]) categorizedQuestions[category] = [];
+                categorizedQuestions[category].push(question);
+            });
+
+            updateCategoryTable(categorizedQuestions);
+            updateQuestionChart(timestamps);
+        }
+
+        // ฟังก์ชันแปลงวันที่ให้เป็นแบบไทย
+        function formatThaiDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            let formattedDate = date.toLocaleDateString('th-TH', options); // แปลงเป็นวันที่แบบไทย
+            const buddhistYear = date.getFullYear() + 543; // เพิ่ม 543 เพื่อแสดงเป็นพุทธศักราช
+            formattedDate = formattedDate.replace(date.getFullYear().toString(), buddhistYear.toString()); // แทนที่ปี ค.ศ. ด้วย พ.ศ.
+            return formattedDate;
+        }
+
+        // ฟังก์ชันดึงข้อมูลการติดต่อจาก Firestore
+        async function fetchFeedback() {
+            const feedbackCollection = collection(db, 'feedback');
+            const querySnapshot = await getDocs(feedbackCollection);
+            const tbody = document.querySelector('#contactTable tbody');
+            tbody.innerHTML = ''; // ล้างข้อมูลเก่า
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const question = data.question || 'ไม่มีข้อความ';
+                const timestamp = data.timestamp ? formatThaiDate(data.timestamp.toDate()) : 'ไม่ระบุเวลา'; // ใช้ฟังก์ชัน formatThaiDate
+                const isRead = data.isRead || false;
+                const statusClass = isRead ? 'read-status' : 'unread-status';
+                const statusText = isRead ? 'อ่านแล้ว' : 'ยังไม่ได้อ่าน';
+
+                const row = `
+                    <tr>
+                        <td>${question}</td>
+                        <td>${timestamp}</td>
+                        <td class="${statusClass}">${statusText}</td>
+                        <td><button onclick="markAsRead('${doc.id}')">ทำเครื่องหมายว่าอ่านแล้ว</button></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // ฟังก์ชันทำเครื่องหมายว่าอ่านแล้ว
+        async function markAsRead(docId) {
+            const docRef = doc(db, 'feedback', docId);
+            await updateDoc(docRef, { isRead: true });
+            fetchFeedback(); // อัปเดตข้อมูลในตาราง
+        }
+
+        // ฟังก์ชันแสดงคำถามในตารางหมวดหมู่
+        function updateCategoryTable(categorizedQuestions) {
+            const tbody = document.querySelector('#categoryTable tbody');
+            tbody.innerHTML = '';  // ล้างข้อมูลเก่า
+
+            Object.keys(categorizedQuestions).forEach((category) => {
+                const questions = categorizedQuestions[category];
+                questions.forEach((question) => {
+                    const row = `<tr><td>${category}</td><td>${question}</td></tr>`;
+                    tbody.innerHTML += row;
+                });
+            });
+        }
+
+        // ฟังก์ชันสร้างกราฟแสดงคำถามที่ถูกถามตามเวลา (Bar Chart)
+        function updateQuestionChart(timestamps) {
+            const counts = {};
+            
+            timestamps.forEach(timestamp => {
+                const date = timestamp.toLocaleDateString('th-TH', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }); // แปลง timestamp เป็นวันที่แบบไทย
+                counts[date] = (counts[date] || 0) + 1; // นับจำนวนคำถามในแต่ละวัน
+            });
+
+            const labels = Object.keys(counts); // วันที่
+            const data = Object.values(counts); // จำนวนคำถามในแต่ละวัน
+
+            const chartData = {
+                labels: labels,
+                datasets: [{
+                    label: 'จำนวนคำถาม',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'bar', // ประเภทของกราฟ
+                data: chartData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true // ให้แกน y เริ่มต้นที่ศูนย์
+                        },
+                        x: {
+                            ticks: {
+                                autoSkip: false, // ให้แสดงวันที่ทั้งหมด
+                                maxRotation: 90, // หมุนตัวอักษรในแกน x
+                                minRotation: 45  // หมุนตัวอักษรในแกน x
+                            }
+                        }
+                    },
+                    responsive: true, // ปรับขนาดกราฟตามหน้าจอ
+                    plugins: {
+                        legend: {
+                            display: true, // แสดงคำอธิบายชุดข้อมูล
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + ' คำถาม'; // ปรับข้อความเมื่อ hover
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('questionChart').getContext('2d');
+
+            if (window.questionChart && typeof window.questionChart.destroy === 'function') {
+                window.questionChart.destroy(); // ทำลายกราฟเก่า
+            }
+
+            window.questionChart = new Chart(ctx, config);
+        }
+
+        // เรียกใช้ฟังก์ชันดึงข้อมูลเมื่อหน้าเว็บถูกโหลด
+        fetchQuestions();
+        // ดึงข้อมูลเมื่อโหลดหน้า
+        fetchFeedback();
+
+        window.markAsRead = markAsRead; // ส่งฟังก์ชัน markAsRead ให้เป็น global function
+    </script>
+</body>
+</html>

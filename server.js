@@ -1,27 +1,63 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import fetch from 'node-fetch';
-import cors from 'cors';  // เพิ่มการนำเข้า CORS
+import cors from 'cors';  
+import admin from 'firebase-admin';  // เพิ่มการนำเข้า Firebase Admin SDK
 
+// กำหนดการอ่านตัวแปรสิ่งแวดล้อม
 dotenv.config();
 const app = express();
 const port = 3000;
-// เปิดใช้งาน CORS
 app.use(cors());
-
-//const apiKey = process.env.OPENAI_API_KEY;
-
 app.use(express.json());
 
+// การตั้งค่า Firebase Admin SDK
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID
+};
+
+// API สำหรับให้ Frontend เรียก firebaseConfig
+app.get('/firebase-config', (req, res) => {
+    try {
+        res.json(firebaseConfig);  // ส่ง firebaseConfig ไปยัง client
+    } catch (error) {
+        console.error("Error fetching Firebase config: ", error);
+        res.status(500).send("Error fetching Firebase config");
+    }
+});
+
+
+// Initialize Firebase Admin SDK
+if (!admin.apps.length) {
+    admin.initializeApp({
+        credential: admin.credential.cert({
+            projectId: firebaseConfig.projectId,
+            clientEmail: process.env.FIREBASE_CLIENT_EMAIL,  // จากไฟล์ .env
+            privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')  // จากไฟล์ .env
+        }),
+        databaseURL: `https://${firebaseConfig.projectId}.firebaseio.com`
+    });
+}
+
+// ตั้งค่า Firestore
+const db = admin.firestore();
+
+// เส้นทาง API สำหรับการรับและบันทึกคำถามจากผู้ใช้
 app.post('/api/generate-text', async (req, res) => {
     const userInput = req.body.message;
 
-    // สร้าง data เพื่อส่งไปยัง OpenAI API
+    // สร้างข้อมูลเพื่อส่งไปยัง OpenAI API
     const data = {
         model: "gpt-4o-mini",
-            messages: [
-                {
-                    role: "system",
+        messages: [
+            {
+                role: "system",
                     content: `
                             คุณเป็นวัยรุ่นผู้ชาย เป็นนักศึกษาคณะสหวิทยาการ พูดไทย พูดเพราะ ลงท้ายด้วยครับ ห้ามเขียนโค้ด ห้ามบวกเลขต่างๆ คุณจะตอบคำถามเกี่ยวกับคณะสหวิทยาการ มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย  
                             เท่านั้น ใช้ข้อมูลดังต่อไปนี้ตอบคำถามที่เกี่ยวข้อง ตอบกลับตามความเหมาะสมไม่ยาวเกินไป ห้ามตอบยาว เว้นบรรทัดเวลาตอบ ขึ้นบรรทัดใหม่เวลาตอบหัวข้ออื่น
@@ -416,10 +452,12 @@ app.post('/api/generate-text', async (req, res) => {
                 {
                     role: "user",
                     content: userInput
-                },
+                }
             ]
         };
+    
         try {
+            // เรียก OpenAI API
             const response = await fetch("https://api.openai.com/v1/chat/completions", {
                 method: "POST",
                 headers: {
@@ -430,12 +468,26 @@ app.post('/api/generate-text', async (req, res) => {
             });
     
             const result = await response.json();
+    
+            // บันทึกคำถามของผู้ใช้ลง Firestore
+            const docRef = await db.collection('questions').add({
+                question: userInput,
+                response: result.choices[0].message.content,
+                timestamp: admin.firestore.FieldValue.serverTimestamp()
+            });
+    
+            console.log('บันทึกคำถามเรียบร้อยแล้วที่ ID: ', docRef.id);
+    
+            // ส่งผลลัพธ์กลับไปยังผู้ใช้
             res.json(result);
+    
         } catch (error) {
+            console.error('An error occurred:', error);
             res.status(500).json({ error: 'An error occurred' });
         }
     });
     
+    // เปิดเซิร์ฟเวอร์
     app.listen(port, () => {
         console.log(`Server running at http://localhost:${port}`);
     });
