@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin จัดการสาขาวิชา</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .department-list {
+            margin-top: 20px;
+        }
+
+        .department {
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .department:hover {
+            transform: translateY(-5px);
+        }
+
+        .department button {
+            float: right;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Admin จัดการสาขาวิชา</h1>
+    </header>
+
+    <div class="container">
+        <h2>เพิ่มสาขาวิชาใหม่</h2>
+        <div class="form-group">
+            <label for="department-name">ชื่อสาขาวิชา</label>
+            <input type="text" id="department-name" placeholder="กรอกชื่อสาขาวิชา...">
+        </div>
+        <button id="add-department-button">เพิ่มสาขาวิชา</button>
+
+        <h2>รายชื่อสาขาวิชา</h2>
+        <div class="department-list" id="department-list">
+            <!-- รายการสาขาวิชาจะถูกเพิ่มจาก JavaScript -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, deleteDoc, updateDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+            authDomain: "is-guide.firebaseapp.com",
+            projectId: "is-guide",
+            storageBucket: "is-guide.appspot.com",
+            messagingSenderId: "332116024676",
+            appId: "1:332116024676:web:28063685714f6ef0c16e71",
+            measurementId: "G-7WDMBTP78W"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadDepartments() {
+            const departmentList = document.getElementById('department-list');
+            departmentList.innerHTML = '';  // ล้างรายการเก่า
+
+            const querySnapshot = await getDocs(collection(db, 'departments'));
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const departmentDiv = document.createElement('div');
+                departmentDiv.classList.add('department');
+
+                departmentDiv.innerHTML = `
+                    <h3 id="department-name-${doc.id}">${data.name}</h3>
+                    <button onclick="editDepartment('${doc.id}', '${data.name}')">แก้ไข</button>
+                    <button onclick="deleteDepartment('${doc.id}')">ลบ</button>
+                    <button onclick="goToCourses('${doc.id}')">จัดการหลักสูตร</button>
+                `;
+                departmentList.appendChild(departmentDiv);
+            });
+        }
+
+        async function addDepartment() {
+            const name = document.getElementById('department-name').value;
+            if (name) {
+                await addDoc(collection(db, 'departments'), { name });
+                document.getElementById('department-name').value = '';
+                loadDepartments();
+            } else {
+                alert('กรุณากรอกชื่อสาขาวิชา');
+            }
+        }
+
+        async function deleteDepartment(id) {
+            await deleteDoc(doc(db, 'departments', id));
+            loadDepartments();
+        }
+
+        function goToCourses(departmentId) {
+            window.location.href = `Adminจัดการหลักสูตร.html?departmentId=${departmentId}`;
+        }
+
+        async function editDepartment(id, oldName) {
+            const newName = prompt('กรุณากรอกชื่อสาขาวิชาใหม่:', oldName);
+            if (newName && newName !== oldName) {
+                const departmentRef = doc(db, 'departments', id);
+                await updateDoc(departmentRef, { name: newName });
+                loadDepartments();
+            }
+        }
+
+        document.getElementById('add-department-button').addEventListener('click', addDepartment);
+
+        loadDepartments();
+
+        // กำหนดฟังก์ชัน deleteDepartment, goToCourses และ editDepartment ให้เป็น global function
+        window.deleteDepartment = deleteDepartment;
+        window.goToCourses = goToCourses;
+        window.editDepartment = editDepartment;
+    </script>
+</body>
+</html>

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>บริกาออนไลน์</title>
+<head>
+    <meta charset="UTF-8">
+    <title>ข้อมูลคณะวิชา</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        <style>
       body {
         font-size: 18px;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(167, 59, 36);
         color: #333;
         height: 100vh;
         font-family: 'KKUFont', sans-serif;
@@ -513,13 +514,8 @@
       }
 
       .container {
-            width: 100%;
-            max-width: 90%;
-            margin: 20px auto;
             padding: 20px;
             background-color: rgb(167, 59, 36);
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            border-radius: 0px;
         }
 
         .container1 {
@@ -586,9 +582,147 @@
             }
         }
 
+        .red-tab {
+          background-color: rgb(167, 59, 36); /* พื้นหลังสีแดง */
+          color: #fbcb94; /* สีตัวอักษร */
+          text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+          padding: 20px 0; /* ระยะห่างภายในแท็บ */
+          font-size: 18px; /* ขนาดตัวอักษร */
+          width: 100%; /* กำหนดให้แท็บยาวเต็มหน้าจอ */
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+          
+        }
+
+        .tab-text-line1, .tab-text-line2 {
+          margin: 0; /* เอา margin ออกเพื่อให้ข้อความตรงกลางพอดี */
+        }
+
+        .tab-text-line1 {
+          font-size: 32px; /* ขนาดตัวอักษรบรรทัดแรก */
+          font-weight: bold;
+        }
+
+        .tab-text-line2 {
+          font-size: 24px; /* ขนาดตัวอักษรบรรทัดที่สอง */
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .department {
+            padding: 20px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .department:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .department h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 22px;
+        }
+
+        .course-list {
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+
+        .course {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .course h4 {
+            margin: 0;
+            font-size: 20px;
+            color: #34495e;
+        }
+
+        .btn-details {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-top: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-details:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: rgb(255, 255, 255);
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover, .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 89%;
+                padding: 0px;
+            }
+
+            .department h3, .course h4 {
+                font-size: 18px;
+            }
+
+            .btn-details {
+                padding: 6px 12px;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="header">
         <header class="navbar flex items-center p-4 shadow-lg bg-gradient-to-r from-primary to-secondary">
             <a href="index.html">
@@ -648,30 +782,10 @@
                 </div>
             </div>
             <div class="dropdown">
-                <a href="หน้าข้อมูลคณะวิชา (FacultyInformationPage).html">
+                <a href="ข้อมูลคณะวิชา.html">
                     <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชา<i class="animation"></i>
                     </button>
                 </a>
-                <div class="dropdown-content">
-                    <a href="สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาเทคโนโลยีและวิศวกรรมศาสตร์<i class="animation"></i>
-                        </button></a>
-                    <a href="สาขานิติศาสตร์.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>สาขานิติศาสตร์ <i class="animation"></i>
-                        </button></a> 
-                    <a href="สาขาวิชาบริหารธุรกิจ.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาบริหารธุรกิจ <i class="animation"></i>
-                        </button></a>
-                    <a href="สาขาวิชาวิทยาศาสตร์ประยุกต์.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาวิทยาศาสตร์ประยุกต์<i class="animation"></i>
-                        </button></a>
-                    <a href="สาขาวิชาศิลปะและศึกษาศาสตร์.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาศิลปะและศึกษาศาสตร์<i class="animation"></i>
-                        </button></a> 
-                    <a href="สาขาวิชาสังคมศาสตร์.html">
-                        <button class="buttonแทบบน"><i class="animation"></i>สาขาวิชาสังคมศาสตร์<i class="animation"></i>
-                        </button></a> 
-                </div>
             </div>
             <a href="https://www.is.kku.ac.th/nkc2021/staff">
                 <button class="buttonแทบบน"><i class="animation"></i>บุคลากรคณะ<i class="animation"></i>
@@ -685,56 +799,212 @@
         </header> 
         </div>
 
-        <div class="container">
-            <h1>บริการออนไลน์</h1>
-            </div>
-            <div class="container1">
-            <div class="button-container" id="link-buttons">
-                <!-- ปุ่มจะถูกเพิ่มจาก JavaScript ด้านล่าง -->
-            </div>
+        <div class="red-tab">
+            <p class="tab-text-line1">ข้อมูลคณะวิชา</p>
+            <p class="tab-text-line2">Home -> ข้อมูลคณะวิชา</p>
+          </div>
+
+    <div class="container">
+        <h2>สาขาวิชาและหลักสูตร</h2>
+        <div id="department-list">
+            <!-- ข้อมูลสาขาวิชาและหลักสูตรจะถูกเพิ่มจาก JavaScript -->
         </div>
     </div>
+
+    <!-- Modal สำหรับแสดงรายละเอียดหลักสูตร -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalCourseName"></h2>
+            <img id="modalImage" src="" alt="Course Image" style="max-width: 100%; display: none;">
+            <p id="modalDescription"></p>
+            <p id="modalDegree"></p>
+            <p id="modalCareer"></p>
+            <p id="modalTuition"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+            authDomain: "is-guide.firebaseapp.com",
+            projectId: "is-guide",
+            storageBucket: "is-guide.appspot.com",
+            messagingSenderId: "332116024676",
+            appId: "1:332116024676:web:28063685714f6ef0c16e71",
+            measurementId: "G-7WDMBTP78W"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadDepartmentsAndCourses() {
+        const departmentList = document.getElementById('department-list');
+        departmentList.innerHTML = '';
+
+        const departmentQuery = query(collection(db, 'departments'));
+        const departmentSnapshot = await getDocs(departmentQuery);
+
+        departmentSnapshot.forEach(async (departmentDoc) => {
+            const departmentData = departmentDoc.data();
+            const departmentDiv = document.createElement('div');
+            departmentDiv.classList.add('department');
+
+            departmentDiv.innerHTML = `<h3>${departmentData.name}</h3><div class="course-list" id="course-list-${departmentDoc.id}"></div>`;
+            departmentList.appendChild(departmentDiv);
+
+            const courseQuery = query(collection(db, 'courses'), where('departmentId', '==', departmentDoc.id));
+            const courseSnapshot = await getDocs(courseQuery);
+
+            const courseList = document.getElementById(`course-list-${departmentDoc.id}`);
+            courseSnapshot.forEach((courseDoc) => {
+                const courseData = courseDoc.data();
+                const courseDiv = document.createElement('div');
+                courseDiv.classList.add('course');
+                courseDiv.innerHTML = `
+                    <h4>${courseData.courseNameTh} (${courseData.courseNameEn})</h4>
+                    <button class="btn-details" onclick="showCourseDetails('${courseDoc.id}')">ดูรายละเอียดเพิ่มเติม</button>
+                `;
+                courseList.appendChild(courseDiv);
+            });
+        });
+    }
+
+        async function showCourseDetails(courseId) {
+            const courseRef = doc(db, 'courses', courseId);
+            const courseDoc = await getDoc(courseRef);
+
+            if (courseDoc.exists()) {
+                const courseData = courseDoc.data();
+
+                document.getElementById('modalCourseName').textContent = `${courseData.courseNameTh} (${courseData.courseNameEn})`;
+                document.getElementById('modalDescription').textContent = `คำอธิบายหลักสูตร: ${courseData.description}`;
+                document.getElementById('modalDegree').textContent = `ชื่อปริญญา: ${courseData.degree}`;
+                document.getElementById('modalCareer').textContent = `อาชีพที่รองรับ: ${courseData.career}`;
+                document.getElementById('modalTuition').textContent = `ค่าเทอม: ${courseData.tuitionFee}`;
+                
+                // แสดงรูปภาพ
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = courseData.imageUrl;
+                modalImage.style.display = courseData.imageUrl ? "block" : "none";
+
+                const modal = document.getElementById('courseModal');
+                modal.style.display = "block";
+            } else {
+                alert('ไม่พบข้อมูลหลักสูตร');
+            }
+        }
+
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('courseModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('courseModal');
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        loadDepartmentsAndCourses();
+
+        window.showCourseDetails = showCourseDetails;
+    </script>
+    <footer class="text-footer-foreground">
+        <div class="bg-footer-background container">
+            <div class="footer-content">
+                <p class="contact-info">
+                    ข้อมูลติดต่อ: มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย  
+                    112 หมู่ 7 บ้านหนองเดิ่น ตำบลหนองกอมเกาะ  
+                    อำเภอเมือง จังหวัดหนองคาย 43000  
+                    โทร: 042-415600 | FAX: 042-415699  
+                    <br>
+                    Email: <a href="mailto:is.inbox@kku.ac.th">is.inbox@kku.ac.th</a>
+                </p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/PRNKC/" class="social-link">Facebook</a>
+                </div>
+                <!-- Hidden trigger area for admin button -->
+                <div id="secret-area"></div>
+        </div>
+    </footer>
+     <!-- Admin Button -->
+     <button class="admin-button" onclick="window.location.href='Admin.html';">Admin</button>
+    <style>
+    /* พื้นหลังและสีของ footer */
+    .bg-footer-background {
+        background-color: #333; /* สีพื้นหลังเข้ม */
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .text-footer-foreground {
+        color: #d0dbe7; /* สีข้อความที่คมชัดกับพื้นหลัง */
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .admin-button {
+            display: none;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        #secret-area {
+            width: 100%;
+            height: 50px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .social-link {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 
     <script>
         function toggleMenu() {
             var menu = document.getElementById("menu");
             menu.classList.toggle("active");
         }
-    </script>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
-        authDomain: "is-guide.firebaseapp.com",
-        projectId: "is-guide",
-        storageBucket: "is-guide.appspot.com",
-        messagingSenderId: "332116024676",
-        appId: "1:332116024676:web:28063685714f6ef0c16e71",
-        measurementId: "G-7WDMBTP78W"
-        };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function loadLinks() {
-        const linkContainer = document.getElementById('link-buttons');
-        const querySnapshot = await getDocs(collection(db, 'online_services'));
-
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            const button = document.createElement('a');
-            button.className = 'button';
-            button.href = data.url;
-            button.target = "_blank";
-            button.innerText = data.name;
-            linkContainer.appendChild(button);
+        //<!-- JavaScript for handling the secret area click -->
+        document.getElementById('secret-area').addEventListener('click', () => {
+            const adminButton = document.querySelector('.admin-button');
+            adminButton.style.display = 'inline-block'; // Show the admin button
         });
-    }
-
-    loadLinks();
-</script>
-  </body>
+    </script>
+</body>
 </html>

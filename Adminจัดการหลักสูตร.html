@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin จัดการหลักสูตร</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .course-list {
+            margin-top: 20px;
+        }
+
+        .course {
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .course:hover {
+            transform: translateY(-5px);
+        }
+
+        .course button {
+            float: right;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Admin จัดการหลักสูตร</h1>
+    </header>
+
+    <div class="container">
+        <h2>เพิ่มหลักสูตรใหม่</h2>
+        <form id="courseForm">
+            <div class="form-group">
+                <label for="courseNameTh">ชื่อหลักสูตร (ภาษาไทย)</label>
+                <input type="text" id="courseNameTh" placeholder="กรอกชื่อหลักสูตรภาษาไทย...">
+            </div>
+            <div class="form-group">
+                <label for="courseNameEn">ชื่อหลักสูตร (ภาษาอังกฤษ)</label>
+                <input type="text" id="courseNameEn" placeholder="กรอกชื่อหลักสูตรภาษาอังกฤษ...">
+            </div>
+            <div class="form-group">
+                <label for="degree">ชื่อปริญญา</label>
+                <input type="text" id="degree" placeholder="กรอกชื่อปริญญา...">
+            </div>
+            <div class="form-group">
+                <label for="description">คำอธิบายหลักสูตร</label>
+                <textarea id="description" rows="4" placeholder="กรอกคำอธิบายหลักสูตร..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="career">อาชีพที่รองรับ</label>
+                <textarea id="career" rows="3" placeholder="กรอกอาชีพที่รองรับ..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="tuitionFee">ค่าเทอม</label>
+                <input type="text" id="tuitionFee" placeholder="กรอกค่าเทอม...">
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">URL ของรูปหลักสูตร</label>
+                <input type="text" id="imageUrl" placeholder="กรอก URL ของรูปหลักสูตร...">
+            </div>
+            <button class="button" type="button" id="add-course-button">เพิ่มหลักสูตร</button>
+        </form>
+
+        <h2>รายชื่อหลักสูตร</h2>
+        <div class="course-list" id="course-list">
+            <!-- รายการหลักสูตรจะถูกเพิ่มจาก JavaScript -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+            authDomain: "is-guide.firebaseapp.com",
+            projectId: "is-guide",
+            storageBucket: "is-guide.appspot.com",
+            messagingSenderId: "332116024676",
+            appId: "1:332116024676:web:28063685714f6ef0c16e71",
+            measurementId: "G-7WDMBTP78W"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const departmentId = urlParams.get('departmentId'); // รับ departmentId จาก URL
+
+        async function loadCourses() {
+            const courseList = document.getElementById('course-list');
+            courseList.innerHTML = '';  // ล้างรายการเก่า
+
+            const q = query(collection(db, 'courses'), where("departmentId", "==", departmentId));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const courseDiv = document.createElement('div');
+                courseDiv.classList.add('course');
+
+                courseDiv.innerHTML = `
+                    <h3 id="course-name-${doc.id}">${data.courseNameTh} / ${data.courseNameEn}</h3>
+                    <img src="${data.imageUrl}" alt="รูปหลักสูตร" style="max-width: 100px;">
+                    <button onclick="editCourse('${doc.id}', '${data.courseNameTh}', '${data.courseNameEn}', '${data.degree}', '${data.description}', '${data.career}', '${data.tuitionFee}', '${data.imageUrl}')">แก้ไข</button>
+                    <button onclick="deleteCourse('${doc.id}')">ลบ</button>
+                `;
+                courseList.appendChild(courseDiv);
+            });
+        }
+
+        async function addCourse() {
+            const courseNameTh = document.getElementById('courseNameTh').value;
+            const courseNameEn = document.getElementById('courseNameEn').value;
+            const degree = document.getElementById('degree').value;
+            const description = document.getElementById('description').value;
+            const career = document.getElementById('career').value;
+            const tuitionFee = document.getElementById('tuitionFee').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+
+            if (!courseNameTh || !courseNameEn || !degree || !description || !career || !tuitionFee || !imageUrl) {
+                alert('กรุณากรอกข้อมูลให้ครบทุกช่องและใส่ URL รูปภาพ');
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, 'courses'), {
+                    courseNameTh,
+                    courseNameEn,
+                    degree,
+                    description,
+                    career,
+                    tuitionFee,
+                    imageUrl,
+                    departmentId
+                });
+
+                alert('เพิ่มหลักสูตรสำเร็จ!');
+                document.getElementById('courseForm').reset();
+                loadCourses();
+            } catch (error) {
+                console.error('เกิดข้อผิดพลาดในการเพิ่มหลักสูตร:', error);
+                alert('เกิดข้อผิดพลาดในการเพิ่มหลักสูตร');
+            }
+        }
+
+        async function deleteCourse(id) {
+            await deleteDoc(doc(db, 'courses', id));
+            loadCourses();
+        }
+
+        async function editCourse(id, oldNameTh, oldNameEn, oldDegree, oldDescription, oldCareer, oldTuition, oldImageUrl) {
+            document.getElementById('courseNameTh').value = oldNameTh;
+            document.getElementById('courseNameEn').value = oldNameEn;
+            document.getElementById('degree').value = oldDegree;
+            document.getElementById('description').value = oldDescription;
+            document.getElementById('career').value = oldCareer;
+            document.getElementById('tuitionFee').value = oldTuition;
+            document.getElementById('imageUrl').value = oldImageUrl;
+
+            // เปลี่ยนปุ่มจาก 'เพิ่มหลักสูตร' เป็น 'บันทึกการแก้ไข'
+            const addButton = document.getElementById('add-course-button');
+            addButton.innerText = 'บันทึกการแก้ไข';
+            addButton.onclick = async () => {
+                await updateCourse(id);
+            };
+        }
+
+        async function updateCourse(id) {
+            const courseNameTh = document.getElementById('courseNameTh').value;
+            const courseNameEn = document.getElementById('courseNameEn').value;
+            const degree = document.getElementById('degree').value;
+            const description = document.getElementById('description').value;
+            const career = document.getElementById('career').value;
+            const tuitionFee = document.getElementById('tuitionFee').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+
+            if (!courseNameTh || !courseNameEn || !degree || !description || !career || !tuitionFee || !imageUrl) {
+                alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+                return;
+            }
+
+            try {
+                const courseRef = doc(db, 'courses', id);
+                await updateDoc(courseRef, {
+                    courseNameTh,
+                    courseNameEn,
+                    degree,
+                    description,
+                    career,
+                    tuitionFee,
+                    imageUrl
+                });
+
+                alert('แก้ไขหลักสูตรสำเร็จ!');
+                document.getElementById('courseForm').reset();
+                document.getElementById('add-course-button').innerText = 'เพิ่มหลักสูตร';
+                document.getElementById('add-course-button').onclick = addCourse;
+                loadCourses();
+            } catch (error) {
+                console.error('เกิดข้อผิดพลาดในการแก้ไขหลักสูตร:', error);
+                alert('เกิดข้อผิดพลาดในการแก้ไขหลักสูตร');
+            }
+        }
+
+        document.getElementById('add-course-button').addEventListener('click', addCourse);
+
+        loadCourses();
+
+        // กำหนดฟังก์ชัน deleteCourse, editCourse, และ updateCourse ให้เป็น global function
+        window.deleteCourse = deleteCourse;
+        window.editCourse = editCourse;
+        window.updateCourse = updateCourse;
+    </script>
+</body>
+</html>
