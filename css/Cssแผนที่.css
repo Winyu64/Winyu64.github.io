@@ -96,6 +96,32 @@ body {
 }
 
 
+.red-tab {
+  background-color: rgb(167, 59, 36); /* พื้นหลังสีแดง */
+  color: white; /* สีตัวอักษร */
+  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+  padding: 20px 0; /* ระยะห่างภายในแท็บ */
+  font-size: 18px; /* ขนาดตัวอักษร */
+  width: 100%; /* กำหนดให้แท็บยาวเต็มหน้าจอ */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+  
+}
+
+.tab-text-line1, .tab-text-line2 {
+  margin: 0; /* เอา margin ออกเพื่อให้ข้อความตรงกลางพอดี */
+}
+
+.tab-text-line1 {
+  font-size: 24px; /* ขนาดตัวอักษรบรรทัดแรก */
+  font-weight: bold;
+}
+
+.tab-text-line2 {
+  font-size: 18px; /* ขนาดตัวอักษรบรรทัดที่สอง */
+}
+
+
+
 @font-face {
   font-family: 'KKUFont';
   src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
@@ -1421,31 +1447,130 @@ mask: url(#mask);
   background-color: rgba(224, 224, 224, 0.8); /* เพิ่มพื้นหลังแบบโปร่งใส */
 }
 
-
-
-  .image-container2 {  /* เเผนที่ */
-    position: relative;
-    width: fit-content;
-    margin: 0 ;
-    overflow: hidden; /* ซ่อนส่วนเกินที่ล้นออกมา */
-}
-
-
+ body {
+    background: #02245e;
+  }
 
 
 .background-image {
-    width: 100%; /* ให้ภาพขยายเต็มขนาดของ container */
-   
-     height: auto;
+  width: 100vw; /* ให้ภาพเต็มความกว้างในเดสก์ท็อป */
+  height: 100vh; /* ให้ภาพเต็มความสูงในเดสก์ท็อป */
+  object-fit: cover; /* ให้ภาพขยายเต็มจอและรักษาสัดส่วน */
+  overflow: hidden; /* ซ่อนส่วนเกิน */
+  transition: transform 0.5s ease-in-out; /* เพิ่ม transition เมื่อหมุนภาพ */
+  position: relative;
+}
+
+.background-image-mobile {display: none;}
+
+@media (max-width: 768px) {
+
+  .background-image {display: none;}
+  .background-image-mobile {
+    display: block; /* แสดงภาพมือถือในสมาร์ทโฟน */
+    width: 100%; /* ปรับขนาดภาพตามความต้องการ */
+    height: auto;
+}
+  body {
+      overflow-x: hidden; /* ซ่อนการเลื่อนแนวนอนในสมาร์ทโฟน */
+      width: 100%;
+      height: 1;
+      
+  }
+  .overlay-box2 {
+    top: 25%; /* ปรับตำแหน่งให้สอดคล้องกับการหมุน */
+    left: 65%; /* ปรับให้กล่องอยู่ในจุดเดิมหลังจากหมุนภาพ */
+    transform: translate(-50%, -50%) rotate(135deg) scale(0.5); /* หมุนกล่องและทำให้เล็กลงครึ่งหนึ่ง */
+    transform-origin: center; /* ให้กล่องหมุนตามภาพ */
+  }
+/* ตั้งค่าตำแหน่งของกล่องที่ต้องการให้แสดงด้านล่าง */
+
+
+
+.overlay-box3, .overlay-box3_1, .overlay-box3_2, .overlay-box3_3,
+  .overlay-box3_4, .overlay-box3_5, .overlay-box3_6, .overlay-box3_7,
+  .overlay-box3_8, .overlay-box3_9 {
+    position: fixed !important;
+    bottom: 0!important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    background-color: rgba(255, 180, 67, 0.155) !important;
+    padding: 10px !important;
+    z-index: 1000 !important;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2) !important;
+    transform: none !important;
+    backdrop-filter: blur(5px) !important;
+    transition: opacity 0.5s ease-in-out !important;
+    box-shadow: 0px 5px 18px rgba(255, 220, 181, 0.119) !important; /* เงาให้กล่อง */
+    pointer-events: none !important; /* ทำให้กล่องไม่สามารถคลิกได้ */
+  }
+
+
+
+  .overlay-box2{ 
+    top: 50% !important;
+    left: 50%!important;
+    }
+    
+    .overlay-box2_1{ 
+    top: 60%!important;;
+    left: 50%!important;;
+    }
+    
+    .overlay-box2_2{ 
+    top: 70%!important;;
+    left: 33%!important;;
+    }
+    
+    .overlay-box2_3{ 
+    top: 85%!important;
+    left: 30%!important;
+    }
+    
+    .overlay-box2_4{ 
+    top: 78%!important;
+    left: 44%!important;
+    }
+    
+    .overlay-box2_5{ 
+    top: 85%!important;
+    left: 53%!important;
+    }
+    
+    .overlay-box2_6{ 
+      top: 85%!important;
+      left: 70%!important;
+    }
+    
+    .overlay-box2_7{ 
+    top: 103%!important;
+    left: 58%!important;
+    }
+    
+    .overlay-box2_8{ 
+    top: 70%!important;
+    left: 10%!important;
+    }
+    
+    .overlay-box2_9{ 
+    top: 126%!important;
+    left: 38%!important;
+    }
+
+  
+
+
 
 }
+
 
 .overlay-box2,.overlay-box2_1,.overlay-box2_2, .overlay-box2_3,
 .overlay-box2_4,.overlay-box2_5,.overlay-box2_6,.overlay-box2_7,
 .overlay-box2_8,.overlay-box2_9 {
   position: absolute;
-  top: 65%;
-  left: 25%;
+  top: 65%;  /* ตำแหน่งบนหน้าจอเดสก์ท็อป */
+  left: 25%;  /* ตำแหน่งซ้ายบนหน้าจอเดสก์ท็อป */
   transform: translate(-50%, -50%) rotate(45deg); /* หมุนกล่อง */
   transform-origin: center; /* หมุนจากจุดศูนย์กลางของกล่อง */
   background-color: rgba(0, 0, 0, 0.8);
@@ -1460,55 +1585,60 @@ mask: url(#mask);
 }
 
 
+
+
+
+
 .overlay-box2{ 
-top: 65%;
+top: 85%;
 left: 25%;
 }
 
 .overlay-box2_1{ 
-top: 50%;
-left: 25%;
+top: 70%;
+left: 23%;
 }
 
 .overlay-box2_2{ 
-top: 65%;
+top: 90%;
 left: 33%;
 }
 
 .overlay-box2_3{ 
-top: 68%;
-left: 42%;
+top: 95%;
+left: 39%;
 }
 
 .overlay-box2_4{ 
-top: 58%;
+top: 80%;
 left: 39%;
 }
 
 .overlay-box2_5{ 
-top: 49%;
+top: 72%;
 left: 45%;
 }
 
 .overlay-box2_6{ 
-top: 38%;
+top:  60%;
 left: 43%;
 }
 
 .overlay-box2_7{ 
-top: 45%;
+top: 72%;
 left: 57%;
 }
 
 .overlay-box2_8{ 
-top: 52%;
+top: 70%;
 left: 61%;
 }
 
 .overlay-box2_9{ 
-top: 60%;
-left: 75%;
+top: 90%;
+left: 77%;
 }
+
 
 
 
@@ -1574,14 +1704,9 @@ left: 75%;
   top: -5%; /* ขยับภาพให้ออกนอกกรอบด้านบน */
   left: -5%; /* ขยับภาพให้ออกนอกกรอบด้านซ้าย */
   transform: rotate(-45deg); /* หมุนภาพตามที่ต้องการ */
-
   mask-size: 100% 100%;
 }
 
-
-
-
- 
 
   .overlay-box2_1::before,.overlay-box2_2::before,.overlay-box2_3::before,
   .overlay-box2_4::before,.overlay-box2_5::before,.overlay-box2_6::before,
@@ -1615,10 +1740,7 @@ left: 75%;
   
   }
 
-  body {
-    background: #ccc;
-  }
-
+ 
 /* 
 .overlay-box3,.overlay-box3_1,.overlay-box3_2,.overlay-box3_3,
 .overlay-box3_4,.overlay-box3_5,.overlay-box3_6,.overlay-box3_7,
@@ -1635,17 +1757,20 @@ left: 75%;
 .overlay-box3_4,.overlay-box3_5,.overlay-box3_6,.overlay-box3_7,
 .overlay-box3_8,.overlay-box3_9{
   position: absolute;
-  top: 3%;
+  top: 30%;
   left: 53%;
   transform: translate(50%, 25%); /* ทำให้กล่องอยู่ตรงกลางของภาพ */
   background-color: rgba(255, 180, 67, 0.155); /* พื้นหลังโปร่งใสสีดำ */
   border-radius: 10px; /* มุมโค้งของกล่อง */
-  box-shadow: 0px 5px 18px rgba(255, 220, 181, 0.119); /* เงาให้กล่อง */
+  
+  box-shadow: 0px 0px 50px rgba(255, 220, 181, 0.519),
+              0px 0px 10px rgba(255, 220, 181, 0.919); /* เงาให้กล่อง */
+   /* เงาให้กล่อง */
   width: 400px; /* กำหนดความกว้าง */
   height: 500px; /* กำหนดความสูง */
   overflow: hidden; /*s ให้ส่วนของภาพที่ล้นออกมาสามารถแสดงได้ */
   overflow:visible;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(15px);
   z-index: 99 ;
   transition: opacity 0.5s ease-in-out;
   opacity: 0 ;
@@ -1655,9 +1780,10 @@ left: 75%;
 
 
 
+
 .overlay-box3_9{
   position: absolute;
-  top: 3%;
+  top: 30%;
   left: -5%;
   transform: translate(50%, 25%); /* ทำให้กล่องอยู่ตรงกลางของภาพ */
   background-color: rgba(255, 180, 67, 0.155); /* พื้นหลังโปร่งใสสีดำ */
@@ -1715,7 +1841,7 @@ left: 75%;
 .card-title {
 
   font-size: 35px;
-  color: #ffb765;
+  color: #fbcb94;
  
 }
 
@@ -1724,7 +1850,7 @@ left: 75%;
 {
 
   font-size: 15px;
-  color: #ffb765;
+  color: #fbcb94;
 
 }
 
@@ -1757,4 +1883,24 @@ left: 75%;
   100% {
     left: 100%; /* เลื่อนออกจากภาพทางขวา */
   }
+}
+
+
+.red-tab{
+  color: #fbcb94;
+}
+
+
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.imgแทบบน {
+  animation: rotate 0.3s linear infinite;
 }
