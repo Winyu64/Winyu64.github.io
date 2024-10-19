@@ -1892,15 +1892,3 @@ left: 77%;
 
 
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.imgแทบบน {
-  animation: rotate 0.3s linear infinite;
-}

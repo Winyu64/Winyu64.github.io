@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin บริการออนไลน์</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .link-list {
+            margin-top: 20px;
+        }
+
+        .link-list div {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .link-list div button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin จัดการบริการออนไลน์</h1>
+        <div class="form-group">
+            <label for="link-name">ชื่อบริการ</label>
+            <input type="text" id="link-name" placeholder="กรอกชื่อบริการ...">
+        </div>
+        <div class="form-group">
+            <label for="link-url">ลิงก์ URL</label>
+            <input type="text" id="link-url" placeholder="กรอก URL ของบริการ...">
+        </div>
+        <button id="add-link-button" class="button">เพิ่มบริการ</button>
+
+        <div class="link-list" id="link-list">
+            <!-- รายการลิงก์จะถูกเพิ่มจาก JavaScript -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+          authDomain: "is-guide.firebaseapp.com",
+          projectId: "is-guide",
+          storageBucket: "is-guide.appspot.com",
+          messagingSenderId: "332116024676",
+          appId: "1:332116024676:web:28063685714f6ef0c16e71",
+          measurementId: "G-7WDMBTP78W"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        async function loadLinks() {
+          const linkList = document.getElementById('link-list');
+          linkList.innerHTML = '';
+          const querySnapshot = await getDocs(collection(db, 'online_services'));
+    
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const div = document.createElement('div');
+            div.innerHTML = `${data.name} <a href="${data.url}" target="_blank">ไปยังลิงก์</a>`;
+            const editButton = document.createElement('button');
+            editButton.className = 'button';
+            editButton.innerText = 'แก้ไข';
+            editButton.onclick = () => editLink(doc.id, data.name, data.url);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'button';
+            deleteButton.innerText = 'ลบ';
+            deleteButton.onclick = () => deleteLink(doc.id);
+
+            div.appendChild(editButton);
+            div.appendChild(deleteButton);
+            linkList.appendChild(div);
+          });
+        }
+    
+        async function addLink() {
+          const name = document.getElementById('link-name').value;
+          const url = document.getElementById('link-url').value;
+    
+          if (name && url) {
+            await addDoc(collection(db, 'online_services'), { name, url });
+            document.getElementById('link-name').value = '';
+            document.getElementById('link-url').value = '';
+            loadLinks();
+          } else {
+            alert('กรุณากรอกชื่อและลิงก์ให้ครบถ้วน');
+          }
+        }
+    
+        async function editLink(id, oldName, oldUrl) {
+          const newName = prompt('แก้ไขชื่อบริการ:', oldName);
+          const newUrl = prompt('แก้ไข URL ของบริการ:', oldUrl);
+          
+          if (newName && newUrl) {
+            const docRef = doc(db, 'online_services', id);
+            await updateDoc(docRef, {
+              name: newName,
+              url: newUrl
+            });
+            loadLinks();
+          } else {
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+          }
+        }
+
+        async function deleteLink(id) {
+          await deleteDoc(doc(db, 'online_services', id));
+          loadLinks();
+        }
+    
+        // ผูก event listener กับปุ่มเพิ่มลิงก์
+        document.getElementById('add-link-button').addEventListener('click', addLink);
+    
+        // โหลดลิงก์เมื่อหน้าเว็บถูกโหลด
+        loadLinks();
+      </script>
+</body>
+</html>

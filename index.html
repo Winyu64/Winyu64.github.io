@@ -1462,7 +1462,7 @@
                 
             </div>
             <div class="dropdown">
-                <a href="หน้าบริการนักศึกษา (StudentServicesPage).html">
+                <a href="บริกาออนไลน์.html">
                     <button class="buttonแทบบน"><i class="animation"></i>บริกาออนไลน์<i class="animation"></i>
                     </button>
                 </a>
@@ -1736,13 +1736,16 @@
                 <div class="social-links">
                     <a href="https://www.facebook.com/PRNKC/" class="social-link">Facebook</a>
                 </div>
-            </div>
+                <!-- Hidden trigger area for admin button -->
+                <div id="secret-area"></div>
         </div>
     </footer>
+     <!-- Admin Button -->
+     <button class="admin-button" onclick="window.location.href='Admin.html';">Admin</button>
     <style>
     /* พื้นหลังและสีของ footer */
     .bg-footer-background {
-        background-color: #02245e; /* สีพื้นหลังเข้ม */
+        background-color: #333; /* สีพื้นหลังเข้ม */
         padding: 20px;
         text-align: center;
     }
@@ -1757,37 +1760,47 @@
         padding: 0 20px;
     }
     
-    .contact-info {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-    
-    .contact-info a {
-        color: #d0dbe7; /* สีลิงก์เหมือนกับสีข้อความ */
-        text-decoration: underline;
-    }
-    
-    .contact-info a:hover {
-        color: #ffffff; /* สีลิงก์เมื่อ hover */
-    }
-    
-    .social-links {
-        margin-top: 10px;
-    }
-    
-    .social-link {
-        color: #d0dbe7;
-        font-size: 1.1rem;
-        text-decoration: none;
-        margin-right: 10px;
-    }
-    
-    .social-link:hover {
-        color: #ffffff; /* สีลิงก์เมื่อ hover */
-        text-decoration: underline;
-    }
-    
+    .admin-button {
+            display: none;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        #secret-area {
+            width: 100%;
+            height: 50px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .social-link {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            text-decoration: underline;
+        }
+
     </style>
     <script>
         function toggleMenu() {
@@ -1894,6 +1907,14 @@
             document.documentElement.style.setProperty('--sidebar-bg-color', sidebarColor);
             document.documentElement.style.setProperty('--chat-area-bg-color', chatColor);
         };
+
+        //<!-- JavaScript for handling the secret area click -->
+        document.getElementById('secret-area').addEventListener('click', () => {
+            const adminButton = document.querySelector('.admin-button');
+            adminButton.style.display = 'inline-block'; // Show the admin button
+        });
+
+
     </script>        
 </body>
 </html>
