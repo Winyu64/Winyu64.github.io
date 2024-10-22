@@ -424,54 +424,54 @@
 
 
 
-        .overlay-box2{ 
+        .overlay-box2{ /* ตัดภาพบางส่วน */
         top: 85%;
         left: 25%;
         }
 
-        .overlay-box2_1{ 
+        .overlay-box2_1{ /* พิภิทภัน */
+        top: 65%;
+        left: 22%;
+        }
+
+        .overlay-box2_2{ /* ศาล */
+        top: 82%;
+        left: 31%;
+        }
+
+        .overlay-box2_3{ /* กลางน้ำ*/
+        top: 85%;
+        left: 39%;
+        }
+
+        .overlay-box2_4{ /* ตึกบริหาร */
         top: 70%;
-        left: 23%;
+        left: 37%;
         }
 
-        .overlay-box2_2{ 
-        top: 90%;
-        left: 33%;
-        }
-
-        .overlay-box2_3{ 
-        top: 95%;
-        left: 39%;
-        }
-
-        .overlay-box2_4{ 
-        top: 80%;
-        left: 39%;
-        }
-
-        .overlay-box2_5{ 
-        top: 72%;
+        .overlay-box2_5{ /* อาคารประมง */
+        top: 62%;
         left: 45%;
         }
 
-        .overlay-box2_6{ 
-        top:  60%;
+        .overlay-box2_6{ /* food */
+        top:  50%;
         left: 43%;
         }
 
-        .overlay-box2_7{ 
-        top: 72%;
-        left: 57%;
+        .overlay-box2_7{ /* อคร1 */
+        top: 60%;
+        left: 60%;
         }
 
-        .overlay-box2_8{ 
+        .overlay-box2_8{ /* อคร2 */
         top: 70%;
         left: 61%;
         }
 
-        .overlay-box2_9{ 
-        top: 90%;
-        left: 77%;
+        .overlay-box2_9{   /* ตcanteen */
+        top: 75%;
+        left: 80%;
         }
 
 
@@ -540,6 +540,7 @@
           left: -5%; /* ขยับภาพให้ออกนอกกรอบด้านซ้าย */
           transform: rotate(-45deg); /* หมุนภาพตามที่ต้องการ */
           mask-size: 100% 100%;
+          pointer-events: none; /* ปิดการใช้งานเมาส์ */
         }
 
 
@@ -668,14 +669,14 @@
 
         .card-headermap{
           align-self: center;
-          margin-top: 25%; 
+          margin-top: 50%; 
           transform: translateY(-90% ); /* ปรับให้กล่องอยู่ตรงกลางจริง ๆ */
           left: 50%; /* จัดกึ่งกลางในแนวนอน */
 
         }
         .card-title {
 
-          font-size: 35px;
+          font-size: 41px;
           color: #fbcb94;
         
         }
@@ -684,7 +685,7 @@
         .card-bodymap
         {
 
-          font-size: 15px;
+          font-size: 20px;
           color: #fbcb94;
 
         }
@@ -818,7 +819,7 @@
   </div>
   
 
-            <div class="overlay-box2">     
+          <!--  <div class="overlay-box2">     
                 <img src="images/greencard.jpg" alt="ภาพตรงกลาง" class="backgroundim2">
             </div>
 
@@ -834,7 +835,7 @@
                              <p class="card-content primary-text">Some content in the card body.Some content in the card body.Some content in the card body.</p>
                         </div>
                     </div>
-            </section>
+            </section> -->
 
             <div class="overlay-box2_1"><!--พิพิธภัณฑ์ -->
                 <img src="images/phoyocut/IMG_8148cutcut.png" alt="ภาพเพิ่มเติม 1" class="backgroundim2">
@@ -847,7 +848,11 @@
                 <div class="card-headermap">
                   <h2 class="card-title">พิพิธภณท์สัตว์น้ำจังหวัดหนองคาย</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                    <p class="card-content primary-text">พิพิธภัณฑ์สัตว์น้ำสิรินธร หรือพิพิธภัณฑ์สัตว์น้ำหนองคาย
+                      เป็นส่วนจัดแสดงสัตว์น้ำที่ใหญ่ที่สุดในภาคอีสาน
+                      มีอุโมงใต้น้ำ ยาวหลายสิบเมตร
+                      ทุกวันจะมีการแสดงให้อาหารปลาใต้น้ำ
+                      บรรยากาส จำลองโลกใต้บาดาน</p>
                   </div>
                 </div>
             </section>
@@ -861,9 +866,9 @@
                   <img src="images/phoyocut/map3cutcut.png" alt="ภาพเพิ่มเติม 1" class="card_is_img">
                 </div>
                 <div class="card-headermap">
-                  <h2 class="card-title">ศาล</h2>
+                  <h2 class="card-title">ศาลเจ้าพ่อขอนล่อง</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                    <p class="card-content primary-text">เป็นสถานที่สำคัญที่ตั้งอยู่ภายในมหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย เป็นสถานที่ศักดิ์สิทธิ์ที่นักศึกษา บุคลากร และชุมชนท้องถิ่นต่างให้ความเคารพนับถือ ศาลนี้เป็นที่รู้จักในฐานะศาลที่เป็นศูนย์รวมจิตใจของผู้คนในพื้นที่ และมีประวัติศาสตร์ที่เกี่ยวข้องกับความเชื่อและวัฒนธรรมท้องถิ่น โดยศาลเจ้าพ่อขอน</p>
                   </div>
                 </div>
             </section>
@@ -881,14 +886,14 @@
                 <div class="card-headermap">
                   <h2 class="card-title">ศาลากลางน้ำ</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                    <p class="card-content primary-text">ศาลากลางน้ำ เป็นสถานที่สำคัญที่ตั้งอยู่ภายในมหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย มีลักษณะเป็นศาลาหรืออาคารเล็ก ๆ ที่ตั้งอยู่กลางบ่อน้ำหรือสระน้ำ เป็นสถานที่ที่นักศึกษาและบุคลากรนิยมใช้พักผ่อนหรือจัดกิจกรรมต่าง ๆ </p>
                   </div>
                 </div>
             </section>
 
 
               <div class="overlay-box2_4"><!--ตึกบริหาร-->
-                <img src="images/IS.png" alt="ภาพเพิ่มเติม 3" class="backgroundim2">
+                <img src="images/phoyocut/kkuborihuncutcut2.png" alt="ภาพเพิ่มเติม 3" class="backgroundim2">
               </div>
 
               <section class="overlay-box3_4">
@@ -898,7 +903,7 @@
                 <div class="card-headermap">
                   <h2 class="card-title">สำนักงานบริหาร</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                    <p class="card-content primary-text">อาคารสำนักงานบริหาร ในวิทยาเขตหนองคาย มหาวิทยาลัยขอนแก่น เป็นอาคารที่มีบทบาทสำคัญในการจัดการงานด้านบริหาร การดำเนินงาน และการให้บริการด้านต่าง ๆ ที่เกี่ยวข้องกับการศึกษาและการสนับสนุนทางวิชาการ</p>
                   </div>
                 </div>
             </section>
@@ -914,7 +919,7 @@
                 <div class="card-headermap">
                   <h2 class="card-title">อาคารปฏิบัติการประมง</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                    <p class="card-content primary-text">อาคารปฏิบัติการประมง เป็นอาคารที่ตั้งอยู่ในวิทยาเขตหนองคาย มหาวิทยาลัยขอนแก่น ซึ่งเป็นศูนย์กลางสำหรับการเรียนการสอนและการวิจัยทางด้านการประมงและการเพาะเลี้ยงสัตว์น้ำ โดยอาคารนี้ได้รับการออกแบบมาเพื่อรองรับการศึกษาที่เกี่ยวข้องกับทรัพยากรทางน้ำ การจัดการการเพาะเลี้ยงสัตว์น้ำ และเทคโนโลยีการประมงที่ทันสมัย</p>
                   </div>
                 </div>
              </section>
@@ -930,7 +935,7 @@
                 <div class="card-headermap">
                   <h2 class="card-title">อาคารวันชัย สุ่มเล็ก</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                    <p class="card-content primary-text">เป็นสถานที่สำคัญในด้านการวิจัยและพัฒนาอาหารแปรรูปสำหรับอุตสาหกรรม โรงงานนี้มีการติดตั้งอุปกรณ์และเครื่องมือทันสมัยเพื่อใช้ในการวิจัยและพัฒนาเทคโนโลยีด้านการแปรรูปผลิตภัณฑ์อาหาร โดยนักศึกษาและคณาจารย์สามารถใช้พื้นที่นี้เพื่อการศึกษา การวิจัย และการฝึกปฏิบัติการในสาขาวิทยาศาสตร์และเทคโนโลยีอาหาร นอกจากนี้ยังสนับสนุนการทำงานร่วมกับอุตสาหกรรมอาหารในท้องถิ่นเพื่อพัฒนาและปรับปรุงกระบวนการผลิตให้มีคุณภาพสูงขึ้น</p>
                   </div>
                 </div>
             </section>
@@ -946,12 +951,12 @@
                 <div class="card-headermap">
                   <h2 class="card-title">อาคารเรียนเเละปฎิบัติการ</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">Some content in the card body 1.</p>
+                    <p class="card-content primary-text">อาคารเรียนและปฏิบัติการ ในวิทยาเขตหนองคาย มหาวิทยาลัยขอนแก่น เป็นอาคารที่ใช้สำหรับการเรียนการสอนและการฝึกปฏิบัติจริงในหลากหลายสาขาวิชาของนักศึกษา โดยอาคารนี้ถูกออกแบบมาเพื่อตอบสนองต่อการเรียนรู้ที่ต้องการทั้งการศึกษาเชิงทฤษฎีและการฝึกปฏิบัติการจริง </p>
                   </div>
                 </div>
             </section>
 
-              <div class="overlay-box2_8"><!--อคร2 -->
+            <!--  <div class="overlay-box2_8"><!--อคร2 
                 <img src="images/IS.png" alt="ภาพเพิ่มเติม 7" class="backgroundim2">
               </div>
 
@@ -965,7 +970,7 @@
                     <p class="card-content primary-text">Some content in the card body 1.</p>
                   </div>
                 </div>
-            </section>
+            </section> -->
 
               <div class="overlay-box2_9"><!--nkccanteen -->
                 <img src="images/phoyocut/canteen_iccut.png" alt="ภาพเพิ่มเติม 7" class="backgroundim2">
@@ -978,7 +983,7 @@
                 <div class="card-headermap">
                   <h2 class="card-title">NKC canteen</h2>
                   <div class="card-bodymap">
-                    <p class="card-content primary-text">5555555555555555555555555555</p>
+                    <p class="card-content primary-text">NKC Canteen Complex เป็นศูนย์อาหารหลักภายในวิทยาเขตหนองคาย (Nong Khai Campus) ของมหาวิทยาลัยขอนแก่น ซึ่งได้รับการออกแบบมาเพื่อรองรับนักศึกษา บุคลากร และผู้มาเยือนในวิทยาเขต หน้าที่หลักของ NKC Canteen Complex คือการให้บริการอาหารและเครื่องดื่มที่หลากหลาย</p>
                   </div>
                 </div>
             </section>
@@ -1075,6 +1080,21 @@
                   const adminButton = document.querySelector('.admin-button');
                   adminButton.style.display = 'inline-block'; // Show the admin button
               });
+
+
+
+                        // ฟังก์ชันสำหรับเปลี่ยนความโปร่งใสเมื่อเลื่อน
+          window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            
+            // ตรวจสอบว่าผู้ใช้เลื่อนลงมากกว่า 50px หรือไม่
+            if (window.scrollY > 50) {
+              header.style.backgroundColor = 'rgba(2, 36, 94, 0.2)'; // ปรับความโปร่งใสเพิ่มเมื่อเลื่อนลง
+            } else {
+              header.style.backgroundColor = 'rgba(2, 36, 94, 1)'; // ตั้งค่าสีพื้นหลังเดิมเมื่ออยู่ด้านบนสุด
+            }
+          });
+
           </script>
     </div>
   </body>
