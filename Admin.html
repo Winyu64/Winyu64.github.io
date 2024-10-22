@@ -17,52 +17,63 @@
         }
 
         .login-container {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
+    background: rgba(255, 106, 19, 0.79); /* เพิ่มความโปร่งแสง 20% */
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    color: #fff; /* เปลี่ยนสีตัวหนังสือเป็นสีขาว */
+    align-items: center; 
+}
 
-        .login-container h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: #333;
-        }
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #fff; /* สีขาว */
+}
 
-        .login-container .input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            color: #333;
-            outline: none;
-            transition: all 0.3s;
-        }
+.login-container .input {
+   
+    width: 82%;
+    padding: 15px;
+    margin:  20px ;
+    
+    border: 1px solid rgba(255, 255, 255, 0.6); /* เพิ่มความโปร่งใสให้เส้นขอบ */
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff; /* เปลี่ยนสีตัวหนังสือเป็นสีขาว */
+    background-color: rgba(255, 255, 255, 0.1); /* เพิ่มพื้นหลังโปร่งแสงให้กับ input */
+    outline: none;
+    transition: all 0.3s;
+    text-align: center
+}
 
-        .login-container .input:focus {
-            border-color: #12b1d1;
-        }
+.login-container .input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* สีของ placeholder เป็นสีขาวอ่อน */
+}
 
-        .login-container .login-button {
-            width: 100%;
-            padding: 15px;
-            background-color: #12b1d1;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+.login-container .input:focus {
+    border-color: rgba(255, 255, 255, 1); /* เส้นขอบเมื่อ focus เป็นสีขาว */
+}
 
-        .login-container .login-button:hover {
-            background-color: #0a94b8;
-        }
+.login-container .login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: rgba(18, 177, 209, 0.8); /* เพิ่มความโปร่งใสให้กับปุ่ม */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff; /* สีขาว */
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.login-container .login-button:hover {
+    background-color: rgba(10, 148, 184, 0.8); /* เพิ่มความโปร่งใสเมื่อ hover */
+}
+
 
         .login-container .error-message {
             color: red;
@@ -74,10 +85,33 @@
             color: green;
             font-size: 14px;
             margin-top: 10px;
+
         }
+
+        .element-with-background {
+            background-image: url('images/adminbg.png'); /* ลิงก์ไปยังภาพ */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100%;
+            }
+
+
     </style>
 </head>
 <body>
+
+
+
+
+    <body class="element-with-background">
+        <!-- เนื้อหาในหน้าเว็บ -->
+      </body>
+      
+
+
+
 
 <div class="login-container">
     <h2>Admin Login</h2>
@@ -88,6 +122,12 @@
     </form>
     <div id="message" class="error-message"></div>
 </div>
+
+
+
+
+
+
 
 <script type="module">
     // นำเข้าฟังก์ชันที่จำเป็นจาก Firebase SDK
