@@ -26,82 +26,6 @@
             display: none;
         }
 
-        @media (max-width: 768px) {
-            body {
-                font-size: 16px;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                margin: 0;
-                background-color: #ffffff;
-                color: #333;
-                font-family: 'KKUFont', sans-serif;
-                height: 100vh;
-            }
-
-            .hamburger {
-                display: block;
-                background-color: transparent;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                color: #ffffff;
-            }
-
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                width: 100vw; /* ให้เมนูมีความกว้างเต็มหน้าจอ */
-                height: 100vh; /* ให้เมนูเต็มความสูงของหน้าจอ */
-                background-color: #02245e; /* พื้นหลังสีเข้ม */
-                background-color: #02245e;
-                padding: 10px 0; /* เพิ่มช่องว่างด้านบนและล่างของเมนู */
-                z-index: 1000; /* ให้เมนูอยู่ด้านบนสุด */
-            }
-
-            /* สไตล์ของลิงก์ในเมนู */
-            .nav-menu a {
-                padding: 15px 20px; /* ช่องว่างรอบๆข้อความ */
-                display: block;
-                font-size: 16px; /* ขนาดตัวอักษรใหญ่ขึ้น */
-                transition: background-color 0.3s ease; /* เพิ่มเอฟเฟ็กต์เวลา hover */
-            }
-
-            /* สไตล์เมื่อ hover */
-            .nav-menu a:hover {
-                background-color: #1b3a6b; /* สีพื้นหลังเมื่อ hover */
-                border-left: 5px solid #00ff08; /* เส้นขอบด้านซ้ายเมื่อ hover */
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .social-links, .policies-links {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                margin-top: 10px;
-            }
-
-            .bg-footer-background {
-                padding: 15px;
-                text-align: center;
-                width: 100%;
-            }
-
-            h1 {
-                padding: 3vw 5vw; /* เพิ่ม padding ให้มากขึ้นบนมือถือ */
-                letter-spacing: 0.4vw; /* เพิ่มระยะห่างระหว่างตัวอักษร */
-                width: 140px;
-            }
-
-
-        }
-
 
         @font-face {
             font-family: 'KKUFont';
@@ -117,6 +41,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 20px;
+            width: 140px;
         }
 
         .sidebar .bot-response {
@@ -131,7 +56,7 @@
         }
 
         .sidebar img {
-            width: 140px;
+            width: 300px;
             border-radius: 50%;
             border: 2px solid #ccc;
             margin-top: 20px;
@@ -230,6 +155,7 @@
         gap: 0px; /* ระยะห่างระหว่าง input และปุ่ม */
         max-width: 100%; /* ให้ขนาดตามจอ */
         box-sizing: border-box; /* ทำให้ padding รวมกับขนาด */
+        border-radius: 20px; /* เพิ่มความมนของขอบ */
         }
 
         .input {
@@ -1268,7 +1194,7 @@
             background-position: left top; /* ปรับตำแหน่งพื้นหลัง */
             transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
             z-index: 1; /* วาง background-section ไว้ด้านล่าง */
-            margin-top: 0px; /* เว้นระยะห่างจากขอบบน */
+            margin-top: -20px; /* เว้นระยะห่างจากขอบบน */
         }
 
         
@@ -1353,7 +1279,7 @@
             z-index: 10; /* ให้มันอยู่ด้านบน */
             text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
             border-radius: 10px; /* เพิ่มความโค้งมนของขอบ */
-            max-width: 100%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
+            max-width: 90%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
             background-color: rgba(224, 224, 224, 0.8); /* เพิ่มพื้นหลังแบบโปร่งใส */
         }
         .ข้อความหลักกลาง {
@@ -1364,20 +1290,233 @@
             width: 100%;
         }
 
-        .ข้อความย่อยกลาง {
-            padding: 2vw;
-            font-size: 1.5rem;
+        .ข้อความย่อยกลาง2 {
+            padding: 1vw;
+            font-size: 2.5rem;
             line-height: 1.2;
             color: #333;
             position: absolute; /* ทำให้ตำแหน่งอยู่แบบลอย */
-            top: 7%; /* กำหนดตำแหน่งจากขอบบน */
-            left: 2%; /* ปรับให้ชิดขอบซ้าย */
-            padding: 20px;
+            top: 10%; /* กำหนดตำแหน่งจากขอบบน */
+            left: 4%; /* ปรับให้ชิดขอบซ้าย */
             z-index: 10; /* ให้มันอยู่ด้านบน */
             text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
             border-radius: 10px; /* เพิ่มความโค้งมนของขอบ */
-            max-width: 100%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
+            max-width: 90%; /* จำกัดขนาดข้อความไม่ให้กินพื้นที่มากเกินไป */
             background-color: rgba(224, 224, 224, 0.8); /* เพิ่มพื้นหลังแบบโปร่งใส */
+        }
+
+        .sidebar.hidden {
+                            width: 0; /* ซ่อน Sidebar โดยลดขนาดเป็น 0 */
+                            padding: 20px 0;
+                        }
+        
+        
+                .toggle-btn {
+                    background-color: #d4d4d4;
+                    color: white;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    position: fixed;
+                    top: 80px;
+                    left: 20px;
+                    z-index: 1001;
+                }
+
+                .content-wrapper {
+                    display: flex;
+                    flex-grow: 1;
+                    transition: width 0.3s ease;
+                }
+
+                .chat-area {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 10px;
+                background-color: #ecf0f1;
+                border-radius: 0 15px 15px 0;
+                    
+                }
+
+                .container {
+                    display: flex;
+                    height: 100%;
+                    width: 100%;
+                    max-width: 100%;
+                    background-color: #fff;
+                    border-radius: 15px;
+                    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+                }
+
+                .sidebar {
+                    width: 30%;
+                    background-color: #2c3e50;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    border-radius: 15px 0 0 15px;
+                    color: white;
+                }
+        
+        /* พื้นหลังและสีของ footer */
+    .bg-footer-background {
+        background-color: #333; /* สีพื้นหลังเข้ม */
+        padding: 0px;
+        text-align: center;
+        width: 100%;
+        display: flex; /* ใช้ Flexbox */
+        justify-content: center; /* จัดให้อยู่ตรงกลางในแนวนอน */
+        align-items: center; /* จัดให้อยู่ตรงกลางในแนวตั้ง */
+    }
+    
+    
+    footer .container {
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 0px;
+    }
+    
+    .admin-button {
+            display: none;
+            padding: 5px 10px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+        }
+
+        #secret-area {
+            width: 100%;
+            height: 50px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .social-link {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            text-decoration: underline;
+        }
+
+
+
+
+
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                background-color: #ffffff;
+                color: #333;
+                font-family: 'KKUFont', sans-serif;
+                height: 100vh;
+            }
+
+            .hamburger {
+                display: block;
+                background-color: transparent;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #ffffff;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                width: 100vw; /* ให้เมนูมีความกว้างเต็มหน้าจอ */
+                height: 100vh; /* ให้เมนูเต็มความสูงของหน้าจอ */
+                background-color: #02245e; /* พื้นหลังสีเข้ม */
+                background-color: #02245e;
+                padding: 10px 0; /* เพิ่มช่องว่างด้านบนและล่างของเมนู */
+                z-index: 1000; /* ให้เมนูอยู่ด้านบนสุด */
+            }
+
+            /* สไตล์ของลิงก์ในเมนู */
+            .nav-menu a {
+                padding: 15px 20px; /* ช่องว่างรอบๆข้อความ */
+                display: block;
+                font-size: 16px; /* ขนาดตัวอักษรใหญ่ขึ้น */
+                transition: background-color 0.3s ease; /* เพิ่มเอฟเฟ็กต์เวลา hover */
+            }
+
+            /* สไตล์เมื่อ hover */
+            .nav-menu a:hover {
+                background-color: #1b3a6b; /* สีพื้นหลังเมื่อ hover */
+                border-left: 5px solid #00ff08; /* เส้นขอบด้านซ้ายเมื่อ hover */
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .social-links, .policies-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .bg-footer-background {
+                padding: 15px;
+                text-align: center;
+                width: 100%;
+            }
+
+            h1 {
+                padding: 3vw 5vw; /* เพิ่ม padding ให้มากขึ้นบนมือถือ */
+                letter-spacing: 0.4vw; /* เพิ่มระยะห่างระหว่างตัวอักษร */
+                width: 90px;
+            }
+            
+                .input {
+            max-width: 55%;}
+
+            .chat-area {
+                width: 54%;
+                }
+            
+            .sidebar {
+                width: 40%;
+            }
+
+            .sidebar img {
+                width: 120px;
+            }
+            
+            #background-section {
+                margin-top: 60px; /* เว้นระยะห่างจากขอบบน */
+            }
         }
 
 
@@ -1491,7 +1630,7 @@
                 <div class="ข้อความย่อยกลาง">
                     <p>แชทบอทอัจฉริยะพร้อมตอบทุกคำถามเกี่ยวกับคณะสหวิทยาการ มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย</p>
                     <p>IS Guide เป็นแชทบอทที่พัฒนาด้วยโมเดล OpenAI GPT-4 Mini
-                    ซึ่งถูกออกแบบมาเพื่อให้ข้อมูลและตอบคำถามเกี่ยวกับคณะสหวิทยาการ</p>
+                    ซึ่งถูกออกแบบมาเพื่อให้ข้อมูลและตอบคำถามคุณ</p>
                     <button class="buttonเริ่มต้นการสนทนา" onclick="toggleInfo(this)">
                     <span class="boxเริ่มต้นการสนทนา">
                     เริ่มสนทนา
@@ -1524,6 +1663,9 @@
 
 
 
+            </div>
+            <div class="ข้อความย่อยกลาง2">
+                <p>เพื่อนคู่คิดในทุกเรื่องของชีวิตนักศึกษาที่คณะสหวิทยาการ</p>
             </div> 
         </div>
         <button class="buttonเริ่มต้นการสนทนากับแชทบอท" onclick="toggleInfo(this)">
@@ -1574,67 +1716,6 @@
 
         <div class="sidebar">
             <button class="toggle-btn">➖</button>
-            <style>
-
-                .sidebar.hidden {
-                            width: 0; /* ซ่อน Sidebar โดยลดขนาดเป็น 0 */
-                            padding: 20px 0;
-                        }
-        
-        
-                .toggle-btn {
-                    background-color: #d4d4d4;
-                    color: white;
-                    padding: 10px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    position: fixed;
-                    top: 80px;
-                    left: 20px;
-                    z-index: 1001;
-                }
-
-                .content-wrapper {
-                    display: flex;
-                    flex-grow: 1;
-                    transition: width 0.3s ease;
-                }
-
-                .chat-area {
-                flex-grow: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 10px;
-                background-color: #ecf0f1;
-                border-radius: 0 15px 15px 0;
-                    
-                }
-
-                .container {
-                    display: flex;
-                    height: 100%;
-                    width: 100%;
-                    max-width: 100%;
-                    background-color: #fff;
-                    border-radius: 15px;
-                    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-                }
-
-                .sidebar {
-                    width: 40%;
-                    background-color: #2c3e50;
-                    padding: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    border-radius: 15px 0 0 15px;
-                    color: white;
-                }
-                
-                
-            </style>
             
             <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="IS Image">
             <h1>
@@ -1716,67 +1797,7 @@
     </footer>
      <!-- Admin Button -->
      <button class="admin-button" onclick="window.location.href='Admin.html';">Admin</button>
-    <style>
-    /* พื้นหลังและสีของ footer */
-    .bg-footer-background {
-        background-color: #333; /* สีพื้นหลังเข้ม */
-        padding: 0px;
-        text-align: center;
-        width: 100%;
-        display: flex; /* ใช้ Flexbox */
-        justify-content: center; /* จัดให้อยู่ตรงกลางในแนวนอน */
-        align-items: center; /* จัดให้อยู่ตรงกลางในแนวตั้ง */
-    }
     
-    
-    footer .container {
-        max-width: 90%;
-        margin: 0 auto;
-        padding: 0px;
-    }
-    
-    .admin-button {
-            display: none;
-            padding: 5px 10px;
-            background-color: #ff6600;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-        }
-
-        #secret-area {
-            width: 100%;
-            height: 50px;
-            background-color: transparent;
-            cursor: pointer;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 5px;
-            text-align: center;
-        }
-
-        .contact-info {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .social-link {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            text-decoration: underline;
-        }
-
-    </style>
     <script>
         function toggleMenu() {
             var menu = document.getElementById("menu");
