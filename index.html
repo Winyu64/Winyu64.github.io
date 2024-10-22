@@ -90,6 +90,7 @@
             .bg-footer-background {
                 padding: 15px;
                 text-align: center;
+                width: 100%;
             }
 
             h1 {
@@ -109,24 +110,6 @@
             font-style: normal;
         }
 
-        .container {
-            display: flex;
-            flex: 1;
-        }
-
-        .sidebar, .chat-area {
-            width: 50%;
-
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background-color: var(--sidebar-bg-color, #ffffff);
-        }
-
-        .sidebar {
-            border-right: 1px solid #ccc;
-        }
 
         .sidebar h1 {
             font-size: 24px;
@@ -155,36 +138,17 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .color-options {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .color-options button {
-            padding: 14px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
-        }
-
-        .color-options button:hover {
-            transform: scale(1.1);
-        }
-
-        .chat-area {
-            border-left: 1px solid #ccc;
-            background-color: var(--chat-area-bg-color, #ffffff);
-        }
 
         .chat-area .chat-messages {
-            flex: 1;
+            flex-grow: 1;
             overflow-y: auto;
-            padding-bottom: 20px;
-            color: #333;
-            max-height: 360px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: inset 0px 3px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         .chat-area .user-message {
@@ -200,23 +164,24 @@
             color: #333;
         }
 
-        .chat-area .bot-message {
+        .bot-message {
             text-align: left;
             margin-bottom: 10px;
+            padding: 10px;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
         }
 
-        .chat-area .bot-message img {
+        .bot-message img {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
             border: 2px solid #ccc;
             margin-right: 10px;
             vertical-align: middle;
         }
 
-        .chat-area .bot-message span {
+        .bot-message span {
             background-color: #f8d7da;
             padding: 10px;
             border-radius: 10px;
@@ -225,7 +190,7 @@
         }
 
         .keyword-buttons {
-            max-height: 100px; /* กำหนดความสูงสูงสุดของกล่องปุ่ม */
+            max-height: 400px; /* กำหนดความสูงสูงสุดของกล่องปุ่ม */
             overflow-y: auto; /* ทำให้สามารถเลื่อนดูในแนวตั้งได้ */
             display: flex;
             flex-wrap: wrap;
@@ -269,7 +234,7 @@
 
         .input {
         background-color: #212121;
-        max-width: 60%; /* ให้ input กว้างสูงสุดตามขนาด container */
+        max-width: 100%; /* ให้ input กว้างสูงสุดตามขนาด container */
         height: 40px;
         padding: 0 19px 0 10px;
         font-size: 1.1em;
@@ -631,7 +596,6 @@
         h1 span {
         position: relative;
         width: max-content;
-        z-index: 99;
         display: block;
         }
 
@@ -727,8 +691,8 @@
         }
         }
 
-        img {
-        margin: 0 auto; /* จัดกึ่งกลางแนวนอน */
+        .sidebar img {
+        margin:  auto; /* จัดกึ่งกลางแนวนอน */
         }
 
         .fade-out {
@@ -743,11 +707,6 @@
         background-color: rgba(216, 216, 216, 0.6); /* สีพื้นหลังที่มีความโปร่งใส (สีดำ 60%) */
         border-radius: 5px; /* มุมโค้งของพื้นหลัง */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* เงาที่ด้านล่างของพื้นหลัง */
-        }
-
-
-        .container {
-        background-color: #ffffff; /* เปลี่ยนเป็นสีพื้นหลังที่ต้องการ */
         }
 
         /* กำหนดสีของข้อความใน <p> */
@@ -1068,14 +1027,8 @@
 
         .hidden {
         display: none;
-        }
-
-        .bg-footer-background {
-        background-color: #02245e; /* เปลี่ยนสีพื้นหลังตามที่คุณต้องการ */
-        }
-
-        .text-footer-foreground {
-        color: #d0dbe7; /* เปลี่ยนสีของข้อความตามที่คุณต้องการ */
+        height: 80%;
+        width: 100%;
         }
 
         /* From Uiverse.io by Peary74 */ 
@@ -1620,10 +1573,72 @@
         <!-- Sidebar (ด้านซ้าย) -->
 
         <div class="sidebar">
+            <button class="toggle-btn">➖</button>
+            <style>
+
+                .sidebar.hidden {
+                            width: 0; /* ซ่อน Sidebar โดยลดขนาดเป็น 0 */
+                            padding: 20px 0;
+                        }
+        
+        
+                .toggle-btn {
+                    background-color: #d4d4d4;
+                    color: white;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    position: fixed;
+                    top: 80px;
+                    left: 20px;
+                    z-index: 1001;
+                }
+
+                .content-wrapper {
+                    display: flex;
+                    flex-grow: 1;
+                    transition: width 0.3s ease;
+                }
+
+                .chat-area {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 10px;
+                background-color: #ecf0f1;
+                border-radius: 0 15px 15px 0;
+                    
+                }
+
+                .container {
+                    display: flex;
+                    height: 100%;
+                    width: 100%;
+                    max-width: 100%;
+                    background-color: #fff;
+                    border-radius: 15px;
+                    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+                }
+
+                .sidebar {
+                    width: 40%;
+                    background-color: #2c3e50;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    border-radius: 15px 0 0 15px;
+                    color: white;
+                }
+                
+                
+            </style>
             
             <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="IS Image">
             <h1>
-            <span>คำถามคณะสหวิทยาการ</span>
+            <span>คำถามแนะนำ</span>
             <div class="line"></div>
             <div class="line-2"></div>
             <div class="speak"></div>
@@ -1632,46 +1647,24 @@
             <div class="speak three"></div>
             </h1>
             <!-- Keyword buttons -->
-            <div class="keyword-buttons" >
+            <div class="keyword-buttons">
+                <button onclick="setKeyword('คณะสหวิทยาการมีสาขาอะไรบ้าง')">คณะสหวิทยาการมีสาขาอะไรบ้าง</button>
                 <button onclick="setKeyword('หลักสูตรที่เปิดสอนมีอะไรบ้าง')">หลักสูตรที่เปิดสอนมีอะไรบ้าง</button>
                 <button onclick="setKeyword('คณะสหวิทยาการคืออะไร')">คณะสหวิทยาการคืออะไร</button>
                 <button onclick="setKeyword('มีบริการอะไรบ้าง')">มีบริการอะไรบ้าง</button>
-                <button onclick="setKeyword('คณะสหวิทยาการ มหาวิทยาลัยขอนแก่น มีสาขาวิชาอะไรบ้าง?')">คณะสหวิทยาการ มหาวิทยาลัยขอนแก่น มีสาขาวิชาอะไรบ้าง?</button>
-                <button onclick="setKeyword('หลักสูตรวิทยาศาสตร์สิ่งแวดล้อมมีรายละเอียดอย่างไร?')">หลักสูตรวิทยาศาสตร์สิ่งแวดล้อมมีรายละเอียดอย่างไร?</button>
-                <button onclick="setKeyword('จบจากคณะสหวิทยาการสามารถทำงานในสายอาชีพอะไรได้บ้าง?')">จบจากคณะสหวิทยาการสามารถทำงานในสายอาชีพอะไรได้บ้าง?</button>
-                <button onclick="setKeyword('วิธีการสมัครเข้าเรียนที่คณะสหวิทยาการทำอย่างไร?')">วิธีการสมัครเข้าเรียนที่คณะสหวิทยาการทำอย่างไร?</button>
-                <button onclick="setKeyword('ค่าเทอมสำหรับหลักสูตรนิติศาสตร์เท่าไหร่?')">ค่าเทอมสำหรับหลักสูตรนิติศาสตร์เท่าไหร่?</button>
-                <button onclick="setKeyword('คณะสหวิทยาการมีทุนการศึกษาไหม?')">คณะสหวิทยาการมีทุนการศึกษาไหม?</button>
-                <button onclick="setKeyword('การลงทะเบียนเรียนสำหรับนักศึกษาคณะสหวิทยาการทำอย่างไร?')">การลงทะเบียนเรียนสำหรับนักศึกษาคณะสหวิทยาการทำอย่างไร?</button>
-                <button onclick="setKeyword('ต้องการคำปรึกษาเรื่องการฝึกงานและสหกิจศึกษา')">ต้องการคำปรึกษาเรื่องการฝึกงานและสหกิจศึกษา</button>
-                <button onclick="setKeyword('คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?')">คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?</button>
-                <button onclick="setKeyword('ห้องสมุดของคณะสหวิทยาการมีเวลาเปิดทำการอย่างไร?')">ห้องสมุดของคณะสหวิทยาการมีเวลาเปิดทำการอย่างไร?</button>
-                <button onclick="setKeyword('จบจากหลักสูตรการสอนภาษาอังกฤษในฐานะภาษาต่างประเทศสามารถทำงานอะไรได้บ้าง?')">จบจากหลักสูตรการสอนภาษาอังกฤษในฐานะภาษาต่างประเทศสามารถทำงานอะไรได้บ้าง?</button>
-                <button onclick="setKeyword('คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?')">คณะสหวิทยาการมีสาขาวิชาอะไรบ้าง?</button>
-                <button onclick="setKeyword('วิธีการตรวจสอบผลการเรียนที่คณะสหวิทยาการทำอย่างไร?')">วิธีการตรวจสอบผลการเรียนที่คณะสหวิทยาการทำอย่างไร?</button>
-                <button onclick="setKeyword('สามารถยืมโน้ตบุ๊กที่ห้องสมุดได้อย่างไร?')">สามารถยืมโน้ตบุ๊กที่ห้องสมุดได้อย่างไร?</button>
-                <button onclick="setKeyword('มีหลักสูตรระดับปริญญาโทที่คณะสหวิทยาการหรือไม่?')">มีหลักสูตรระดับปริญญาโทที่คณะสหวิทยาการหรือไม่?</button>
-                <button onclick="setKeyword('หลักสูตรวิทยาการคอมพิวเตอร์ที่คณะสหวิทยาการมีการเรียนการสอนอะไรบ้าง?')">หลักสูตรวิทยาการคอมพิวเตอร์ที่คณะสหวิทยาการมีการเรียนการสอนอะไรบ้าง?</button>
-                <button onclick="setKeyword('ต้องการจองห้องประชุมทำอย่างไร?')">ต้องการจองห้องประชุมทำอย่างไร?</button>
-                <button onclick="setKeyword('มีระบบจองหอพักนักศึกษาหรือไม่?')">มีระบบจองหอพักนักศึกษาหรือไม่?</button>
-                <button onclick="setKeyword('ต้องการลงทะเบียนสอบวัดระดับภาษาอังกฤษ (KEPT) ที่คณะสหวิทยาการทำอย่างไร?')">ต้องการลงทะเบียนสอบวัดระดับภาษาอังกฤษ (KEPT) ที่คณะสหวิทยาการทำอย่างไร?</button>
                 <button onclick="setKeyword('จะลงทะเบียนสอบคอมพิวเตอร์ได้ที่ไหน?')">จะลงทะเบียนสอบคอมพิวเตอร์ได้ที่ไหน?</button>
-
+                <button onclick="setKeyword('แนะนำสถานที่ท่องเที่ยวบริเวณคณะสหวิทยาการ')">แนะนำสถานที่ท่องเที่ยวบริเวณคณะสหวิทยาการ</button>
+                <button onclick="setKeyword('สถานที่ต้องไปลองกิน')">สถานที่ต้องไปลองกิน</button>
+                <button onclick="setKeyword('วิธียืมโน้ตบุ๊กที่ห้องสมุด')">วิธียืมโน้ตบุ๊กที่ห้องสมุด</button>
+                <button onclick="setKeyword('ห้องสมุดของคณะสหวิทยาการมีเวลาเปิดทำการ')">ห้องสมุดของคณะสหวิทยาการมีเวลาเปิดทำการ</button>
+                <button onclick="setKeyword('ค่าเทอมแต่ละหลักสูตร')">ค่าเทอมแต่ละหลักสูตร</button>
+                <button onclick="setKeyword('ทุนการศึกษา')">ทุนการศึกษา</button>
+                <button onclick="setKeyword('ชมรมในคณะสหวิทยาการ')">ชมรมในคณะสหวิทยาการ</button>
             </div>
-            <div class="color-options">
-                <button onclick="changeTheme('#f0f0f0', '#ffffff')" style="background-color: #f0f0f0;"></button>
-                <button onclick="changeTheme('#d1e7dd', '#f9f9f9')" style="background-color: #d1e7dd;"></button>
-                <button onclick="changeTheme('#f8d7da', '#f0f0f0')" style="background-color: #f8d7da;"></button>
-                <button onclick="changeTheme('#ffecd1', '#ffe6e1')" style="background-color: #ffecd1;"></button>
-                <button onclick="changeTheme('#e6f7ff', '#e6f7ff')" style="background-color: #e6f7ff;"></button>
-                <button onclick="changeTheme('#dfe7fd', '#dfe7fd')" style="background-color: #dfe7fd;"></button>
-                <button onclick="changeTheme('#333333', '#1a1a1a')" style="background-color: #333333;"></button>
-                <button onclick="changeTheme('#1a1a1a', '#0d0d0d')" style="background-color: #1a1a1a;"></button>
-                <button onclick="changeTheme('#2c3e50', '#34495e')" style="background-color: #2c3e50;"></button>
-            </div>
-        </div>
-
+        </div>    
+        
         <!-- Chat area (ด้านขวา) -->
+        <div class="content-wrapper">
         <div class="chat-area">
             <div class="chat-messages" id="chatMessages"></div>
             
@@ -1699,12 +1692,13 @@
             
             </div>       
         </div>
+        </div>
     </div>
     </div>
         
-    <footer class="text-footer-foreground">
+    <footer>
         <div class="bg-footer-background container">
-            <div class="footer-content">
+            <div>
                 <p class="contact-info">
                     ข้อมูลติดต่อ: มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย  
                     112 หมู่ 7 บ้านหนองเดิ่น ตำบลหนองกอมเกาะ  
@@ -1726,31 +1720,32 @@
     /* พื้นหลังและสีของ footer */
     .bg-footer-background {
         background-color: #333; /* สีพื้นหลังเข้ม */
-        padding: 20px;
+        padding: 0px;
         text-align: center;
+        width: 100%;
+        display: flex; /* ใช้ Flexbox */
+        justify-content: center; /* จัดให้อยู่ตรงกลางในแนวนอน */
+        align-items: center; /* จัดให้อยู่ตรงกลางในแนวตั้ง */
     }
     
-    .text-footer-foreground {
-        color: #d0dbe7; /* สีข้อความที่คมชัดกับพื้นหลัง */
-    }
     
-    .container {
-        max-width: 1200px;
+    footer .container {
+        max-width: 90%;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0px;
     }
     
     .admin-button {
             display: none;
-            padding: 10px 20px;
+            padding: 5px 10px;
             background-color: #ff6600;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 10px;
+            left: 10px;
         }
 
         #secret-area {
@@ -1763,13 +1758,13 @@
         footer {
             background-color: #333;
             color: #fff;
-            padding: 10px;
+            padding: 5px;
             text-align: center;
         }
 
         .contact-info {
             margin: 0;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .social-link {
@@ -1789,8 +1784,8 @@
         }
     
         const images = [];
-        for (let i = 1; i <= 85; i++) {
-            images.push(`images/backg/bgIS${i}.jpg`);
+        for (let i = 1; i <= 28; i++) {
+            images.push(`images/backg/bgIS${i}.webp`);
         }
     
         let currentIndex = 0;
@@ -1833,21 +1828,24 @@
         }
     
         window.sendMessage = async function() {
-            const userInput = document.getElementById('userInput').value;
+            const userInput = document.getElementById('userInput').value.trim();
             if (!userInput) return;
     
-            // ส่งข้อความของผู้ใช้ไปยังเซิร์ฟเวอร์
+            // Create a user message bubble
             const userMessageDiv = document.createElement('div');
             userMessageDiv.classList.add('user-message');
             userMessageDiv.innerHTML = `<span>${userInput}</span>`;
             document.getElementById('chatMessages').appendChild(userMessageDiv);
     
-            // ล้าง input
+            // Clear the input field
             document.getElementById('userInput').value = '';
     
-            // ส่งข้อความไปยังเซิร์ฟเวอร์ผ่าน ngrok URL
+            // Scroll to the bottom after the user sends a message
+            scrollToBottom();
+    
+            // ส่งข้อความไปยังเซิร์ฟเวอร์ผ่าน API ที่เชื่อมกับ OpenAI และ Firebase
             try {
-                const response = await fetch('https://8485-118-174-52-164.ngrok-free.app/api/generate-text', {
+                const response = await fetch('https://1483-1--150-43.ngrok-free.app/api/generate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userInput })
@@ -1857,23 +1855,31 @@
                     const result = await response.json();
                     const messageContent = result.choices[0].message.content;
     
-                    // แสดงข้อความบอทพร้อมรูปภาพทางฝั่งซ้าย
+                    // จัดการการเว้นบรรทัดของข้อความ
+                    const formattedMessageContent = messageContent.replace(/\n/g, '<br>');
+    
+                    // Create a bot message bubble
                     const botMessageDiv = document.createElement('div');
                     botMessageDiv.classList.add('bot-message');
-                    botMessageDiv.innerHTML = `<img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="IS Image"><span>${messageContent}</span>`;
+                    botMessageDiv.innerHTML = `
+                        <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="Bot Image">
+                        <span>${formattedMessageContent}</span>
+                    `;
                     document.getElementById('chatMessages').appendChild(botMessageDiv);
     
-                    // เลื่อนแชทไปด้านล่าง
                     scrollToBottom();
                 } else {
                     throw new Error('Network response was not ok');
                 }
-    
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
                 const errorMessageDiv = document.createElement('div');
-                errorMessageDiv.innerHTML = `<span>มีข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</span>`;
+                errorMessageDiv.classList.add('bot-message');
+                errorMessageDiv.innerHTML = `
+                    <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="Bot Image">
+                    <span>มีข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</span>`;
                 document.getElementById('chatMessages').appendChild(errorMessageDiv);
+    
                 scrollToBottom();
             }
         };
@@ -1882,11 +1888,6 @@
         window.setKeyword = function(keyword) {
             document.getElementById('userInput').value = keyword;
         };
-    
-        window.changeTheme = function(sidebarColor, chatColor) {
-            document.documentElement.style.setProperty('--sidebar-bg-color', sidebarColor);
-            document.documentElement.style.setProperty('--chat-area-bg-color', chatColor);
-        };
 
         //<!-- JavaScript for handling the secret area click -->
         document.getElementById('secret-area').addEventListener('click', () => {
@@ -1894,7 +1895,42 @@
             adminButton.style.display = 'inline-block'; // Show the admin button
         });
 
+        // ฟังก์ชันตรวจจับการกด Enter เพื่อส่งคำถาม
+        document.getElementById('userInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();  // เรียกใช้ฟังก์ชัน sendMessage เมื่อกดปุ่ม Enter
+                event.preventDefault();  // ป้องกันไม่ให้เกิดการเพิ่มบรรทัดใหม่ใน input
+            }
+        });
 
-    </script>        
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const sidebar = document.querySelector('.sidebar');
+            const chatArea = document.querySelector('.chat-area');
+            const sidebarHeading = document.querySelector('.sidebar h1'); // ค้นหา h1 ภายใน Sidebar
+    
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('hidden'); // ซ่อนหรือแสดง Sidebar
+    
+                if (sidebar.classList.contains('hidden')) {
+                    chatArea.style.width = "100%"; // ขยาย chat-area ให้เต็มจอเมื่อ Sidebar ถูกซ่อน
+                    toggleBtn.textContent = '➕'; // เปลี่ยนเครื่องหมายปุ่มเป็น ➕ เมื่อ Sidebar ถูกซ่อน
+                    if (sidebarHeading) { // ตรวจสอบว่า h1 มีอยู่หรือไม่
+                        sidebarHeading.style.display = 'none'; // ซ่อน h1 เมื่อ Sidebar ถูกซ่อน
+                    }
+                } else {
+                    chatArea.style.width = "calc(100% - 300px)"; // ลดขนาด chat-area เมื่อ Sidebar ปรากฏ
+                    toggleBtn.textContent = '➖'; // เปลี่ยนเครื่องหมายปุ่มเป็น ➖ เมื่อ Sidebar ปรากฏ
+                    if (sidebarHeading) { // ตรวจสอบว่า h1 มีอยู่หรือไม่
+                        sidebarHeading.style.display = 'block'; // แสดง h1 เมื่อ Sidebar ปรากฏ
+                    }
+                }
+            });
+        });
+    </script>
+            
 </body>
 </html>

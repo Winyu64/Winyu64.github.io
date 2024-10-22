@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: จัดการข้อมูลแชทบอท</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: 'KKUFont', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'KKUFont';
+            src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 90%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #addQuestionForm, #editForm {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 100px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* สไตล์สำหรับปุ่ม */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .button-add {
+            background-color: #2196F3;
+            margin-bottom: 20px;
+        }
+
+        button.edit {
+            background-color: #2196F3;
+            padding: 15px 10px;
+        }
+
+        button.delete {
+            background-color: #f44336;
+            padding: 5px 10px;
+        }
+
+        /* สไตล์สำหรับตาราง */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            word-wrap: break-word;
+        }
+
+        /* การจัดการขนาดคอลัมน์ในตาราง */
+        thead, tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        th:nth-child(1), td:nth-child(1) {
+            width: 80%; 
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            width: 20%; 
+        }
+
+        /* การจัดการการจัดวางปุ่ม */
+        .actions {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        /* กำหนดการเลื่อนตารางเมื่อมีข้อมูลมากเกินไป */
+        tbody {
+            display: block;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        thead {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+
+        /* สำหรับหน้าจอมือถือ */
+        @media (max-width: 600px) {
+            button {
+                width: 100%;
+            }
+
+            td {
+                word-wrap: break-word;
+                white-space: normal;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin: จัดการข้อมูลแชทบอท</h1>
+
+        <!-- ปุ่มเพิ่มข้อมูล -->
+        <div class="centered">
+            <button class="button-add" onclick="toggleForm()">เพิ่มข้อมูลใหม่</button>
+        </div>
+
+        <!-- ฟอร์มเพิ่มข้อมูลใหม่ -->
+        <form id="addQuestionForm">
+            <label for="response">ข้อมูล:</label>
+            <textarea id="response" rows="4" required></textarea><br>
+            <button type="submit">บันทึกข้อมูล</button>
+        </form>
+
+        <!-- ฟอร์มแก้ไขข้อมูล -->
+        <form id="editForm">
+            <label for="editResponse">แก้ไขข้อมูล:</label>
+            <textarea id="editResponse" rows="4" required></textarea><br>
+            <button type="submit">บันทึกการแก้ไข</button>
+        </form>
+
+        <h2>รายการข้อมูลทั้งหมด</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 80%;">ข้อมูล</th> <!-- ขนาดพื้นที่ข้อมูล 50% -->
+                    <th style="width: 20%;">การจัดการ</th> <!-- ขนาดพื้นที่การจัดการ 50% -->
+                </tr>
+            </thead>
+            <tbody id="responseTable"></tbody>
+        </table>
+        
+    </div>
+
+    <script>
+        let editId = null; // ตัวแปรเก็บ ID ที่จะแก้ไข
+
+        const loadResponses = async () => {
+            const tableBody = document.getElementById('responseTable');
+            tableBody.innerHTML = ''; // ล้างข้อมูลเก่า
+
+            const snapshot = await firebase.firestore().collection('datachatbotcontent').get();
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${data.contentdata}</td>
+                    <td class="actions">
+                        <button class="edit" data-id="${doc.id}">แก้ไข</button>
+                        <button class="delete" data-id="${doc.id}">ลบ</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // เพิ่ม event สำหรับปุ่มแก้ไขและลบ
+            document.querySelectorAll('.edit').forEach(button => {
+                button.addEventListener('click', handleEdit);
+            });
+
+            document.querySelectorAll('.delete').forEach(button => {
+                button.addEventListener('click', handleDelete);
+            });
+        };
+
+        // ฟังก์ชันแสดง/ซ่อนฟอร์มเพิ่มข้อมูล
+        const toggleForm = () => {
+            const form = document.getElementById('addQuestionForm');
+            form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
+        };
+
+        // ฟังก์ชันแสดงฟอร์มแก้ไข
+        const showEditForm = (data) => {
+            const form = document.getElementById('editForm');
+            form.style.display = 'block';
+            document.getElementById('editResponse').value = data; // แสดงข้อมูลในฟอร์มแก้ไข
+        };
+
+        // ฟังก์ชันเพิ่มข้อมูลใหม่
+        document.getElementById('addQuestionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const response = document.getElementById('response').value;
+
+            await firebase.firestore().collection('datachatbotcontent').add({
+                contentdata: response
+            });
+
+            document.getElementById('response').value = ''; // ล้างค่า input
+            toggleForm(); // ซ่อนฟอร์มหลังจากเพิ่มข้อมูล
+            loadResponses(); // โหลดข้อมูลใหม่
+        });
+
+        // ฟังก์ชันแก้ไขข้อมูลพร้อมการยืนยัน
+        const handleEdit = async (e) => {
+            editId = e.target.getAttribute('data-id'); // เก็บ ID ที่จะแก้ไข
+            const currentData = e.target.closest('tr').querySelector('td').innerText; // ดึงข้อมูลปัจจุบันมาแสดง
+            showEditForm(currentData); // แสดงฟอร์มแก้ไข
+        };
+
+        // ฟอร์มบันทึกการแก้ไขข้อมูล
+        document.getElementById('editForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newResponse = document.getElementById('editResponse').value;
+
+            if (editId && confirm('คุณต้องการบันทึกการแก้ไขนี้ใช่หรือไม่?')) {
+                await firebase.firestore().collection('datachatbotcontent').doc(editId).update({
+                    contentdata: newResponse
+                });
+                loadResponses(); // โหลดข้อมูลใหม่
+                document.getElementById('editForm').style.display = 'none'; // ซ่อนฟอร์มแก้ไขหลังจากบันทึก
+            }
+        });
+
+        // ฟังก์ชันลบข้อมูลพร้อมการยืนยัน
+        const handleDelete = async (e) => {
+            const id = e.target.getAttribute('data-id');
+
+            if (confirm('คุณต้องการลบข้อมูลนี้ใช่หรือไม่?')) {
+                await firebase.firestore().collection('datachatbotcontent').doc(id).delete();
+                loadResponses(); // โหลดข้อมูลใหม่
+            }
+        };
+
+        // โหลดข้อมูลเมื่อเปิดหน้า
+        window.onload = loadResponses;
+    </script>
+
+    <!-- Firebase SDK เวอร์ชัน 8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script>
+        // กำหนดค่า Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+            authDomain: "is-guide.firebaseapp.com",
+            projectId: "is-guide",
+            storageBucket: "is-guide.appspot.com",
+            messagingSenderId: "332116024676",
+            appId: "1:332116024676:web:28063685714f6ef0c16e71",
+            measurementId: "G-7WDMBTP78W"
+            };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</body>
+</html>

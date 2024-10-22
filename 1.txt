@@ -1,0 +1,17 @@
+node server.js 
+ngrok http 3000
+
+firebase
+open AI
+ไอเอ็ส ไกด์ เว็บแชทบอทสอบถามข้อมูลเกี่ยวกับคณะสหวิทยาการ มหาวิทยาลัยขอนแก่น
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
+  authDomain: "is-guide.firebaseapp.com",
+  projectId: "is-guide",
+  storageBucket: "is-guide.appspot.com",
+  messagingSenderId: "332116024676",
+  appId: "1:332116024676:web:28063685714f6ef0c16e71",
+  measurementId: "G-7WDMBTP78W"
+};
