@@ -15,7 +15,7 @@
 
         @font-face {
             font-family: 'KKUFont';
-            src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
+            src: url('font/KKU Text 2563 Italic.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
@@ -48,13 +48,12 @@
 
         textarea {
             width: 100%;
-            padding: 100px;
+            padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
 
-        /* สไตล์สำหรับปุ่ม */
         button {
             background-color: #4CAF50;
             color: white;
@@ -83,7 +82,6 @@
             padding: 5px 10px;
         }
 
-        /* สไตล์สำหรับตาราง */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -105,7 +103,6 @@
             word-wrap: break-word;
         }
 
-        /* การจัดการขนาดคอลัมน์ในตาราง */
         thead, tbody tr {
             display: table;
             width: 100%;
@@ -120,14 +117,12 @@
             width: 20%; 
         }
 
-        /* การจัดการการจัดวางปุ่ม */
         .actions {
             display: flex;
             gap: 5px;
             justify-content: center;
         }
 
-        /* กำหนดการเลื่อนตารางเมื่อมีข้อมูลมากเกินไป */
         tbody {
             display: block;
             max-height: 800px;
@@ -144,7 +139,6 @@
             text-align: center;
         }
 
-
         /* สำหรับหน้าจอมือถือ */
         @media (max-width: 600px) {
             button {
@@ -156,11 +150,31 @@
                 white-space: normal;
             }
         }
+
+        /* สไตล์สำหรับช่องค้นหา */
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-container input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Admin: จัดการข้อมูลแชทบอท</h1>
+
+        <!-- ช่องค้นหา -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ค้นหาข้อมูล..." onkeyup="searchTable()">
+        </div>
 
         <!-- ปุ่มเพิ่มข้อมูล -->
         <div class="centered">
@@ -185,8 +199,8 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 80%;">ข้อมูล</th> <!-- ขนาดพื้นที่ข้อมูล 50% -->
-                    <th style="width: 20%;">การจัดการ</th> <!-- ขนาดพื้นที่การจัดการ 50% -->
+                    <th style="width: 80%;">ข้อมูล</th>
+                    <th style="width: 20%;">การจัดการ</th>
                 </tr>
             </thead>
             <tbody id="responseTable"></tbody>
@@ -195,11 +209,11 @@
     </div>
 
     <script>
-        let editId = null; // ตัวแปรเก็บ ID ที่จะแก้ไข
+        let editId = null;
 
         const loadResponses = async () => {
             const tableBody = document.getElementById('responseTable');
-            tableBody.innerHTML = ''; // ล้างข้อมูลเก่า
+            tableBody.innerHTML = '';
 
             const snapshot = await firebase.firestore().collection('datachatbotcontent').get();
             snapshot.forEach(doc => {
@@ -215,7 +229,6 @@
                 tableBody.appendChild(row);
             });
 
-            // เพิ่ม event สำหรับปุ่มแก้ไขและลบ
             document.querySelectorAll('.edit').forEach(button => {
                 button.addEventListener('click', handleEdit);
             });
@@ -225,20 +238,17 @@
             });
         };
 
-        // ฟังก์ชันแสดง/ซ่อนฟอร์มเพิ่มข้อมูล
         const toggleForm = () => {
             const form = document.getElementById('addQuestionForm');
             form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
         };
 
-        // ฟังก์ชันแสดงฟอร์มแก้ไข
         const showEditForm = (data) => {
             const form = document.getElementById('editForm');
             form.style.display = 'block';
-            document.getElementById('editResponse').value = data; // แสดงข้อมูลในฟอร์มแก้ไข
+            document.getElementById('editResponse').value = data;
         };
 
-        // ฟังก์ชันเพิ่มข้อมูลใหม่
         document.getElementById('addQuestionForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const response = document.getElementById('response').value;
@@ -247,19 +257,17 @@
                 contentdata: response
             });
 
-            document.getElementById('response').value = ''; // ล้างค่า input
-            toggleForm(); // ซ่อนฟอร์มหลังจากเพิ่มข้อมูล
-            loadResponses(); // โหลดข้อมูลใหม่
+            document.getElementById('response').value = '';
+            toggleForm();
+            loadResponses();
         });
 
-        // ฟังก์ชันแก้ไขข้อมูลพร้อมการยืนยัน
         const handleEdit = async (e) => {
-            editId = e.target.getAttribute('data-id'); // เก็บ ID ที่จะแก้ไข
-            const currentData = e.target.closest('tr').querySelector('td').innerText; // ดึงข้อมูลปัจจุบันมาแสดง
-            showEditForm(currentData); // แสดงฟอร์มแก้ไข
+            editId = e.target.getAttribute('data-id');
+            const currentData = e.target.closest('tr').querySelector('td').innerText;
+            showEditForm(currentData);
         };
 
-        // ฟอร์มบันทึกการแก้ไขข้อมูล
         document.getElementById('editForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const newResponse = document.getElementById('editResponse').value;
@@ -268,30 +276,39 @@
                 await firebase.firestore().collection('datachatbotcontent').doc(editId).update({
                     contentdata: newResponse
                 });
-                loadResponses(); // โหลดข้อมูลใหม่
-                document.getElementById('editForm').style.display = 'none'; // ซ่อนฟอร์มแก้ไขหลังจากบันทึก
+                loadResponses();
+                document.getElementById('editForm').style.display = 'none';
             }
         });
 
-        // ฟังก์ชันลบข้อมูลพร้อมการยืนยัน
         const handleDelete = async (e) => {
             const id = e.target.getAttribute('data-id');
 
             if (confirm('คุณต้องการลบข้อมูลนี้ใช่หรือไม่?')) {
                 await firebase.firestore().collection('datachatbotcontent').doc(id).delete();
-                loadResponses(); // โหลดข้อมูลใหม่
+                loadResponses();
             }
         };
 
-        // โหลดข้อมูลเมื่อเปิดหน้า
+        const searchTable = () => {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#responseTable tr');
+            rows.forEach(row => {
+                const content = row.querySelector('td').innerText.toLowerCase();
+                if (content.includes(input)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        };
+
         window.onload = loadResponses;
     </script>
 
-    <!-- Firebase SDK เวอร์ชัน 8 -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script>
-        // กำหนดค่า Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyACCRFfueVTM1soWsMFotDOSTwj-eWR9k4",
             authDomain: "is-guide.firebaseapp.com",

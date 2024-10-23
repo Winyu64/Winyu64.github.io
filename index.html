@@ -143,11 +143,11 @@
         }
 
         .border {
-        background-image: linear-gradient(to right bottom, #e300ff, #ff00aa, #ff5956, #ffb900, #fffe00);
+        /*background-image: linear-gradient(to right bottom, #e300ff, #ff00aa, #ff5956, #ffb900, #fffe00);
         box-shadow: -25px -10px 30px -5px rgba(225, 0, 255, 0.5),
             25px -10px 30px -5px rgba(255, 0, 212, 0.5),
             25px 10px 30px -5px rgba(255, 174, 0, 0.5),
-            -25px 10px 30px -5px rgba(255, 230, 0, 0.5);
+            -25px 10px 30px -5px rgba(255, 230, 0, 0.5);*/
         padding: 0px;
         /* Flexbox สำหรับจัดวางในแนวนอนและขนาดปรับตามจอ */
         display: flex;
@@ -2110,7 +2110,7 @@
             }
         };
     
-        // ฟังก์ชันเพื่อเลื่อนแชทไปด้านล่างเมื่อมีข้อความใหม่
+        // ฟังก์ชันเพื่อเลื่อนแชทไปด้านล่างเมื่อมีข้อความใหม่ 
         function scrollToBottom() {
             const chatMessages = document.getElementById('chatMessages');
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -2122,7 +2122,7 @@
 
             // Create a user message bubble
             const userMessageDiv = document.createElement('div');
-            userMessageDiv.classList.add('user-message');
+            userMessageDiv.classList.add('message', 'user-message');
             userMessageDiv.innerHTML = `<span>${userInput}</span>`;
             document.getElementById('chatMessages').appendChild(userMessageDiv);
 
@@ -2137,7 +2137,7 @@
 
             // ส่งข้อความไปยังเซิร์ฟเวอร์ผ่าน API ที่เชื่อมกับ OpenAI และ Firebase
             try {
-                const response = await fetch('https://1483-1-2-150-43.ngrok-free.app/api/generate-text', {
+                const response = await fetch('https://1e91-1-2-150-43.ngrok-free.app/api/generate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userInput })
@@ -2147,12 +2147,13 @@
                     const result = await response.json();
                     const messageContent = result.choices[0].message.content;
 
-                    // จัดการการเว้นบรรทัดของข้อความ
-                    const formattedMessageContent = messageContent.replace(/\n/g, '<br>');
+                    // จัดการเฉพาะบรรทัดใหม่จริงๆ เช่น "\n\n" เพื่อไม่ให้มีการขึ้นบรรทัดใหม่หลังจุดทุกครั้ง
+                    const formattedMessageContent = messageContent.replace(/\n\n/g, '<br><br>');
+
 
                     // Create a bot message bubble
                     const botMessageDiv = document.createElement('div');
-                    botMessageDiv.classList.add('bot-message');
+                    botMessageDiv.classList.add('message', 'bot-message');
                     botMessageDiv.innerHTML = `
                         <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="Bot Image">
                         <span>${formattedMessageContent}</span>
@@ -2169,7 +2170,7 @@
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
                 const errorMessageDiv = document.createElement('div');
-                errorMessageDiv.classList.add('bot-message');
+                errorMessageDiv.classList.add('message', 'bot-message');
                 errorMessageDiv.innerHTML = `
                     <img src="https://i.postimg.cc/MK4YGF11/IS.png" alt="Bot Image">
                     <span>มีข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</span>`;
@@ -2220,7 +2221,7 @@
                         sidebarHeading.style.display = 'none'; // ซ่อน h1 เมื่อ Sidebar ถูกซ่อน
                     }
                 } else {
-                    chatArea.style.width = "calc(100% - 300px)"; // ลดขนาด chat-area เมื่อ Sidebar ปรากฏ
+                    chatArea.style.width = "calc(140% - 300px)"; // ลดขนาด chat-area เมื่อ Sidebar ปรากฏ
                     toggleBtn.textContent = '➖'; // เปลี่ยนเครื่องหมายปุ่มเป็น ➖ เมื่อ Sidebar ปรากฏ
                     if (sidebarHeading) { // ตรวจสอบว่า h1 มีอยู่หรือไม่
                         sidebarHeading.style.display = 'block'; // แสดง h1 เมื่อ Sidebar ปรากฏ
