@@ -29,10 +29,14 @@
         }
 
         .contact-grid {
-            display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            padding: 20px;
+            padding: 15px;
+            display: flex;
+            justify-content: center; /* จัดกึ่งกลางแนวนอน */
+            align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+            height: 75vh; /* ความสูงเต็มหน้าจอ */
+            flex-direction: column; /* จัดให้อยู่เป็นแนวตั้ง */
         }
 
         .card {
@@ -40,7 +44,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 400px;
+            width: 800px;
             text-align: center;
         }
 
@@ -144,37 +148,6 @@
             border-radius: 10px;
         }
 
-        @media (max-width: 768px) {
-
-            .card {
-            background-color: rgb(255, 255, 255);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 320px;
-            text-align: center;
-        }
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .card h2 {
-                font-size: 20px;
-            }
-
-            .card p {
-                font-size: 18px;
-            }
-
-            .container {
-                padding: 10px;
-            }
-
-            iframe {
-                height: 300px;
-            }
-        }
-
       .nav-menu {
         display: flex;
         gap: 20px;
@@ -182,63 +155,6 @@
 
       .hamburger {
         display: none;
-      }
-
-      @media (max-width: 768px) {
-        body {
-          font-size: 16px;
-          height: 100vh;
-        }
-
-        .hamburger {
-          display: block;
-          background-color: transparent;
-          border: none;
-          font-size: 24px;
-          cursor: pointer;
-          color: rgb(255, 255, 255);
-        }
-
-        .nav-menu {
-          display: none;
-          flex-direction: column;
-          position: fixed;
-          top: 70px;
-          left: 0;
-          right: 0;
-          width: 100vw;
-          height: 100vh;
-          background-color: #02245e;
-          padding: 10px 0;
-          z-index: 1000;
-        }
-
-        .nav-menu a {
-          padding: 15px 20px;
-          display: block;
-          font-size: 16px;
-          transition: background-color 0.3s ease;
-        }
-
-        .nav-menu a:hover {
-          background-color: #1b3a6b;
-          border-left: 5px solid #00ff08;
-        }
-
-        .nav-menu.active {
-          display: flex;
-        }
-
-        .bg-footer-background {
-          padding: 15px;
-          text-align: center;
-        }
-
-        h1 {
-          padding: 3vw 5vw;
-          letter-spacing: 0.4vw;
-          width: 140px;
-        }
       }
 
       /* ตั้งค่าพื้นฐานสำหรับเมนู */
@@ -323,6 +239,86 @@
             letter-spacing: 0.4vw; /* เพิ่มระยะห่างระหว่างตัวอักษร */
             width: 140px;
         }
+
+        .card {
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 320px;
+        text-align: center;
+        }
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .card h2 {
+            font-size: 20px;
+        }
+
+        .card p {
+            font-size: 18px;
+        }
+
+        .container {
+            padding: 10px;
+        }
+
+        iframe {
+            height: 300px;
+        }
+
+
+        .hamburger {
+          display: block;
+          background-color: transparent;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: rgb(255, 255, 255);
+        }
+
+        .nav-menu {
+          display: none;
+          flex-direction: column;
+          position: fixed;
+          top: 70px;
+          left: 0;
+          right: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: #02245e;
+          padding: 10px 0;
+          z-index: 1000;
+        }
+
+        .nav-menu a {
+          padding: 15px 20px;
+          display: block;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+          background-color: #1b3a6b;
+          border-left: 5px solid #00ff08;
+        }
+
+        .nav-menu.active {
+          display: flex;
+        }
+
+        .bg-footer-background {
+          padding: 15px;
+          text-align: center;
+        }
+
+        h1 {
+          padding: 3vw 5vw;
+          letter-spacing: 0.4vw;
+          width: 140px;
+        }
+
 
 
         }
@@ -649,8 +645,17 @@
             <div class="card">
                 <h2>ติดต่อผู้พัฒนาระบบ</h2>
                 <div class="developer-info">
-                    <p>นายวิญญู พรมภิภักดิ์ รหัสประจำตัว 643450084-0</p>
-                    <p>นายณัฐกานต์ อินทรพานิชย์ รหัสประจำตัว 643450072-7</p>
+                    <p>นายวิญญู พรมภิภักดิ์ 
+                        <br />รหัสประจำตัว: 643450084-0
+                        <br />Email: <a href="https://mail.google.com/mail/winyu.p@kkumail.com">winyu.p@kkumail.com</a>
+                        <br />โทรศัพท์: 095-9358129 
+                    </p>
+                    <p></p>
+                    <p>นายณัฐกานต์ อินทรพานิชย์ 
+                        <br />รหัสประจำตัว: 643450072-7
+                        <br />Email: <a href="https://mail.google.com/mail/nuttakan.i@kkumail.com">nuttakan.i@kkumail.com</a>
+                        <br />โทรศัพท์: 098-6198016
+                    </p>
                 </div>
                 <form id="contactForm">
                     <label for="question">ส่งคำถามถึงผู้พัฒนาระบบ:</label>
@@ -705,6 +710,7 @@
                 <div class="contact-info">
                     <p><i class="fas fa-university"></i> มหาวิทยาลัยขอนแก่น วิทยาเขตหนองคาย</p>
                     <p><i class="fas fa-map-marker-alt"></i> 112 หมู่ 7 บ้านหนองเดิ่น ต.หนองกอมเกาะ อ.เมือง จ.หนองคาย 43000</p>
+                    <p>Email: <a href="https://mail.google.com/mail/is.inbox@kku.ac.th">is.inbox@kku.ac.th</a></p>
                     <p><i class="fas fa-phone"></i> โทรศัพท์: 042-415600</p>
                     <p><i class="fas fa-fax"></i> โทรสาร: 042-415699</p>
                     <a href="https://www.facebook.com/PRNKC/">
