@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color:rgb(105 50 38);
             margin: 0;
             padding: 0;
             font-family: 'KKUFont', sans-serif;
@@ -32,7 +32,7 @@
             max-width: 1200px;
             margin: auto;
             padding: 20px;
-            background-color: white;
+            background-color: #3e6cbd;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
         }
@@ -53,25 +53,43 @@
         }
 
         input[type="text"], textarea {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 5px 0 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        
+            /* สีปุ่มสำหรับปุ่มแก้ไขและบันทึก */
+            button {
+                padding: 10px 20px;
+                background-color: #b8ec58; /* สีเขียวอ่อน */
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+            button:hover {
+                background-color: #a5d850; /* สีเขียวเข้มเมื่อ hover */
+            }
+
+            /* สีปุ่มสำหรับปุ่มลบ */
+            button.delete {
+                background-color: #ec8658; /* สีส้ม */
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+button.delete:hover {
+    background-color: #e06c44; /* สีส้มเข้มเมื่อ hover */
+}
 
         .course-list {
             margin-top: 20px;
@@ -182,12 +200,14 @@
                 courseDiv.innerHTML = `
                     <h3 id="course-name-${doc.id}">${data.courseNameTh} / ${data.courseNameEn}</h3>
                     <img src="${data.imageUrl}" alt="รูปหลักสูตร" style="max-width: 100px;">
-                    <button onclick="editCourse('${doc.id}', '${data.courseNameTh}', '${data.courseNameEn}', '${data.degree}', '${data.description}', '${data.career}', '${data.tuitionFee}', '${data.imageUrl}')">แก้ไข</button>
-                    <button onclick="deleteCourse('${doc.id}')">ลบ</button>
+                    <button class="edit" onclick="editCourse('${doc.id}', '${data.courseNameTh}', '${data.courseNameEn}', '${data.degree}', '${data.description}', '${data.career}', '${data.tuitionFee}', '${data.imageUrl}')">แก้ไข</button>
+                    <button class="delete" onclick="deleteCourse('${doc.id}')">ลบ</button>
+
                 `;
                 courseList.appendChild(courseDiv);
             });
         }
+        
 
         async function addCourse() {
             const courseNameTh = document.getElementById('courseNameTh').value;
