@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color:rgb(105 50 38);
+            background-color: rgb(105, 50, 38);
             margin: 0;
             padding: 0;
             font-family: 'KKUFont', sans-serif;
@@ -15,7 +15,7 @@
 
         @font-face {
             font-family: 'KKUFont';
-            src: url('font/KKU Text 2563 Italic.ttf') format('truetype'); /* กำหนดพาธไปยังฟอนต์ที่คุณต้องการใช้ */
+            src: url('font/KKU Text 2563 Italic.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
@@ -39,17 +39,14 @@
 
         h1, h2 {
             text-align: center;
-            color: #333;
-        }
-
-        .form-group {
-            margin: 15px 0;
+            color: white;
         }
 
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: white;
         }
 
         input[type="text"], textarea {
@@ -60,36 +57,33 @@
             border-radius: 5px;
         }
 
-        
-            /* สีปุ่มสำหรับปุ่มแก้ไขและบันทึก */
-            button {
-                padding: 10px 20px;
-                background-color: #b8ec58; /* สีเขียวอ่อน */
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
+        button {
+            padding: 10px 20px;
+            background-color: #b8ec58;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-            button:hover {
-                background-color: #a5d850; /* สีเขียวเข้มเมื่อ hover */
-            }
+        button:hover {
+            background-color: #a5d850;
+        }
 
-            /* สีปุ่มสำหรับปุ่มลบ */
-            button.delete {
-                background-color: #ec8658; /* สีส้ม */
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 20px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
+        button.delete {
+            background-color: #ec8658;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-button.delete:hover {
-    background-color: #e06c44; /* สีส้มเข้มเมื่อ hover */
-}
+        button.delete:hover {
+            background-color: #e06c44;
+        }
 
         .course-list {
             margin-top: 20px;
@@ -184,11 +178,11 @@ button.delete:hover {
         const db = getFirestore(app);
 
         const urlParams = new URLSearchParams(window.location.search);
-        const departmentId = urlParams.get('departmentId'); // รับ departmentId จาก URL
+        const departmentId = urlParams.get('departmentId'); 
 
         async function loadCourses() {
             const courseList = document.getElementById('course-list');
-            courseList.innerHTML = '';  // ล้างรายการเก่า
+            courseList.innerHTML = '';
 
             const q = query(collection(db, 'courses'), where("departmentId", "==", departmentId));
             const querySnapshot = await getDocs(q);
@@ -200,14 +194,12 @@ button.delete:hover {
                 courseDiv.innerHTML = `
                     <h3 id="course-name-${doc.id}">${data.courseNameTh} / ${data.courseNameEn}</h3>
                     <img src="${data.imageUrl}" alt="รูปหลักสูตร" style="max-width: 100px;">
-                    <button class="edit" onclick="editCourse('${doc.id}', '${data.courseNameTh}', '${data.courseNameEn}', '${data.degree}', '${data.description}', '${data.career}', '${data.tuitionFee}', '${data.imageUrl}')">แก้ไข</button>
                     <button class="delete" onclick="deleteCourse('${doc.id}')">ลบ</button>
-
+                    <button class="edit" onclick="editCourse('${doc.id}', '${data.courseNameTh}', '${data.courseNameEn}', '${data.degree}', '${data.description}', '${data.career}', '${data.tuitionFee}', '${data.imageUrl}')">แก้ไข</button>
                 `;
                 courseList.appendChild(courseDiv);
             });
         }
-        
 
         async function addCourse() {
             const courseNameTh = document.getElementById('courseNameTh').value;
@@ -245,8 +237,11 @@ button.delete:hover {
         }
 
         async function deleteCourse(id) {
-            await deleteDoc(doc(db, 'courses', id));
-            loadCourses();
+            const confirmation = confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหลักสูตรนี้?');
+            if (confirmation) {
+                await deleteDoc(doc(db, 'courses', id));
+                loadCourses();
+            }
         }
 
         async function editCourse(id, oldNameTh, oldNameEn, oldDegree, oldDescription, oldCareer, oldTuition, oldImageUrl) {
@@ -258,7 +253,6 @@ button.delete:hover {
             document.getElementById('tuitionFee').value = oldTuition;
             document.getElementById('imageUrl').value = oldImageUrl;
 
-            // เปลี่ยนปุ่มจาก 'เพิ่มหลักสูตร' เป็น 'บันทึกการแก้ไข'
             const addButton = document.getElementById('add-course-button');
             addButton.innerText = 'บันทึกการแก้ไข';
             addButton.onclick = async () => {
@@ -307,7 +301,6 @@ button.delete:hover {
 
         loadCourses();
 
-        // กำหนดฟังก์ชัน deleteCourse, editCourse, และ updateCourse ให้เป็น global function
         window.deleteCourse = deleteCourse;
         window.editCourse = editCourse;
         window.updateCourse = updateCourse;

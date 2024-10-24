@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: rgb(167, 59, 36);
+            background-color:rgb(119 58 44);
             font-family: 'KKUFont', sans-serif;
         }
 
@@ -55,19 +55,31 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+              .edit-button {
+          padding: 10px 20px;
+          background-color: #b8ec58; /* สีสำหรับปุ่มแก้ไข */
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
 
-        .button {
-            padding: 10px 20px;
-            background-color: #b8ec58;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+      .edit-button:hover {
+          background-color: #759638; /* สีเมื่อเลื่อนเมาส์บนปุ่มแก้ไข */
+      }
 
-        .button:hover {
-            background-color: #759638;
-        }
+      .delete-button {
+          padding: 10px 20px;
+          background-color: #e06c44; /* สีสำหรับปุ่มลบ */
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      .delete-button:hover {
+          background-color: #c7542a; /* สีเมื่อเลื่อนเมาส์บนปุ่มลบ */
+      }
 
         .link-list {
             margin-top: 20px;
@@ -117,6 +129,10 @@
           appId: "1:332116024676:web:28063685714f6ef0c16e71",
           measurementId: "G-7WDMBTP78W"
         };
+
+
+
+        
     
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -126,24 +142,26 @@
           linkList.innerHTML = '';
           const querySnapshot = await getDocs(collection(db, 'online_services'));
     
-          querySnapshot.forEach((doc) => {
+            querySnapshot.forEach((doc) => {
             const data = doc.data();
             const div = document.createElement('div');
             div.innerHTML = `${data.name} <a href="${data.url}" target="_blank">ไปยังลิงก์</a>`;
+            
             const editButton = document.createElement('button');
-            editButton.className = 'button';
+            editButton.className = 'edit-button';  // ใช้คลาสสำหรับปุ่มแก้ไข
             editButton.innerText = 'แก้ไข';
             editButton.onclick = () => editLink(doc.id, data.name, data.url);
 
             const deleteButton = document.createElement('button');
-            deleteButton.className = 'button';
+            deleteButton.className = 'delete-button';  // ใช้คลาสสำหรับปุ่มลบ
             deleteButton.innerText = 'ลบ';
             deleteButton.onclick = () => deleteLink(doc.id);
 
             div.appendChild(editButton);
             div.appendChild(deleteButton);
             linkList.appendChild(div);
-          });
+        });
+
         }
     
         async function addLink() {
@@ -186,6 +204,8 @@
     
         // โหลดลิงก์เมื่อหน้าเว็บถูกโหลด
         loadLinks();
+
+        
       </script>
 </body>
 </html>
