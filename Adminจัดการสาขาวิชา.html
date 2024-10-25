@@ -30,11 +30,12 @@
         .container {
             max-width: 1200px;
             margin: 20px auto;
-            color: white;
+            color: rgb(48, 48, 48);
             padding: 0 15px;
         }
 
         h2 {
+            font-size: 24px;
             color: #ffffff;
             text-align: center;
         }
@@ -44,6 +45,8 @@
         }
 
         label {
+            color: #ffffff;
+            font-size: 24px;
             display: block;
             margin-bottom: 5px;
         }
@@ -87,12 +90,14 @@
         }
 
         .department-list {
+
             margin-top: 20px;
         }
 
         .department {
+            font-size: 18px;
             padding: 15px;
-            background-color:  #3e6cbd;  
+            background-color:  #9abfff;  
             border-radius: 10px;
             margin-bottom: 15px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -106,6 +111,17 @@
         .department button {
             float: right;
             margin-left: 10px;
+        }
+
+        .buttonเพิ่มสาขาวิชา{
+            font-size: 16px;
+            background-color: rgb(9, 255, 0);
+            color: rgb(44, 44, 44);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         @media (max-width: 768px) {
@@ -127,7 +143,7 @@
             <label for="department-name">ชื่อสาขาวิชา</label>
             <input type="text" id="department-name" placeholder="กรอกชื่อสาขาวิชา...">
         </div>
-        <button id="add-department-button">เพิ่มสาขาวิชา</button>
+        <button class="buttonเพิ่มสาขาวิชา" id="add-department-button">เพิ่มสาขาวิชา</button>
 
         <h2>รายชื่อสาขาวิชา</h2>
         <div class="department-list" id="department-list">
@@ -164,9 +180,10 @@
 
              departmentDiv.innerHTML = `
             <h3 id="department-name-${doc.id}">${data.name}</h3>
+            <button class="delete" onclick="deleteDepartment('${doc.id}')">ลบ</button>
             <button class="edit" onclick="editDepartment('${doc.id}', '${data.name}')">แก้ไข</button>
             <button class="manage" onclick="goToCourses('${doc.id}')">จัดการหลักสูตร</button>
-            <button class="delete" onclick="deleteDepartment('${doc.id}')">ลบ</button>
+    
         `;
 
                 departmentList.appendChild(departmentDiv);
