@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บันทึกรายรับ-รายจ่าย</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+        }
+        .summary {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .summary h3 {
+            margin: 5px 0;
+        }
+        .income-text {
+            color: green;
+        }
+        .expense-text {
+            color: red;
+        }
+        input, button {
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkgreen;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            border-left: 5px solid;
+        }
+        .income {
+            border-color: green;
+        }
+        .expense {
+            border-color: red;
+        }
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>บันทึกรายรับ-รายจ่าย</h2>
+
+    <div class="summary">
+        <h3>💰 ยอดคงเหลือ: <span id="balance" class="income-text">0</span> บาท</h3>
+        <h3>💸 รายจ่ายรวม: <span id="totalExpense" class="expense-text">0</span> บาท</h3>
+    </div>
+
+    <input type="text" id="desc" placeholder="รายละเอียด">
+    <input type="number" id="amount" placeholder="จำนวนเงิน (+ รายรับ, - รายจ่าย)">
+    <button onclick="addTransaction()">เพิ่มรายการ</button>
+
+    <h3>📜 รายการ</h3>
+    <ul id="transactions"></ul>
+
+    <script>
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+        function updateUI() {
+            const transactionList = document.getElementById("transactions");
+            const balanceEl = document.getElementById("balance");
+            const totalExpenseEl = document.getElementById("totalExpense");
+
+            transactionList.innerHTML = "";
+            let totalBalance = 0;
+            let totalExpense = 0;
+
+            transactions.forEach((t, index) => {
+                totalBalance += t.amount;
+                if (t.amount < 0) totalExpense += Math.abs(t.amount);
+
+                const li = document.createElement("li");
+                li.classList.add(t.amount > 0 ? "income" : "expense");
+                li.innerHTML = `
+                    ${t.desc} <span>${t.amount} บาท</span>
+                    <button class="delete-btn" onclick="confirmDelete(${index})">ลบ</button>
+                `;
+                transactionList.appendChild(li);
+            });
+
+            balanceEl.innerText = totalBalance;
+            totalExpenseEl.innerText = totalExpense;
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+        }
+
+        function addTransaction() {
+            const desc = document.getElementById("desc").value;
+            const amount = parseFloat(document.getElementById("amount").value);
+
+            if (!desc || isNaN(amount)) {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+                return;
+            }
+
+            transactions.push({ desc, amount });
+            updateUI();
+            
+            document.getElementById("desc").value = "";
+            document.getElementById("amount").value = "";
+        }
+
+        function confirmDelete(index) {
+            const confirm1 = confirm("คุณต้องการลบรายการนี้ใช่หรือไม่?");
+            if (confirm1) {
+                const confirm2 = confirm("ยืนยันอีกครั้ง! รายการจะถูกลบถาวร");
+                if (confirm2) {
+                    deleteTransaction(index);
+                }
+            }
+        }
+
+        function deleteTransaction(index) {
+            transactions.splice(index, 1);
+            updateUI();
+        }
+
+        updateUI();
+    </script>
+
+</body>
+</html>
